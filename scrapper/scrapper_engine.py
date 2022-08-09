@@ -145,7 +145,7 @@ class scrapper(object):
 
 	
 	def scrapping_engine(self):
-		stop_condition = 150
+		stop_condition = 10
 		condition = False
 		# starting page section 
 		html = self.get_html(url=self.starting_url)
@@ -215,7 +215,7 @@ class scrapper(object):
 													comment_recipient, reply
 													)
 				print(self.store_data.get_data())
-		self.store_data.convert_to_csv_file("Anxiety-0-150pages")
+		self.store_data.convert_to_csv_file("Anxiety-0-10pages")
 		return self.store_data()
 
 if __name__ == "__main__":
