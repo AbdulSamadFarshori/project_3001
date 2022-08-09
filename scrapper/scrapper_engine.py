@@ -35,7 +35,7 @@ class temporary(object):
 
 	@classmethod	
 	def convert_to_csv_file(cls, filenames):
-		with open(f'{fieldnames}.csv', 'w') as f:
+		with open(f'{filenames}.csv', 'w') as f:
 			writer = csv.DictWriter(f, fieldnames=list(cls.data[0].keys()))
 			writer.writeheader()
 			for row in cls.data:
