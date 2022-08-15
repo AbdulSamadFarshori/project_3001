@@ -7,45 +7,12 @@ import datetime
 from tqdm import tqdm
 import logging
 import csv
-import sqlite3
-<<<<<<< HEAD
-from db import DataBase
-=======
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import Session
+from db import Main_Data, Reply_Data, Config, engine
 
-class temporary(object):
-	data = []
-	
-	@classmethod
-	def stored_data(cls, main_heading=None, main_heading_url=None, headingpageno=None, subheading=None, subheadingurl=None, maincase=None, author=None, no_reply=None, replyauthor=None, replyrecipient=None, comment=None):
-		_temp = {}
-		_temp["heading"] = main_heading
-		_temp["heading_url"] = main_heading_url
-		_temp["main_heading_page"] = headingpageno
-		_temp["sub_heading"] = subheading
-		_temp["sub_heading_url"] = subheadingurl
-		_temp["case"] = maincase
-		_temp["author_name"] = author
-		_temp["no_of_reply"] = no_reply
-		_temp["reply_author"] = replyauthor
-		_temp["reply_recipient"] = replyrecipient
-		_temp["comments"] = comment
-		cls.data.append(_temp)
-		return cls.data
+Session = sessionmaker(bind=engine)
 
-	@classmethod
-	def get_data(cls):
-		return cls.data
-
-	@classmethod	
-	def convert_to_csv_file(cls, filenames):
-		with open(f'{filenames}.csv', 'w') as f:
-			writer = csv.DictWriter(f, fieldnames=list(cls.data[0].keys()))
-			writer.writeheader()
-			for row in cls.data:
-				writer.writerow(row)
-		return "successfully done"
->>>>>>> d7fcdbf4d7cf542bbcf458b18f3540904a40e123
-				
 class scrapper(object):
 
 	def __init__(self):
@@ -61,10 +28,12 @@ class scrapper(object):
 									# "Autistic Spectrum Disorders",
 									# "Substance Misuse"
 
-		self.main_capturing_list = ["Anxiety Disorders"]
+		self.main_capturing_list = ["Depression"]
 		
 		self.starting_url = "https://patient.info/forums/categories/mental-health-25"
-		self.db = DataBase()
+		
+		self.db = Session()
+
 
 	def get_html(self, url=None):
 		if url:
@@ -144,13 +113,15 @@ class scrapper(object):
 
 	
 	def scrapping_engine(self):
-		get_config_page_no = self.db.get_page_no()
+		get_config_page_no = self.db.query(Config).filter_by(id=1).first()
 		if get_config_page_no is None:
-			self.db.insert_config(0)
-		get_page_no_db =  self.db.get_page_no()
-		print(get_page_no_db)
+			starting_page = Config(page_no=0)
+			self.db.add(starting_page)
+			self.db.commit()
+		get_page_no_db =  self.db.query(Config).filter_by(id=1).first()
+		print(get_page_no_db.page_no)
 		try:
-			stop_condition =  200
+			stop_condition = 200
 			condition = False
 			# starting page section 
 			html = self.get_html(url=self.starting_url)
@@ -166,8 +137,10 @@ class scrapper(object):
 				last_page = self.last_page_no("select", "submit reply__control reply-pagination", new_html)
 				# problem list section
 
-				for page in range(0, last_page+1):
-					self.db.update_config(page)
+				for page in range(get_page_no_db.page_no, last_page+1):
+					get_page_no_db.page_no = page
+					self.db.commit()
+					print("page No ", get_page_no_db.page_no)
 					# stop loop
 					if page == stop_condition:
 						condition = True
@@ -178,23 +151,32 @@ class scrapper(object):
 					print(f"fetching data of {title} --> {working_url}")
 					current_working_html = self.get_html(url=working_url)
 					new_list_of_urls = self.get_anchor_tags("h3", "post__title", current_working_html)
-					
 					# main problem section
 					for current_title, current_page in new_list_of_urls.items():
 						chief_complaint = ""
+						current_title = str(current_title)
 						print(f"fetching data of {title} --> {working_url} --> {current_page}")
 						curent_page_html = self.get_html(url=current_page)
 						main_problem = self.get_main_problem("div","post__content", curent_page_html)
 						
 						problem_text = main_problem.find("input", class_="moderation-conent")
-						chief_complaint = problem_text["value"]
+						chief_complaint = str(problem_text["value"])
 						author = self.get_author("a","author__name",curent_page_html).text
+						author = str(author)
 						print()
 						print(f"data -->{author}:{chief_complaint}")
 			
 						# Reply section
 						no_of_reply = self.last_page_no("select", "reply-pagination", curent_page_html)
-						get_config_url
+						data = Main_Data(heading=title, sub_heading=current_title,\
+											main_problem=chief_complaint,\
+											author_name=author)
+
+						self.db.add(data)
+						self.db.commit()
+
+						c_id = data.id
+						print("id--------> ",c_id)
 						for reply_page in range(0, no_of_reply+1):
 							reply_url = current_page + f"?order=oldest&page={reply_page}"
 							reply_html = self.get_html(url=reply_url)
@@ -206,13 +188,6 @@ class scrapper(object):
 								if No_of_comments:
 									No_of_comment = No_of_comments.text
 								get_articles = div_.find_all("article", class_="post post__root")
-								
-								self.db.insert_main_data(
-															title, page_url,\
-															last_page, current_title, current_page,\
-															chief_complaint,\
-															author)
-								case_id = self.db.get_id(current_title)
 								# individual comment section
 
 								for art in get_articles:
@@ -228,15 +203,12 @@ class scrapper(object):
 											print()
 									
 									 
-										self.db.insert_replies( 
-															 case_id, No_of_comment, comment_thread
+										rep = Reply_Data( case_id = c_id, 
+													reply=comment_thread, 
+													no_of_reply=No_of_comment
 															)
-							else:		
-								self.db.insert_main_data(
-															title, page_url,\
-															last_page, current_title, current_page,\
-															chief_complaint,\
-															author)
+										self.db.add(rep)
+										self.db.commit()
 		except Exception as e:
 			print(e)
 			

@@ -38,15 +38,27 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders',
     'accounts.apps.AccountsConfig',
     'website.apps.WebsiteConfig',
+    'api.apps.ApiConfig',
+    'rest_framework',
+    'rest_framework_simplejwt'
+
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
+}
 
 AUTH_USER_MODEL = 'accounts.User'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -72,6 +84,7 @@ TEMPLATES = [
     },
 ]
 
+
 WSGI_APPLICATION = 'controller.wsgi.application'
 
 
@@ -80,8 +93,12 @@ WSGI_APPLICATION = 'controller.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'sumir40/project_3001',
+        'USER': 'sumir40',
+        'PASSWORD': 'v2_3tLuR_zP7x3qjcXsLXns9vg2yct3F',
+        'HOST': 'db.bit.io',
+        'PORT': '5432',
     }
 }
 
@@ -129,3 +146,6 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CORS_ALLOW_ALL_ORIGINS = True
+
