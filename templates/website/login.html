@@ -39,11 +39,12 @@
         dataType: "json",
         ContentType: "application/json",
         success: function(data){
-          console.log(data)
-        }, 
-        });
 
-  };
+          window.location.replace("/main/" + username);
+        }, 
+          });
+
+    };
 </script>
 {% endblock %}
 

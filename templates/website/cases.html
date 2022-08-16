@@ -1,0 +1,286 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Shuffle Bootstrap Template - Index</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="{% static 'img/favicon.png' %}" rel="icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+  
+  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  
+</head>
+
+{% block jquery %}
+<script type="text/javascript">
+var globtemp;
+var globtitle;
+var globid;
+var keywords = [];
+var score;
+$( document ).ready(function() {
+    var temp = [];
+    var title = [];
+    var id = [];
+    var visited_pages = []
+    $.ajax({
+          url: "/apis/get-cases",
+          type: "GET",
+          dataType: "json",
+          async: false,
+          ContentType: "application/json",
+          success: function(data){
+            var DoneList ={{done_list}};
+            for (let i = 0; i < data.length; i++){
+              if (DoneList.includes(data[i]["id"]) == false){
+              temp.push(data[i]["main_problem"])
+              title.push(data[i]["sub_heading"])
+              id.push(data[i]["id"])
+            }
+
+              }
+          console.log(DoneList.includes(1822000));
+          } 
+      });
+
+  function randomData(){
+    let x = Math.floor((Math.random() * 2000) + 1)
+    console.log(x)
+    sessionStorage.setItem('pr', temp[x]);
+    sessionStorage.setItem('no', id[x]);
+    sessionStorage.setItem('tag', title[x]);
+    console.log(sessionStorage.getItem('pr'))
+    $("#text").html(temp[x]);
+    $("#id").html("<h5> Case No: "+ id[x] + "</h5>");
+    $("#title").html("<h5> Title - "+ title[x] + "</h5>");
+  }
+  
+  function dataPoint(){
+    var text = sessionStorage.getItem('pr');
+    var id_no = sessionStorage.getItem('no');
+    var tag = sessionStorage.getItem('tag');
+
+    $("#text").html(text);
+    $("#id").html("<h5> Case No: "+ id_no + "</h5>");
+    $("#title").html("<h5> Title - "+ tag + "</h5>");  
+  }
+
+  if (sessionStorage.getItem('pr')== null) {
+      randomData();
+  }
+  else{
+
+      dataPoint();
+  }
+globtemp = temp;
+globid = id;
+globtitle = title;
+});
+
+function nextData(){
+    let x = Math.floor((Math.random() * 2000) + 1)
+    sessionStorage.setItem('pr', globtemp[x]);
+    sessionStorage.setItem('no', globid[x]);
+    sessionStorage.setItem('tag', globtitle[x]);
+    $("#text").html(globtemp[x]);
+    $("#id").html("<h5> Case No: "+ globid[x] + "</h5>");
+    $("#title").html("<h5> Title - "+ globtitle[x] + "</h5>");
+    $("#tags").html('');
+    score = null;
+    $("#summary").val('');
+    $("#reply").val('');
+
+  }
+
+function addTags(){
+  var takeValue = $("#inputtags").val();
+  keywords.push(takeValue);
+  var ItemAdd = "<h6 class='hsix'><span class='badge bg-primary' id='"+ takeValue + "' style='margin:4px;'>"+takeValue+"<button class='btn-close' aria-label='Close' onClick='removeTag()'></button></span></h6>"
+  $("#tags").append(ItemAdd);
+  $('#inputtags').val('');
+
+}
+
+function removeTag(){
+  $("#tags").on("click","span", function(){
+      var key = $( this ).attr("id");
+      $(this).remove();
+      var keyIndex = keywords.indexOf(key);
+      keywords.splice(keyIndex, 1);
+
+  });
+}
+function scoreScale(){
+$("#scale").on("click","li", function(){
+      var s = $( this ).attr("value");
+      $(".page-item").removeClass("active");
+      $(this).addClass("active");
+      score = s
+});
+}
+
+function submitForm(){
+  var username = "{{context}}"
+  var summary = $("#summary").val();
+  var reply = $("#reply").val();
+  var case_id = sessionStorage.getItem('no');
+  var data = {"case_id":case_id, "username":username, "keyword":keywords, "score":score, "summary":summary, "reply":reply}
+  $.ajax({
+    url: "/apis/submit",
+    method:"POST",
+    data:data,
+    dataType:"json",
+    ContentType: "application/json",
+    success: function(response){
+      if (response["response"] == true){
+        console.log(response)
+        nextData();
+      }
+
+    }
+  });
+        }
+</script>
+{% endblock %}
+
+<body>
+
+ <div class="container h-300" style="margin-top: 5%;">
+    <div class="row align-items-center h-300">
+      
+        <div class="col-10 mx-auto">
+          <div id="id">
+          </div>
+            <div class="card h-300 justify-content-center" style="padding: 15px;">
+              <div id="title">
+                  </div>
+                <div class="text" id="text">
+                  <div class="d-flex justify-content-center">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                  </div>
+                </div>
+                <br>
+            </div>
+            <button type="button" class="btn btn-primary" onclick="nextData()" style="float:rigth;">Next Case</button>
+            <br>
+            <br>
+            <div class="container h-100">
+              <div class="row align-items-center h-100">
+                <div class="col-12">
+                  <div class="card h-100 justify-content-center" style="padding: 15px;">
+                    <h5>Important Keywords</h5>
+                    <br>
+                    <div class="form-group mx-sm-3 mb-2">
+                      <input type="text" class="form-control" id="inputtags" placeholder="ex:- Anxiety, Depression, Sexual Abuse">
+                    </div>
+                    <br>
+                    <button class="btn btn-primary mb-2" onclick="addTags()">Add tag</button>
+                    <br>
+                    <div class="d-flex flex-wrap bd-highlight mb-3" id="tags">
+                      
+                    </div>
+                    <div>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <br>
+            <div class="container h-100">
+              <div class="row align-items-center h-100">
+                <div class="col-12">
+                  <div class="card h-100 justify-content-center" style="padding: 10px;">
+                    <h5>Relavent Score</h5>
+                    <br>
+                    <nav aria-label="Page navigation example">
+                    <ul class="pagination pagination-sm justify-content-center" id="scale" onclick="scoreScale()">
+                      <li class="page-item" value = 1><a class="page-link" style="margin-right: 15px;">1</a></li>
+                      <li class="page-item" value = 2><a class="page-link" style="margin-right: 15px;">2</a></li>
+                      <li class="page-item" value = 3><a class="page-link" style="margin-right: 15px;">3</a></li>
+                      <li class="page-item" value = 4><a class="page-link" style="margin-right: 15px;">4</a></li>
+                      <li class="page-item" value = 5><a class="page-link" style="margin-right: 15px;">5</a></li>
+                      <li class="page-item" value = 6><a class="page-link" style="margin-right: 15px;">6</a></li>
+                      <li class="page-item" value = 7><a class="page-link" style="margin-right: 15px;">7</a></li>
+                      <li class="page-item" value = 8><a class="page-link" style="margin-right: 15px;">8</a></li>
+                      <li class="page-item" value = 9><a class="page-link" style="margin-right: 15px;">9</a></li>
+                      <li class="page-item" value = 10><a class="page-link" style="margin-right: 15px;">10</a></li>
+                    </ul>
+                  </nav>
+                      
+                    </div>
+                  <div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br>
+            <div class="container h-100">
+              <div class="row align-items-center h-100">
+                <div class="col-12">
+                  <div class="card h-100 justify-content-center" style="padding: 10px;">
+                    <h5>Summarize</h5>
+                      <br>
+                      <label for="summary" class="form-label">summary</label>
+                      <textarea class="form-control"  rows="3" id="summary" placeholder="Summarize here.." required></textarea> 
+                  </div>
+                <div>
+              </div>
+            </div>
+          </div>
+        </div>
+            <br>
+            <div class="container h-100">
+              <div class="row align-items-center h-100">
+                <div class="col-12">
+                  <div class="card h-100 justify-content-center" style="padding: 10px;">
+                    <h5>Reply</h5>
+                      <br>
+                      <label for="reply" class="form-label">Reply</label>
+                      <textarea class="form-control" rows="3" id="reply" placeholder="Give your reply here.." required></textarea> 
+                  </div>
+                <div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <br>
+        <div class="container h-100">
+              <div class="row align-items-center h-100">
+                <div class="col-12">
+                  <div class="card h-100 justify-content-center" style="padding: 10px;">
+                    <br>
+                    <button class="btn btn-success" onclick="submitForm()">submit</button> 
+                  </div>
+                <div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
