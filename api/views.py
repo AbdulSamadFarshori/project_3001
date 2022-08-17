@@ -14,6 +14,7 @@ class GetDataFromBitIo(generics.ListAPIView):
 	serializer_class = MainData
 
 	def list(self, request):
+		queryset = main_data.objects.all()
 		if queryset == None:
 			dict_data = data
 			for row in data:
