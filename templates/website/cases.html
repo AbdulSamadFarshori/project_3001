@@ -26,11 +26,13 @@
 
 {% block jquery %}
 <script type="text/javascript">
+
 var globtemp;
 var globtitle;
 var globid;
 var keywords = [];
 var score;
+
 $( document ).ready(function() {
     var temp = [];
     var title = [];
@@ -81,9 +83,10 @@ $( document ).ready(function() {
   }
 
   if (sessionStorage.getItem('pr')== null) {
+      
       randomData();
   }
-  else{
+  else {
 
       dataPoint();
   }
@@ -102,8 +105,10 @@ function nextData(){
     $("#title").html("<h5> Title - "+ globtitle[x] + "</h5>");
     $("#tags").html('');
     score = null;
+    $(".page-item").removeClass("active");
     $("#summary").val('');
     $("#reply").val('');
+
 
   }
 
@@ -139,7 +144,15 @@ function submitForm(){
   var summary = $("#summary").val();
   var reply = $("#reply").val();
   var case_id = sessionStorage.getItem('no');
-  var data = {"case_id":case_id, "username":username, "keyword":keywords, "score":score, "summary":summary, "reply":reply}
+  var data = {
+
+              "case_id":case_id, 
+              "username":username, 
+              "keyword":keywords, 
+              "score":score, 
+              "summary":summary,
+               "reply":reply
+             }
   $.ajax({
     url: "/apis/submit",
     method:"POST",
@@ -159,16 +172,14 @@ function submitForm(){
 {% endblock %}
 
 <body>
-
  <div class="container h-300" style="margin-top: 5%;">
     <div class="row align-items-center h-300">
-      
-        <div class="col-12 mx-auto">
-          <div id="id">
+      <div class="col-12 mx-auto">
+        <div id="id">
           </div>
             <div class="card h-300 justify-content-center" style="padding: 15px;">
               <div id="title">
-                  </div>
+              </div>
                 <div class="text" id="text">
                   <div class="d-flex justify-content-center">
                     <div class="spinner-border text-primary" role="status">
@@ -225,7 +236,6 @@ function submitForm(){
                       <li class="page-item" value = 10><a class="page-link">10</a></li>
                     </ul>
                   </nav>
-                      
                     </div>
                   <div>
                 </div>
@@ -247,7 +257,7 @@ function submitForm(){
             </div>
           </div>
         </div>
-            <br>
+          <br>
             <div class="container h-100">
               <div class="row align-items-center h-100">
                 <div class="col-12">
@@ -261,7 +271,6 @@ function submitForm(){
               </div>
             </div>
           </div>
-
         </div>
         <br>
         <div class="container h-100">
@@ -275,12 +284,9 @@ function submitForm(){
               </div>
             </div>
           </div>
-
         </div>
       </div>
-
       </div>
-
     </div>
   </div>
 </div>

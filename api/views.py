@@ -12,13 +12,13 @@ from core.bitio_connector.connector import data
 class GetDataFromBitIo(generics.ListAPIView):
 	queryset = main_data.objects.all()
 	serializer_class = MainData
-	
+
 	def list(self, request):
 		queryset = main_data.objects.all()
 		if queryset:
 		    serializer = MainData(queryset, many=True)
 		    return Response(serializer.data)
-		else:
+		else:			
 			dict_data = data
 			for row in dict_data:
 			    main_data_object = main_data(**row)
@@ -56,7 +56,7 @@ class FormSubmitView(APIView):
 								)
 			response_object.save()
 			for tag in keyword:
-				keyword_object = keywords(case_id=main_object, keyword=tag)
+				keyword_object = keywords(case_id=main_object, keyword=tag.lower())
 				keyword_object.save()
 			done_object = CompletedCase(case_id=main_object)
 			done_object.save()
