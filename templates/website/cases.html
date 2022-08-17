@@ -50,8 +50,11 @@ $( document ).ready(function() {
               title.push(data[i]["sub_heading"])
               id.push(data[i]["id"])
             }
-
               }
+            if (id.length == 0){
+              window.location.replace("/error404/")
+            }
+
           } 
       });
 
@@ -90,7 +93,7 @@ globtitle = title;
 });
 
 function nextData(){
-    let x = Math.floor((Math.random() * 2000) + 1)
+    let x = Math.floor((Math.random() * 4000) + 1)
     sessionStorage.setItem('pr', globtemp[x]);
     sessionStorage.setItem('no', globid[x]);
     sessionStorage.setItem('tag', globtitle[x]);
@@ -175,6 +178,7 @@ function submitForm(){
                 </div>
                 <br>
             </div>
+            <br>
             <button type="button" class="btn btn-primary" onclick="nextData()" style="float:rigth;">Next Case</button>
             <br>
             <br>
