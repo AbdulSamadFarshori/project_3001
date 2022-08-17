@@ -15,13 +15,17 @@ class GetDataFromBitIo(generics.ListAPIView):
 
 	def list(self, request):
 		queryset = main_data.objects.all()
-		if queryset == None:
+		if queryset:
+		    serializer = MainData(queryset, many=True)
+		    return Response(serializer.data)
+		else:
 			dict_data = data
-			for row in data:
+			for row in dict_data:
 				main_data_object = main_data(**row)
 				main_data_object.save()
-		serializer = MainData(queryset, many=True)
-		return Response(serializer.data)
+			serializer = MainData(queryset, many=True)
+			return Response(serializer.data)
+		return Response({"msg":"error"})
 
 class LoginView(APIView):
 	
