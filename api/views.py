@@ -7,15 +7,18 @@ from rest_framework.views import APIView
 from django.contrib.auth import get_user_model
 from rest_framework import status
 from core.factory import authenticated
+from core.bitio_connector.connector import data
 
 class GetDataFromBitIo(generics.ListAPIView):
 	queryset = main_data.objects.all()
 	serializer_class = MainData
 
 	def list(self, request):
-		anxiety_queryset = main_data.objects.filter(heading="Anxiety Disorders")[:1000]
-		depression_queryset = main_data.objects.filter(heading="Depression")[:1000]
-		queryset = [*anxiety_queryset, *depression_queryset]
+		if queryset == None:
+			dict_data = data
+			for row in data:
+				main_data_object = main_data(**row)
+				main_data_object.save()
 		serializer = MainData(queryset, many=True)
 		return Response(serializer.data)
 

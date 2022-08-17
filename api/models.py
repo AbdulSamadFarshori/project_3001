@@ -3,6 +3,7 @@ from django.db import models
 # Create your models here.
 
 class main_data(models.Model):
+	id =  models.IntegerField(primary_key=True)
 	heading = models.CharField(max_length=255)
 	sub_heading = models.CharField(max_length=255)
 	main_problem = models.CharField(max_length=6500)
