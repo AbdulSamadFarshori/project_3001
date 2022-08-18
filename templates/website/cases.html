@@ -88,6 +88,14 @@ $( document ).ready(function() {
 
       dataPoint();
   }
+
+$("#scale").on("click","li", function(){
+      var s = $( this ).attr("value");
+      $(".page-item").removeClass("active");
+      $(this).addClass("active");
+      score = s
+});
+
 globtemp = temp;
 globid = id;
 globtitle = title;
@@ -106,7 +114,6 @@ function nextData(){
     $(".page-item").removeClass("active");
     $("#summary").val('');
     $("#reply").val('');
-
 
   }
 
@@ -127,14 +134,6 @@ function removeTag(){
       keywords.splice(keyIndex, 1);
 
   });
-}
-function scoreScale(){
-$("#scale").on("click","li", function(){
-      var s = $( this ).attr("value");
-      $(".page-item").removeClass("active");
-      $(this).addClass("active");
-      score = s
-});
 }
 
 function submitForm(){
@@ -221,7 +220,7 @@ function submitForm(){
                     <h5>Relavent Score</h5>
                     <br>
                     <nav aria-label="Page navigation example">
-                    <ul class="pagination pagination-sm justify-content-center" id="scale" onclick="scoreScale()">
+                    <ul class="pagination pagination-sm justify-content-center" id="scale">
                       <li class="page-item" value = 1><a class="page-link">1</a></li>
                       <li class="page-item" value = 2><a class="page-link">2</a></li>
                       <li class="page-item" value = 3><a class="page-link">3</a></li>
