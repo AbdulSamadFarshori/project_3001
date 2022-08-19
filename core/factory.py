@@ -26,3 +26,15 @@ def create_hash_key():
 	hash_key = make_password(strs)
 	return hash_key
 
+def make_hash(str):
+	hash_key = make_password(strs)
+	return hash_key
+
+def create_user(username, email, password):
+	User = get_user_model()
+	user_obj = User(username=username, email=email, password=password)
+	user_obj.save()
+	return True
+
+
+

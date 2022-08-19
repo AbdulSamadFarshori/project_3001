@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.contrib.auth import get_user_model
 from rest_framework import status
-from core.factory import authenticated, create_hash_key
+from core.factory import authenticated, create_hash_key, make_hash, create_user
 from core.bitio_connector.connector import data
 from website.models import Cookies
 
@@ -73,4 +73,17 @@ class FormSubmitView(APIView):
 
 		return Response({"response":False})
 
+
+class RegisterView(APIView):
+
+	def post(self, request):
+		username = request.POST.get("username")
+		email = request.POST.get("email")
+		password = request.POST.get("password")
+
+		user = create_user(username, email, password)
+
+		if user:
+			return Response({"msg":"user has created!!"})
+		return {"msg":"Error"}
 
