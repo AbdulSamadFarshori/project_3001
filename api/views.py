@@ -74,7 +74,7 @@ class FormSubmitView(APIView):
 		return Response({"response":False})
 
 
-class RegisterView(APIView):
+class RegisterApiView(APIView):
 
 	def post(self, request):
 		username = request.POST.get("username")
