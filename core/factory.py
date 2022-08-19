@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
-from django.contrib.auth.hashers import check_password
+from django.contrib.auth.hashers import check_password, make_password
+
 
 
 def authenticated(username, password):
@@ -19,4 +20,9 @@ def user_is_valid(username):
 		return True
 
 	return False
+
+def create_hash_key():
+	strs = "23345"
+	hash_key = make_password(strs)
+	return hash_key
 

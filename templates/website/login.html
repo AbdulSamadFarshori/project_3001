@@ -39,8 +39,10 @@
         dataType: "json",
         ContentType: "application/json",
         success: function(data){
-
-          window.location.replace("/main/" + username);
+          if (data["cookies"] == null){
+            Cookies.set('xr', data["cookies"]);
+            window.location.replace("/main/" + username);
+        }
         }, 
           });
 
