@@ -8,7 +8,7 @@ from django.contrib.auth import get_user_model
 from rest_framework import status
 from core.factory import authenticated, create_hash_key
 from core.bitio_connector.connector import data
-from models import Cookies
+from website.models import Cookies
 
 class GetDataFromBitIo(generics.ListAPIView):
 	queryset = main_data.objects.all()
@@ -35,13 +35,15 @@ class LoginView(APIView):
 		password = request.POST.get("password")
 		if authenticated(user, password):
 			cookies = Cookies.objects.filter(id=1).first()
+			print(cookies.set_cookies)
 			if cookies:
-				return Response({"msg":True, "name":user, "cookies":cookies})
+				return Response({"msg":True, "name":user, "cookies":cookies.set_cookies})
 			else:
 				cookies_key = create_hash_key()
-				obj = Cookies(cookies=cookies_key)
+				obj = Cookies(set_cookies=cookies_key)
 				obj.save()
-				return Response({"msg":True, "name":user, "cookies":obj.cookies})
+				print(obj.set_cookies)
+				return Response({"msg":True, "name":user, "cookies":obj.set_cookies})
 		return Response({"msg":False})
 
 class FormSubmitView(APIView):

@@ -11,11 +11,9 @@ class HomeView(TemplateView):
 
 class LoginView(TemplateView):
 	template_name = "website/login.html"
-
 class MainView(View):
 
 	template_name = 'website/cases.html'
-	
 	def get(self, request, var):
 		done_list = [i.case_id.id for i in CompletedCase.objects.all()]
 		status = user_is_valid(var)

@@ -4,4 +4,4 @@ from django.db import models
 
 
 class Cookies(models.Model):
-	set_cookies = models.CharField(1000)
+	set_cookies = models.CharField(max_length=1000)
