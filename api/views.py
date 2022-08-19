@@ -35,7 +35,6 @@ class LoginView(APIView):
 		password = request.POST.get("password")
 		if authenticated(user, password):
 			cookies = Cookies.objects.filter(id=1).first()
-			print(cookies.set_cookies)
 			if cookies:
 				return Response({"msg":True, "name":user, "cookies":cookies.set_cookies})
 			else:
