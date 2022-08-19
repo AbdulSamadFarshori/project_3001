@@ -9,6 +9,7 @@ from rest_framework import status
 from core.factory import authenticated, create_hash_key, make_hash, create_user
 from core.bitio_connector.connector import data
 from website.models import Cookies
+import logging
 
 class GetDataFromBitIo(generics.ListAPIView):
 	queryset = main_data.objects.all()
@@ -77,10 +78,9 @@ class FormSubmitView(APIView):
 class RegisterApiView(APIView):
 
 	def post(self, request):
-		username = request.POST.get("username")
-		email = request.POST.get("email")
-		password = request.POST.get("password")
-
+		username = request.data.get("username")
+		email = request.data.get("email")
+		password = request.data.get("password")
 		user = create_user(username, email, password)
 
 		if user:
