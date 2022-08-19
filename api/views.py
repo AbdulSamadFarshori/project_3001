@@ -82,7 +82,7 @@ class RegisterApiView(APIView):
 		email = request.data.get("email")
 		password = request.data.get("password")
 		user = create_user(username, email, password)
-
+		user.save()
 		if user:
 			return Response({"msg":"user has created!!"})
 		return {"msg":"Error"}
