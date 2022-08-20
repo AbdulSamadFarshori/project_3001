@@ -15,7 +15,7 @@ class main_data(models.Model):
 class response(models.Model):
 	case_id = models.ForeignKey(main_data, on_delete=models.CASCADE)
 	counsellor = models.CharField(max_length=255)
-	petient_asking=models.CharField(max_length=255)
+	petient_asking = models.CharField(max_length=255)
 	relavent_score = models.IntegerField()
 	summary = models.CharField(max_length=2000)
 	reply = models.CharField(max_length=2000)
