@@ -25,7 +25,7 @@ class MainView(View):
 			ip = request.META.get('REMOTE_ADDR')
 		done_list = [i.case_id.id for i in CompletedCase.objects.all()]
 		status = user_is_valid(var)
-		steps = FingerPrints(ip=ip, username=var)
+		steps = FingerPrints(ip=ip, user=var)
 		steps.save()
 		if status:
 			return render(request, self.template_name, {"context":var, "done_list":done_list})
