@@ -8,5 +8,5 @@ class CookiesAdmin(admin.ModelAdmin):
 
 @admin.register(FingerPrints)
 class FingerPrintsAdmin(admin.ModelAdmin):
-  list_display = ['date_time','username', 'ip']
+  list_display = ['date_time','user', 'ip']
 

@@ -10,4 +10,4 @@ class Cookies(models.Model):
 class FingerPrints(models.Model):
 	date_time = models.DateTimeField(default=datetime.now, editable=False)
 	ip = models.CharField(max_length=255)
-	username = models.CharField(max_length=255)
+	user = models.CharField(max_length=255)
