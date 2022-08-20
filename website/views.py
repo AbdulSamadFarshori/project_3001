@@ -20,7 +20,7 @@ class MainView(View):
 		meta_data = request.META.get('HTTP_X_FORWARDED_FOR')
 		ip= ""
 		if meta_data:
-			ip = httpx.split(',')[0]
+			ip = meta_data.split(',')[0]
 		else:
 			ip = request.META.get('REMOTE_ADDR')
 		done_list = [i.case_id.id for i in CompletedCase.objects.all()]
