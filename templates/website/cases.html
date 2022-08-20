@@ -5,7 +5,6 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
   <title>Case Study</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
@@ -30,9 +29,13 @@ var globtemp;
 var globtitle;
 var globid;
 var keywords = [];
+var checkbox;
+var chSatus = false;
 var score;
 
 $( document ).ready(function() {
+  
+
   if (window.sessionStorage.getItem('xr') == null){
     window.location.replace("/login")
   }
@@ -97,7 +100,13 @@ $("#scale").on("click","li", function(){
       $(".page-item").removeClass("active");
       $(this).addClass("active");
       score = s
+
 });
+
+$("#checkother").on("click", function(){
+  $("#other").removeAttr("hidden");
+});
+
 
 globtemp = temp;
 globid = id;
@@ -117,6 +126,10 @@ function nextData(){
     $(".page-item").removeClass("active");
     $("#summary").val('');
     $("#reply").val('');
+    $(".form-check-input:checked").prop("checked", false);
+    $("#other").val('');
+    checked=null;
+
 
   }
 
@@ -144,10 +157,21 @@ function submitForm(){
   var summary = $("#summary").val();
   var reply = $("#reply").val();
   var case_id = sessionStorage.getItem('no');
+  
+  if ($('.form-check-input:checked').val() == "other"){
+
+    checkbox = $('#other').val();
+  }
+  else{
+    checkbox = $('.form-check-input:checked').val();
+  }
+
+
   var data = {
 
               "case_id":case_id, 
-              "username":username, 
+              "username":username,
+              "asking": checkbox,
               "keyword":keywords, 
               "score":score, 
               "summary":summary,
@@ -161,7 +185,6 @@ function submitForm(){
     ContentType: "application/json",
     success: function(response){
       if (response["response"] == true){
-        console.log(response)
         nextData();
       }
 
@@ -191,6 +214,51 @@ function submitForm(){
             </div>
             <br>
             <button type="button" class="btn btn-outline-primary" onclick="nextData()" style="float:rigth;">Next Case</button>
+            <br>
+            <br>
+            <div class="container h-100">
+              <div class="row align-items-center h-100">
+                <div class="col-12">
+                  <div class="card h-100 justify-content-center" id = "clicked" style="padding: 15px;">
+                    <h5>Patient asking for</h5>
+                    <br>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="flexRadioDefault" id="help" value="help">
+                      <label class="form-check-label" for="flexRadioDefault1">
+                        Help
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="flexRadioDefault" id="support" value="support">
+                      <label class="form-check-label" for="flexRadioDefault2">
+                        Support
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="flexRadioDefault" id="advice" value="advice">
+                      <label class="form-check-label" for="flexRadioDefault2">
+                        Advice
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="flexRadioDefault" id="unclear" value="unclear">
+                      <label class="form-check-label" for="flexRadioDefault2">
+                        Unclear
+                      </label>
+                    </div>
+                    <div class="form-check" id="checkother">
+                      <input class="form-check-input" type="radio" name="flexRadioDefault" id="other-check" value="other">
+                      <label class="form-check-label" for="flexRadioDefault2">
+                        Other
+                      </label>
+                      <br>
+                      <br>
+                      <input type="text" class="form-control" id="other" placeholder="Mention here.." hidden>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
             <br>
             <br>
             <div class="container h-100">

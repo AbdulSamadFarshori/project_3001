@@ -50,6 +50,7 @@ class FormSubmitView(APIView):
 
 	def post(self, request):
 		username = request.POST.get("username")
+		asking = request.POST.get("asking")
 		keyword = request.POST.getlist("keyword[]")
 		score = int(request.POST.get("score"))
 		summary = request.POST.get("summary")
@@ -59,7 +60,8 @@ class FormSubmitView(APIView):
 		if reply and summary:
 			response_object = response(
 								case_id=main_object, 
-								counsellor=username, 
+								counsellor=username,
+								petient_asking=asking, 
 								relavent_score=score, 
 								summary=summary, 
 								reply=reply
@@ -82,7 +84,6 @@ class RegisterApiView(APIView):
 		email = request.data.get("email")
 		password = request.data.get("password")
 		user = create_user(username, email, password)
-		user.save()
 		if user:
 			return Response({"msg":"user has created!!"})
 		return {"msg":"Error"}
