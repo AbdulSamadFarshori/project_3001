@@ -26,7 +26,7 @@ def create_hash_key():
 	hash_key = make_password(strs)
 	return hash_key
 
-def make_hash(str):
+def make_hash(strs):
 	hash_key = make_password(strs)
 	return hash_key
 
