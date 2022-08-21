@@ -12,6 +12,9 @@ class main_data(models.Model):
 	def __str__(self):
 		return self.sub_heading
 
+	class Meta:
+		verbose_name_plural = "Main Data"
+
 class response(models.Model):
 	case_id = models.ForeignKey(main_data, on_delete=models.CASCADE)
 	counsellor = models.CharField(max_length=255)
@@ -23,6 +26,9 @@ class response(models.Model):
 	def __str__(self):
 		return self.case_id
 
+	class Meta:
+		verbose_name_plural = "Responses"
+
 class keywords(models.Model):
 	case_id = models.ForeignKey(main_data, on_delete=models.CASCADE)
 	keyword = models.CharField(max_length=255)
@@ -30,10 +36,14 @@ class keywords(models.Model):
 	def __str__(self):
 		return self.case_id
 
+	class Meta:
+		verbose_name_plural = "Keywords"
+
 class CompletedCase(models.Model):
 	case_id = models.ForeignKey(main_data, on_delete=models.CASCADE)
 
 	def __str__(self):
 		return self.case_id
+
 
 
