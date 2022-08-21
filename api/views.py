@@ -89,3 +89,7 @@ class RegisterApiView(APIView):
 			return Response({"msg":"user has created!!"})
 		return {"msg":"Error"}
 
+class ResponseApiView(APIView):
+
+	def get(self, request):
+		pass
