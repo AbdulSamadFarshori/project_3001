@@ -240,6 +240,12 @@ function submitForm(){
                       </label>
                     </div>
                     <div class="form-check">
+                      <input class="form-check-input" type="radio" name="flexRadioDefault" id="suggestion" value="suggestion">
+                      <label class="form-check-label" for="flexRadioDefault2">
+                        Suggestion
+                      </label>
+                    </div>
+                    <div class="form-check">
                       <input class="form-check-input" type="radio" name="flexRadioDefault" id="unclear" value="unclear">
                       <label class="form-check-label" for="flexRadioDefault2">
                         Unclear
@@ -286,8 +292,9 @@ function submitForm(){
               <div class="row align-items-center h-100">
                 <div class="col-12">
                   <div class="card h-100 justify-content-center" style="padding: 10px;">
-                    <h5>Relavent Score</h5>
+                    <h5>Relevant Score</h5>
                     <br>
+                    <small><i>10 score will be considered as most relevant and 1 score will be considered as not relevant</i></small>
                     <nav aria-label="Page navigation example">
                     <ul class="pagination pagination-sm justify-content-center" id="scale">
                       <li class="page-item" value = 1><a class="page-link">1</a></li>
