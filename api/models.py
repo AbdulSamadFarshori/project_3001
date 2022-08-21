@@ -46,4 +46,3 @@ class CompletedCase(models.Model):
 		return self.case_id
 
 
-
