@@ -3,6 +3,7 @@ from django.db import models
 # Create your models here.
 
 class main_data(models.Model):
+	id = models.AutoField(primary_key=True)
 	sub_heading = models.CharField(max_length=255)
 	main_problem = models.CharField(max_length=6500)
 	author_name = models.CharField(max_length=255)
@@ -14,6 +15,7 @@ class main_data(models.Model):
 		verbose_name_plural = "Main Data"
 
 class ReplyData(models.Model):
+	id = models.AutoField(primary_key=True)
 	case_id = models.ForeignKey(main_data, on_delete=models.CASCADE)
 	author = models.CharField(max_length=255)
 	recipient = models.CharField(max_length=255)
@@ -27,6 +29,7 @@ class ReplyData(models.Model):
 		verbose_name_plural = "Reply Data"
 
 class ReplyThread(models.Model):
+	id = models.AutoField(primary_key=True)
 	reply_id = models.ForeignKey(main_data, on_delete=models.CASCADE)
 	author = models.CharField(max_length=255)
 	recipient = models.CharField(max_length=255)

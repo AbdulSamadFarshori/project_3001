@@ -23,13 +23,14 @@ class DataUploader(object):
 			if data:
 				response = requests.post(url=url, data=data)
 				if response.status_code == 200:
+					print(response.json())
 					return {"msg":"successfull!"}
 			return {"msg":"Error"}
 		return "only post request send!"
 
 	def send_main_data(self):
 		data = self.db.query(Main_Data).all()
-		for obj in data:
+		for obj in data[3954:6000]:
 			if obj:
 				_foo = self.row2dict(obj)
 				res = self.http_requester(method="post", url="https://abdulsamad.pythonanywhere.com/apis/main-data", data=_foo)
@@ -38,12 +39,12 @@ class DataUploader(object):
 
 	def send_reply_data(self):
 		data = self.db.query(Reply_Data).all()
-		for obj in data[3954:6000]:
+		for obj in data:
 			if obj:
 				_foo = self.row2dict(obj)
 				res = self.http_requester(method="post", url="https://abdulsamad.pythonanywhere.com/apis/reply-data", data=_foo)
-				print(res.json()["msg"])
-				print(res.json())
+				
+				print(res)
 		return "done"
 
 	def send_reply_thread(self):
