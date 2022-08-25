@@ -14,6 +14,9 @@ from core.bitio_connector.connector import data
 from website.models import Cookies
 import logging
 
+
+# -------------------------------------------->
+
 class GetDataFromBitIo(generics.ListAPIView):
 	queryset = main_data.objects.all()
 	serializer_class = MainData
@@ -31,6 +34,8 @@ class GetDataFromBitIo(generics.ListAPIView):
 			serializer = MainData(queryset, many=True)
 			return Response(serializer.data)
 		return Response({"msg":"error"})
+
+# ------------------------------------------------------>
 
 class LoginView(APIView):
 	
@@ -107,23 +112,32 @@ class MainDataApiView(APIView):
 			logging.error(f" ----->  {e}")
 		return Response({"msg":"uploaded!!"})
 
+	def get(self, request):
+		queryset = main_data.objects.all()
+		serializer = MainData(queryset, many=True)
+		return Response(serializer.data)
+
+
 
 
 class ReplyDataApiView(APIView):
 
 	def post(self, request):
 		try:
+			_temp ={}
 			case_id = request.data.get("case_id")
 			author_name = request.data.get("author_name")
 			recipient = request.data.get("recipient")
 			reply = request.data.get("reply")
-			case_obj = main_data.objects.filter(id=case_id).first()
-			reply_obj = ReplyData(case_id=case_obj,author=author_name,recipient=recipient,reply=reply)
-			reply_obj.save()
+			case_obj = main_data.objects.filter(author=recipient).first()
+			if case_obj:
+				_temp[case_obj.id] = [case_obj.recipient, case_id]
+			# reply_obj = ReplyData(case_id=case_obj,author=author_name,recipient=recipient,reply=reply)
+			# reply_obj.save()
 		except Exception as e:
 			logging.error(f" ----->  {e}")
 
-		return Response({"msg":"uploaded!!"})
+		return Response({"msg":"uploaded!!" "data":_temp})
 
 
 class ReplyThreadApiView(APIView):

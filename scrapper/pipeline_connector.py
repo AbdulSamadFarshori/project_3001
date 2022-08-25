@@ -38,11 +38,12 @@ class DataUploader(object):
 
 	def send_reply_data(self):
 		data = self.db.query(Reply_Data).all()
-		for obj in data:
+		for obj in data[3954:6000]:
 			if obj:
 				_foo = self.row2dict(obj)
 				res = self.http_requester(method="post", url="https://abdulsamad.pythonanywhere.com/apis/reply-data", data=_foo)
-				print("data sending...")
+				print(res.json()["msg"])
+				print(res.json())
 		return "done"
 
 	def send_reply_thread(self):
@@ -55,7 +56,7 @@ class DataUploader(object):
 		return "done"
 
 	def start_uploading(self):
-		self.send_main_data()
+		# self.send_main_data()
 		print()
 		print("sending reply data...")
 		print()
