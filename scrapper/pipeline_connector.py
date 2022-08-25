@@ -62,9 +62,9 @@ class DataUploader(object):
 		print()
 		self.send_reply_data()
 		print()
-		print("sending reply thread data...")
-		print()
-		self.send_reply_thread()
+		# print("sending reply thread data...")
+		# print()
+		# self.send_reply_thread()
 
 
 if __name__ == "__main__":

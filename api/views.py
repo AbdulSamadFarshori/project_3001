@@ -150,7 +150,7 @@ class ReplyThreadApiView(APIView):
 			recipient = request.data.get("recipient")
 			reply = request.data.get("reply")
 			case_obj = ReplyData.objects.filter(id=reply_id).first()
-			reply_obj = ReplyThread(case_id=case_obj,author=author_name,recipient=recipient,reply=reply)
+			reply_obj = ReplyThread(case_id=case_obj,author=author,recipient=recipient,reply=reply)
 			reply_obj.save()
 		except Exception as e:
 			logging.error(f" ----->  {e}")
