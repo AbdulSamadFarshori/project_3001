@@ -93,7 +93,7 @@ class RegisterApiView(APIView):
 		return {"msg":"Error"}
 
 
-class MainDataApiView(ApiView):
+class MainDataApiView(APIView):
 
 	def post(self, request):
 		data = request.data.get("data")
@@ -106,7 +106,7 @@ class MainDataApiView(ApiView):
 
 
 
-class ReplyDataApiView(ApiView):
+class ReplyDataApiView(APIView):
 
 	def post(self, request):
 		case_id = request.data.get("case_id")
@@ -124,7 +124,7 @@ class ReplyDataApiView(ApiView):
 		return Response({"msg":"uploaded!!"})
 
 
-class ReplyThreadApiView(ApiView):
+class ReplyThreadApiView(APIView):
 
 	def post(self, request):
 		reply_id = request.data.get("reply_id")
