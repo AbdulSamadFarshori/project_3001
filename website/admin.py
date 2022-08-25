@@ -5,8 +5,6 @@ from .models import Cookies, FingerPrints
 class CookiesAdmin(admin.ModelAdmin):
   list_display = ['id', 'set_cookies']
 
-
-
 @admin.register(FingerPrints)
 class FingerPrintsAdmin(admin.ModelAdmin):
   list_display = ['date_time','user', 'ip']

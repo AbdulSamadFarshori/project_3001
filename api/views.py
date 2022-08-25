@@ -1,7 +1,10 @@
 from django.shortcuts import render
 from rest_framework import generics
 from api.serializers import MainData 
-from api.models import main_data, response, keywords, CompletedCase
+from api.models import (main_data, ReplyData, 
+						response, ReplyThread,
+						keywords, 
+						CompletedCase) 
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.contrib.auth import get_user_model
@@ -88,6 +91,55 @@ class RegisterApiView(APIView):
 		if user:
 			return Response({"msg":"user has created!!"})
 		return {"msg":"Error"}
+
+
+class MainDataApiView(ApiView):
+
+	def post(self, request):
+		data = request.data.get("data")
+
+		main_obj = main_data(**data)
+
+		main_obj.save()
+
+		return Response({"msg":"uploaded!!"})
+
+
+
+class ReplyDataApiView(ApiView):
+
+	def post(self, request):
+		case_id = request.data.get("case_id")
+		author_name = request.data.get("author_name")
+		recipient = request.data.get("recipient")
+		reply = request.data.get("reply")
+
+		case_obj = main_data.objects.filter(id=case_id).first()
+		reply_obj = ReplyData(case_id=case_obj,
+								author=author_name,
+								recipient=recipient,
+								reply=reply)
+		reply_obj.save()
+
+		return Response({"msg":"uploaded!!"})
+
+
+class ReplyThreadApiView(ApiView):
+
+	def post(self, request):
+		reply_id = request.data.get("reply_id")
+		author = request.data.get("author_name")
+		recipient = request.data.get("recipient")
+		reply = request.data.get("reply")
+
+		case_obj = ReplyData.objects.filter(id=reply_id).first()
+		reply_obj = ReplyThread(case_id=case_obj,
+								author=author_name,
+								recipient=recipient,
+								reply=reply)
+		reply_obj.save()
+
+		return Response({"msg":"uploaded!!"})
 
 class ResponseApiView(APIView):
 

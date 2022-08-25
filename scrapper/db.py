@@ -9,17 +9,16 @@ from sqlalchemy.orm import relationship
 from sqlalchemy import create_engine
 
 Base = declarative_base()
-engine = create_engine("sqlite:////home/pi/workspace/project-3001/controller/db.sqlite3", echo=True, future=True)
+engine = create_engine("sqlite:///D:/work/project_3001/db.sqlite3", echo=True, future=True)
 
 class Main_Data(Base):
 	__tablename__ = "main_data"
 
 	id = Column(Integer, primary_key=True,  autoincrement=True)
-	heading = Column(String)
 	sub_heading = Column(String)
 	main_problem = Column(String)
 	author_name = Column(String)
-		
+
 	def __repr__(self):
 		return f"{self.main_problem}"
 
@@ -27,8 +26,21 @@ class Reply_Data(Base):
 	__tablename__ = "reply_data"
 	id = Column(Integer, primary_key=True,  autoincrement=True)
 	case_id = Column(Integer, ForeignKey("main_data.id"), nullable=False)
+	author = Column(String)
+	recipient = Column(String)
 	reply = Column(String)
-	no_of_reply = Column(String)
+	
+	
+	def __repr__(self):
+		return f"Reply {self.case_id}"
+
+class Reply_thread(Base):
+	__tablename__ = "reply_thread"
+	id = Column(Integer, primary_key=True,  autoincrement=True)
+	reply_id = Column(Integer, ForeignKey("reply_data.id"), nullable=False)
+	author = Column(String)
+	recipient = Column(String)
+	reply = Column(String)
 	
 	def __repr__(self):
 		return f"Reply {self.case_id}"
@@ -42,10 +54,27 @@ class Config(Base):
 		return f"config {self.page_no}"
 
 
+class LinkConfig(Base):
+	__tablename__="link_config"
+
+	id = Column(Integer, primary_key=True,  autoincrement=True)
+	title = Column(String)
+	link = Column(String)
+	status = Column(String)
+
+	def __repr__(self):
+		return f"Reply {self.id}"
+
 def create_db():
 	Base.metadata.create_all(engine)
 	return "db created"
 
+def drop_table():
+	Main_Data.__table__.drop(engine)
+	Reply_Data.__table__.drop(engine)
+	Reply_thread.__table__.drop(engine)
+	return "deleted"
+ # drops the users table
 
 
 
