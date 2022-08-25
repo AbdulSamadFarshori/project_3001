@@ -96,10 +96,10 @@ class RegisterApiView(APIView):
 class MainDataApiView(APIView):
 
 	def post(self, request):
-		logging.error(f"++++{request.data}++++++")
 		sub_heading = request.data.get("sub_heading")
 		main_problem = request.data.get("main_problem")
 		author_name = request.data.get("author_name")
+		logging.error(f"++++{sub_heading}, {author_name}++++++")
 		main_obj = main_data(sub_heading=sub_heading, main_problem=main_problem,author_name=author_name)
 		#main_obj.save()
 		return Response({"msg":"uploaded!!"})
