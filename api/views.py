@@ -137,7 +137,7 @@ class ReplyDataApiView(APIView):
 		except Exception as e:
 			logging.error(f" ----->  {e}")
 
-		return Response({"msg":"uploaded!!" "data":_temp})
+		return Response({"msg":"uploaded!!", "data":_temp})
 
 
 class ReplyThreadApiView(APIView):
