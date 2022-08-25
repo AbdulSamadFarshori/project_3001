@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import main_data,  response, keywords, CompletedCase, ReplyData
+from .models import main_data,  response, keywords, CompletedCase, ReplyData, ReplyThread
  
 @admin.register(main_data)
 class MainDataAdmin(admin.ModelAdmin):
