@@ -15,7 +15,8 @@ class Main_Data(Base):
 	__tablename__ = "main_data"
 
 	id = Column(Integer, primary_key=True,  autoincrement=True)
-	sub_heading = Column(String)
+	title = Column(String)
+	subheading = Column(String)
 	main_problem = Column(String)
 	author_name = Column(String)
 
@@ -59,6 +60,7 @@ class LinkConfig(Base):
 
 	id = Column(Integer, primary_key=True,  autoincrement=True)
 	title = Column(String)
+	heading = Column(String)
 	link = Column(String)
 	status = Column(String)
 

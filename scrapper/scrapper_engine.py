@@ -6,27 +6,19 @@ import datetime
 from tqdm import tqdm
 import logging
 import csv
-from sqlalchemy.orm import sessionmaker
-from sqlalchemy.orm import Session
-from db import Main_Data, Reply_Data, Reply_thread, Config, engine, LinkConfig
-from connector import data
+import os
+import sys
+import django
 
-Session = sessionmaker(bind=engine)
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.append(BASE_DIR)
 
+print(BASE_DIR)
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "controller.settings")
+django.setup()
 
-# class bitio():
-# 	def __init__(self):
-# 		self.lists = []
+from api.models import main_data, ReplyData, ReplyThread, LinkConfig
 
-# 	def get_list(self):
-# 		list_data = data
-# 		for heads in list_data:
-# 			self.lists.append(heads['sub_heading'])
-# 		return self.lists
-
-# bit = bitio() 
-# titel_list_data = bit.get_list()
-# print(len(titel_list_data))
 
 class FetchHtml():
 
@@ -80,7 +72,12 @@ class FetchMainPage():
 
 	def __init__(self):
 		self.starting_url = "https://patient.info/forums/categories/mental-health-25"
-		self.main_capturing_list = ["Anxiety Disorders","Depression"]
+		self.main_capturing_list = ["PTSD - Post Traumatic Stress Disorder",
+									"Anxiety Disorders",
+									"Depression",
+									"Eating Disorders",
+									"Sleep Problems",
+									"Alcohol Consumption"]
 
 									# "Alzheimer's Disease", 
 									# "Alcohol Consumption", 
@@ -109,12 +106,12 @@ class FetchMainPage():
 				output[title] = baseurl + anchor_tag["href"]
 		return output
 
+
 class FetchCasesLinks():
 
 	def __init__(self):
 		self.var = 0
 		self.main_page = FetchMainPage().linklist()
-		self.db = Session()
 
 	def get_last_page(self, url=None):
 		_html = FetchHtml(url=url).fetcher()
@@ -141,37 +138,33 @@ class FetchCasesLinks():
 		all_tags = fetcher.get_all_tags()
 		return all_tags
 
-	def linklist(self, html_obj):
+	def links(self, html_obj, title):
 		output = {}
 		for _temp in self.get_links(html_obj):
 			self.var += 1
-			title = FindSingleTag(html=_temp, tag="a").get_without_class().text
+			heading = FindSingleTag(html=_temp, tag="a").get_without_class().text
 			anchor_tag = FindSingleTag(html=_temp, tag="a").get_without_class()
 			t = anchor_tag["href"] 
-			print(f"{self.var} --> {baseurl + t}") 
-			output[f"{title}-{self.var}"] = baseurl + anchor_tag["href"]
-			link_obj = LinkConfig(title=title, link=baseurl + anchor_tag["href"], status="No")
-			self.db.add(link_obj)
-			self.db.commit()
+			
+			logging.info(f"{self.var} --> {baseurl + t}") 
+			
+			output[f"{heading}-{self.var}"] = baseurl + anchor_tag["href"]
+			link_obj = LinkConfig(title=title,
+									heading=heading, 
+									link=baseurl + anchor_tag["href"], 
+									main_status="No",
+									reply_status="No")
+			link_obj.save()
 		return output 
 
-	def fetch_cases_html(self):
-		_foo = []
-		url_list = self.get_title_links_urls()
-		for title, pos in url_list.items():
-			for _temp in pos:
-				_html = FetchHtml(url=_temp).fetcher()
-				_tags = self.linklist(_html)
-				_foo.append(_tags)
-		first = len(_foo)
-		print(f"============={first}=====================")
-		return _foo
-
+	def fetch_links(self):
+		for title, url in self.get_title_links_urls().itmes():
+			_html = FetchHtml(url=url).fetcher() 
+			self.links(_html, title)
+	
 
 class GetProblem():
-	
-	def __init__(self):	
-		self.db = Session()
+
 
 	def get_tags(self, current_title, current_url):
 		current_title = str(current_title)
@@ -191,69 +184,12 @@ class GetProblem():
 		chief_complaint = str(problem_text["value"])
 		return chief_complaint
 
-	def get_last_page(self, current_page_html):
-		_tag = FindSingleTag(html=current_page_html, tag="select", class_name="reply-pagination").get_single_tags()
-		if _tag:
-			options = FindAllTags(html=_tag, tag="option").get_without_class()
-			last_page = options[-1]["value"]
-			page = int(last_page)
-			return page
-		return 0
-
-	def no_of_reply(self, curent_page_html):
-		no_of_reply = self.get_last_page(curent_page_html)
-		return no_of_reply
-
-	def fetch_reply_page_links(self, current_url, current_page_html):
-		_temp = []
-		for page in range(self.get_last_page(current_page_html)):
-			reply_url = current_url + f"?order=oldest&page={page}"
-			_temp.append(reply_url)
-		return _temp
-
-	def divs(self, reply_url):
-		reply_html = FetchHtml(url=reply_url).fetcher()
-		div_= FindSingleTag(html=reply_html, tag="div", class_name="reply").get_single_tags()
-		return div_
-
-	def reply_counts(self, div_):
-		if div_:
-			No_of_comments = FindSingleTag(html=div_, tag="h2", class_name="reply__title u-h4").get_single_tags()
-			No_of_comment = None
-			if No_of_comments:
-				No_of_comment = No_of_comments.text
-			return No_of_comment
-	
-	def get_articles(self, div_):
-		lists_of = []
-		get_articles = FindAllTags(html=div_, tag="article", class_name="post post__root").get_all_tags()
-		for art in get_articles:
-			comment_thread = ""
-			try:
-				reply_author = FindAllTags(html=art, tag="a", class_name="author__name").get_all_tags()
-				reciept_author = FindAllTags(html=art, tag="a", class_name="author__recipient").get_all_tags()
-			except Exception as e:
-				print(e)
-				reply_author = "None"
-				reciept_author = "None"
-				pass
-
-			reply_list = FindAllTags(html=art, tag="input",class_name="moderation-conent").get_all_tags()
-			if reply_list:
-				for a, b, c  in zip(reply_author, reciept_author, reply_list):
-					a = a.text
-					b = b.text
-					reply = c["value"]
-					comment_thread += f"{a}={b}|{reply} --> "
-			lists_of.append(comment_thread)
-
-		return lists_of
-
 	def run_appliction(self):
-		link_data = self.db.query(LinkConfig).filter_by(status="No").all()
+		link_data = LinkConfig.objects.filter(main_status="No").all()
 		print(len(link_data))
 		for row in link_data:
 			current_title = row.title
+			current_heading = row.heading
 			current_url = row.link 
 			print()
 			print("wait..")
@@ -264,64 +200,121 @@ class GetProblem():
 			author = self.get_author(current_html_page)
 			print("case data...")
 			case = self.get_main_case(current_html_page)
-			data = Main_Data( sub_heading=current_title,\
+
+			data = main_data(title=current_title,\
+											sub_heading=current_heading,\
 											main_problem=case,\
 											author_name=author)
-			self.db.add(data)
-			self.db.commit()
-			case_id = data.id
-			url_list = self.fetch_reply_page_links(current_url, current_html_page)
-			print(url_list)
-			for url in url_list:
-				div_ = self.divs(url)
-				counts = self.reply_counts(div_)
-				reply_data = self.get_articles(div_)
-				print(f"=================+{reply_data}+==================")
-				thread = reply_data[0].split("-->")
-				main_head = thread[0]
-				foo = main_head.split("|")
-				print(foo)
-				if len(foo) >= 2:
-					reply = foo[1]
-					author, recipient = foo[0].split("=")[0], foo[0].split("=")[1]
-					reply_obj = Reply_Data(
-										case_id=case_id,\
-										author=author,\
-										recipient=recipient,  
-										reply=reply, 
-										)
-					self.db.add(reply_obj)
-					self.db.commit()
-					reply_id = reply_obj.id
-					print(f"==========={len(thread)}========")
-					if len(thread) >= 2:
-						for index in range(1,len(thread)):
-							if thread[index] or thread[index] != " ":
-								print(thread[index])
-								print(len(thread[index]))
-								foo1 = thread[index].split("|")
-								print(foo1)
-								if len(foo1) >= 2:
-									
-									reply = foo1[1]
-									author, recipient = foo1[0].split("=")[0], foo1[0].split("=")[1]
+			data.save()
 
-									thread_data = Reply_thread(reply_id=reply_id,
-															author=author,
-															recipient=recipient, 
-															reply=reply, 
-																	)
-									self.db.add(thread_data)
-									self.db.commit()
+
+class ReplyFunc():
+
+	def get_ids(self, sub_heading):
+		obj = self.db.query(Main_Data).filter_by(sub_heading=sub_heading)
+		return obj.id
+
+	def get_list(self):
+		lists = [title.sub_heading for title in self.db.query(Main_Data).all()]
+		return lists
+
+	def get_html(self, url=None):
+		_html = FetchHtml(url=reply_url).fetcher()
+		iogging.info("feching html")
+		return _html
+
+	def reply_page_no(self, _html):
+		select_tag = FindSingleTag(html=_html, tag="select", class_name="submit reply__control reply-pagination").get_single_tags()
+		if select_tag:
+			options = FindAllTags(html=select_tag, tag="option").get_without_class()
+			if len(options) > 0:
+				last_page = options[-1]["value"]
+				page = int(last_page)
+				return page
+
+	def reply_page_links(self, _html):
+		_temp = []
+		for link in range(self.reply_page_no(_html)):
+			reply_url = current_url + f"?order=oldest&page={page}"
+			_temp.append(reply_url)
+		return _temp
+		
+	def get_unorder_list(self, _html):
+		lists = self.FindSingleTag(html=_html, tag="ul", class_name="comments").get_single_tags()
+		if lists:
+			all_lists = self.FindAllTags(html=lists, tag="li", class_name="comment").get_all_tags()
+			return all_lists
+		return None
+
+	def get_author(self, _html):
+		author_tag = self.FindSingleTag(html=_html, tag="a", class_name="author__name").get_single_tags()
+		if author_tag:
+			author = author_tag.text
+			return author
+		return None
+
+	def get_recipient(self, _html):
+		recipient_tag = self.FindSingleTag(html=_html, tag="a", class_name="author__recipient").get_single_tags()
+		if recipient_tag:
+			recipient = recipient_tag.text
+			return recipient
+		return None
+
+	def get_unorder_list_second(self, _html):
+		lists = self.FindSingleTag(html=_html, tag="ul", class_name="comments comments--nested").get_single_tags()
+		if lists:
+			all_lists = self.FindAllTags(html=lists, tag="li", class_name="comment comment--nested").get_all_tags()
+			return all_lists	
+		return all_lists
+
+	def get_reply(self, _html):
+		input_tag = self.FindSingleTag(html=_html, tag="input", class_name="moderation-conent").get_single_tags()
+		if input_tag:
+			reply = input_tag["value"]
+			return reply
 	
-			obj = self.db.query(LinkConfig).filter_by(link=current_url).first()
-			obj.status = "yes"
-			self.db.add(obj)
-			self.db.commit()
+	def run(self):
 
+		link_data = LinkConfig.objects.filter(reply_status="No").all()
+		 for obj in link_data:
+		 	logging.info("fetching reply page")
+		 	current_url = obj.link
+		 	current_heading = obj.heading
+		 	ids = self.get_ids(current_heading)
+		 	_html = self.get_html(url=current_url)
+		 	list_of_link = self.reply_page_links(_html)
+		 	for link in list_of_link:
+		 		reply_page_html = self.get_html(url=link)
+		 		for li in self.get_unorder_list(reply_page_html):
+		 			author = self.get_author(li)
+		 			recipient = self.get_recipient(li)
+		 			reply = self.get_reply(li)
+		 			logging.info("fetching reply data")
+		 			obj = ReplyData(case_id=ids,\
+		 								author=author,\
+		 								recipient=recipient,\
+		 								reply=reply)
+		 			obj.save()
+		 			reply_id = obj.id
+		 			for sec_li in self.get_unorder_list_second(li):
+		 				author = self.get_author(li)
+		 				recipient = self.get_recipient(li)
+		 				reply = self.get_reply(li)
+		 				logging.info("fetching reply thread data")
+
+		 				threadobj = ReplyThread(reply_id=reply_id,\
+		 								author=author,\
+		 								recipient=recipient,\
+		 								reply=reply)
+		 				threadobj.save() 
 
 
 if __name__ == "__main__":
-	testing = GetProblem()
-	print(testing.run_appliction())
-	pass
+	first = FetchMainPage()
+	first.linklist()
+	sec = FetchCasesLinks()
+	sec.fetch_links()
+	thr = GetProblem()
+	thr.run_appliction()
+	frt = ReplyFunc()
+	frt.run()

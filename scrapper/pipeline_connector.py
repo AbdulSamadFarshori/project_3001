@@ -12,10 +12,19 @@ class DataUploader(object):
 		self.db = Session()
 
 
-	def row2dict(self, row):
-		d = {}
-		for column in row.__table__.columns:
-			d[column.name] = str(getattr(row, column.name))
+	def row2dict(self):
+		d = []
+		f = set([])
+		reply = self.db.query(Reply_Data).all()
+		for ids in reply:
+			c_d = ids.case_id
+			f.add(c_d)
+		for i in f:
+			case = self.db.query(Main_Data).filter_by(id=i).first()
+			d.append(case)
+		print(len(d))
+		print(d[0].id)
+		print(d[0].sub_heading)
 		return d
 
 	def http_requester(self, method=None, url=None, headers=None, data=None):
@@ -29,12 +38,10 @@ class DataUploader(object):
 		return "only post request send!"
 
 	def send_main_data(self):
-		data = self.db.query(Main_Data).all()
-		for obj in data[3954:6000]:
-			if obj:
-				_foo = self.row2dict(obj)
-				res = self.http_requester(method="post", url="https://abdulsamad.pythonanywhere.com/apis/main-data", data=_foo)
-				print("data sending...")
+		
+				
+		res = self.http_requester(method="post", url="https://abdulsamad.pythonanywhere.com/apis/main-data", data=_foo)
+		print("data sending...")
 		return "done"
 
 	def send_reply_data(self):
@@ -70,6 +77,6 @@ class DataUploader(object):
 
 if __name__ == "__main__":
 	run = DataUploader()
-	run.start_uploading()
+	run.row2dict()
 	exit()
 
