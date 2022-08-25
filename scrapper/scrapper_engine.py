@@ -158,7 +158,7 @@ class FetchCasesLinks():
 		return output 
 
 	def fetch_links(self):
-		for title, url in self.get_title_links_urls().itmes():
+		for title, url in self.get_title_links_urls().items():
 			_html = FetchHtml(url=url).fetcher() 
 			self.links(_html, title)
 	
@@ -274,39 +274,31 @@ class ReplyFunc():
 			return reply
 	
 	def run(self):
-
 		link_data = LinkConfig.objects.filter(reply_status="No").all()
-		 for obj in link_data:
-		 	logging.info("fetching reply page")
-		 	current_url = obj.link
-		 	current_heading = obj.heading
-		 	ids = self.get_ids(current_heading)
-		 	_html = self.get_html(url=current_url)
-		 	list_of_link = self.reply_page_links(_html)
-		 	for link in list_of_link:
-		 		reply_page_html = self.get_html(url=link)
-		 		for li in self.get_unorder_list(reply_page_html):
-		 			author = self.get_author(li)
-		 			recipient = self.get_recipient(li)
-		 			reply = self.get_reply(li)
-		 			logging.info("fetching reply data")
-		 			obj = ReplyData(case_id=ids,\
-		 								author=author,\
-		 								recipient=recipient,\
-		 								reply=reply)
-		 			obj.save()
-		 			reply_id = obj.id
-		 			for sec_li in self.get_unorder_list_second(li):
-		 				author = self.get_author(li)
-		 				recipient = self.get_recipient(li)
-		 				reply = self.get_reply(li)
-		 				logging.info("fetching reply thread data")
-
-		 				threadobj = ReplyThread(reply_id=reply_id,\
-		 								author=author,\
-		 								recipient=recipient,\
-		 								reply=reply)
-		 				threadobj.save() 
+		for obj in link_data:
+			logging.info("fetching reply page")
+			current_url = obj.link
+			current_heading = obj.heading
+			ids = self.get_ids(current_heading)
+			_html = self.get_html(url=current_url)
+			list_of_link = self.reply_page_links(_html)
+			for link in list_of_link:
+				reply_page_html = self.get_html(url=link)
+				for li in self.get_unorder_list(reply_page_html):
+					author = self.get_author(li)
+					recipient = self.get_recipient(li)
+					reply = self.get_reply(li)
+					logging.info("fetching reply data")
+					obj = ReplyData(case_id=ids,author=author,recipient=recipient,reply=reply)
+					obj.save()
+					reply_id = obj.id
+					for sec_li in self.get_unorder_list_second(li):
+						author = self.get_author(li)
+						recipient = self.get_recipient(li)
+						reply = self.get_reply(li)
+						logging.info("fetching reply thread data")
+						threadobj = ReplyThread(reply_id=reply_id,author=author,recipient=recipient,reply=reply)
+						threadobj.save() 
 
 
 if __name__ == "__main__":
