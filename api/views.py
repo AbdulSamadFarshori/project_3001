@@ -126,10 +126,10 @@ class ReplyDataApiView(APIView):
 		try:
 			_temp ={}
 			case_id = request.data.get("case_id")
-			author_name = request.data.get("author_name")
+			author_name = request.data.get("author")
 			recipient = request.data.get("recipient")
 			reply = request.data.get("reply")
-			case_obj = main_data.objects.filter(author=recipient).first()
+			case_obj = main_data.objects.filter(author_name=recipient).first()
 			if case_obj:
 				_temp[case_obj.id] = [case_obj.recipient, case_id]
 			# reply_obj = ReplyData(case_id=case_obj,author=author_name,recipient=recipient,reply=reply)
@@ -146,7 +146,7 @@ class ReplyThreadApiView(APIView):
 		try:
 			logging.error(f"++++{request.data}++++++")
 			reply_id = request.data.get("reply_id")
-			author = request.data.get("author_name")
+			author = request.data.get("author")
 			recipient = request.data.get("recipient")
 			reply = request.data.get("reply")
 			case_obj = ReplyData.objects.filter(id=reply_id).first()
