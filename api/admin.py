@@ -3,15 +3,15 @@ from .models import main_data,  response, keywords, CompletedCase, ReplyData, Re
  
 @admin.register(main_data)
 class MainDataAdmin(admin.ModelAdmin):
-  list_display = ['id', 'heading', 'sub_heading', 'main_problem' ,'author_name']
+  list_display = ['sub_heading', 'main_problem' ,'author_name']
 
 @admin.register(ReplyData)
-class MainDataAdmin(admin.ModelAdmin):
-  list_display = ['id', 'case_id', 'author', 'recipient' ,'reply']
+class ReplyDataAdmin(admin.ModelAdmin):
+  list_display = ['case_id', 'author', 'recipient' ,'reply']
 
 @admin.register(ReplyThread)
-class MainDataAdmin(admin.ModelAdmin):
-  list_display = ['id', 'case_id', 'author', 'recipient' ,'reply']
+class ReplyThreadAdmin(admin.ModelAdmin):
+  list_display = ['reply_id', 'author', 'recipient' ,'reply']
 
 @admin.register(response)
 class ResponseAdmin(admin.ModelAdmin):
