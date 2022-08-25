@@ -96,12 +96,15 @@ class RegisterApiView(APIView):
 class MainDataApiView(APIView):
 
 	def post(self, request):
-		sub_heading = request.data.get("sub_heading")
-		main_problem = request.data.get("main_problem")
-		author_name = request.data.get("author_name")
-		logging.error(f"++++{sub_heading}, {author_name}++++++")
-		main_obj = main_data(sub_heading=sub_heading, main_problem=main_problem,author_name=author_name)
-		#main_obj.save()
+		try:
+			sub_heading = request.data.get("sub_heading")
+			main_problem = request.data.get("main_problem")
+			author_name = request.data.get("author_name")
+			main_obj = main_data(sub_heading=sub_heading, main_problem=main_problem,author_name=author_name)
+			main_obj.save()
+
+		except Exception as e:
+			logging.error(f" ----->  {e}")
 		return Response({"msg":"uploaded!!"})
 
 
@@ -109,28 +112,34 @@ class MainDataApiView(APIView):
 class ReplyDataApiView(APIView):
 
 	def post(self, request):
-		logging.error(f"++++{request.data}++++++")
-		case_id = request.data.get("case_id")
-		author_name = request.data.get("author_name")
-		recipient = request.data.get("recipient")
-		reply = request.data.get("reply")
-		case_obj = main_data.objects.filter(id=case_id).first()
-		reply_obj = ReplyData(case_id=case_obj,author=author_name,recipient=recipient,reply=reply)
-		#reply_obj.save()
+		try:
+			case_id = request.data.get("case_id")
+			author_name = request.data.get("author_name")
+			recipient = request.data.get("recipient")
+			reply = request.data.get("reply")
+			case_obj = main_data.objects.filter(id=case_id).first()
+			reply_obj = ReplyData(case_id=case_obj,author=author_name,recipient=recipient,reply=reply)
+			reply_obj.save()
+		except Exception as e:
+			logging.error(f" ----->  {e}")
+
 		return Response({"msg":"uploaded!!"})
 
 
 class ReplyThreadApiView(APIView):
 
 	def post(self, request):
-		logging.error(f"++++{request.data}++++++")
-		reply_id = request.data.get("reply_id")
-		author = request.data.get("author_name")
-		recipient = request.data.get("recipient")
-		reply = request.data.get("reply")
-		case_obj = ReplyData.objects.filter(id=reply_id).first()
-		reply_obj = ReplyThread(case_id=case_obj,author=author_name,recipient=recipient,reply=reply)
-		#reply_obj.save()
+		try:
+			logging.error(f"++++{request.data}++++++")
+			reply_id = request.data.get("reply_id")
+			author = request.data.get("author_name")
+			recipient = request.data.get("recipient")
+			reply = request.data.get("reply")
+			case_obj = ReplyData.objects.filter(id=reply_id).first()
+			reply_obj = ReplyThread(case_id=case_obj,author=author_name,recipient=recipient,reply=reply)
+			reply_obj.save()
+		except Exception as e:
+			logging.error(f" ----->  {e}")
 		return Response({"msg":"uploaded!!"})
 
 class ResponseApiView(APIView):
