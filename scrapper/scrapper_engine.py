@@ -277,7 +277,6 @@ class ReplyFunc():
 			logging.info("fetching reply page")
 			current_url = obj.link
 			current_heading = obj.heading
-			ids = self.get_ids(current_heading)
 			_html = self.get_html(url=current_url)
 			list_of_link = self.reply_page_links(_html)
 			for link in list_of_link:
