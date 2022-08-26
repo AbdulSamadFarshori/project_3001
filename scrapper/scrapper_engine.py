@@ -305,8 +305,8 @@ if __name__ == "__main__":
 		# first.linklist()
 		# sec = FetchCasesLinks()
 		# sec.fetch_links()
-		thr = GetProblem()
-		thr.run_appliction()
+		# thr = GetProblem()
+		# thr.run_appliction()
 		frt = ReplyFunc()
 		frt.run()
 	except Exception as e:
