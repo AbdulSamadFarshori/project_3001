@@ -305,10 +305,10 @@ class ReplyFunc():
 
 if __name__ == "__main__":
 	try:
-		first = FetchMainPage()
-		first.linklist()
-		sec = FetchCasesLinks()
-		sec.fetch_links()
+		# first = FetchMainPage()
+		# first.linklist()
+		# sec = FetchCasesLinks()
+		# sec.fetch_links()
 		thr = GetProblem()
 		thr.run_appliction()
 		frt = ReplyFunc()
