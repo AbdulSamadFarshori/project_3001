@@ -17,7 +17,7 @@ print(BASE_DIR)
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "controller.settings")
 django.setup()
 
-from api.models import main_data, ReplyData, ReplyThread, LinkConfig, ReplyLinkConfig
+from api.models import main_data, ReplyData, ReplyThread, LinkConfig
 
 
 class FetchHtml():
@@ -296,7 +296,7 @@ class ReplyFunc():
 					logging.info("fetching reply data")
 					foo = ReplyData(case_id=ids,author=author,recipient=recipient,reply=reply)
 					foo.save()
-					link_data.reply_status = "yes" 
+					obj.reply_status = "yes" 
 					reply_id = foo.id
 					for sec_li in self.get_unorder_list_second(li):
 						author = self.get_author(li)
@@ -305,7 +305,7 @@ class ReplyFunc():
 						logging.info("fetching reply thread data")
 						threadobj = ReplyThread(reply_id=reply_id,author=author,recipient=recipient,reply=reply)
 						threadobj.save()
-			link_data.save()
+			obj.save()
 
 if __name__ == "__main__":
 	try:
