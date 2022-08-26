@@ -13,29 +13,6 @@ from core.factory import authenticated, create_hash_key, make_hash, create_user
 from website.models import Cookies
 import logging
 
-
-# -------------------------------------------->
-
-# class GetDataFromBitIo(generics.ListAPIView):
-# 	queryset = main_data.objects.all()
-# 	serializer_class = MainData
-
-# 	def list(self, request):
-# 		queryset = main_data.objects.all()
-# 		if queryset:
-# 		    serializer = MainData(queryset, many=True)
-# 		    return Response(serializer.data)
-# 		else:			
-# 			dict_data = data
-# 			for row in dict_data:
-# 			    main_data_object = main_data(**row)
-# 			    main_data_object.save()
-# 			serializer = MainData(queryset, many=True)
-# 			return Response(serializer.data)
-# 		return Response({"msg":"error"})
-
-# ------------------------------------------------------>
-
 class LoginView(APIView):
 	
 	def post(self, request):
@@ -99,61 +76,27 @@ class RegisterApiView(APIView):
 
 class MainDataApiView(APIView):
 
-	def post(self, request):
-		try:
-			sub_heading = request.data.get("sub_heading")
-			main_problem = request.data.get("main_problem")
-			author_name = request.data.get("author_name")
-			main_obj = main_data(sub_heading=sub_heading, main_problem=main_problem,author_name=author_name)
-			main_obj.save()
-
-		except Exception as e:
-			logging.error(f" ----->  {e}")
-		return Response({"msg":"uploaded!!"})
-
 	def get(self, request):
 		queryset = main_data.objects.all()
 		serializer = MainData(queryset, many=True)
 		return Response(serializer.data)
 
 
-
-
 class ReplyDataApiView(APIView):
 
-	def post(self, request):
-		try:
-			_temp ={}
-			case_id = request.data.get("case_id")
-			author_name = request.data.get("author")
-			recipient = request.data.get("recipient")
-			reply = request.data.get("reply")
-			case_obj = main_data.objects.filter(author_name=recipient).first()
-			if case_obj:
-				_temp[case_obj.id] = [case_obj.recipient, case_id]
-			# reply_obj = ReplyData(case_id=case_obj,author=author_name,recipient=recipient,reply=reply)
-			# reply_obj.save()
-		except Exception as e:
-			logging.error(f" ----->  {e}")
-
-		return Response({"msg":"uploaded!!", "data":_temp})
-
+	def get(self, request):
+		queryset = main_data.objects.all()
+		serializer = ReplyData(queryset, many=True)
+		return Response(serializer.data)
+		
 
 class ReplyThreadApiView(APIView):
 
-	def post(self, request):
-		try:
-			logging.error(f"++++{request.data}++++++")
-			reply_id = request.data.get("reply_id")
-			author = request.data.get("author")
-			recipient = request.data.get("recipient")
-			reply = request.data.get("reply")
-			case_obj = ReplyData.objects.filter(id=reply_id).first()
-			reply_obj = ReplyThread(case_id=case_obj,author=author,recipient=recipient,reply=reply)
-			reply_obj.save()
-		except Exception as e:
-			logging.error(f" ----->  {e}")
-		return Response({"msg":"uploaded!!"})
+	def get(self, request):
+		queryset = main_data.objects.all()
+		serializer = ReplyThread(queryset, many=True)
+		return Response(serializer.data)
+
 
 class ResponseApiView(APIView):
 

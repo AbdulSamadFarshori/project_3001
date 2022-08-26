@@ -215,13 +215,6 @@ class GetProblem():
 
 class ReplyFunc():
 
-	def get_ids(self, sub_heading):
-		obj = self.db.query(Main_Data).filter_by(sub_heading=sub_heading)
-		return obj.id
-
-	def get_list(self):
-		lists = [title.sub_heading for title in self.db.query(Main_Data).all()]
-		return lists
 
 	def get_html(self, url=None):
 		_html = FetchHtml(url=reply_url).fetcher()
