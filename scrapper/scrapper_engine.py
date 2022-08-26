@@ -218,7 +218,7 @@ class ReplyFunc():
 
 	def get_html(self, url=None):
 		_html = FetchHtml(url=url).fetcher()
-		iogging.info("feching html")
+		logging.info("feching html")
 		return _html
 
 	def reply_page_no(self, _html):
