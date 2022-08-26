@@ -209,8 +209,8 @@ class GetProblem():
 											author_name=author)
 			data.save()
 
-			link_data.main_status = "yes"
-			link_data.save()
+			row.main_status = "yes"
+			row.save()
 
 
 class ReplyFunc():
