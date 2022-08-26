@@ -217,7 +217,7 @@ class ReplyFunc():
 
 
 	def get_html(self, url=None):
-		_html = FetchHtml(url=reply_url).fetcher()
+		_html = FetchHtml(url=url).fetcher()
 		iogging.info("feching html")
 		return _html
 
