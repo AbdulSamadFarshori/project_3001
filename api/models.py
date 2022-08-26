@@ -80,3 +80,13 @@ class LinkConfig(models.Model):
 
 	def __str__(self):
 		return self.title
+
+class ReplyLinkConfig(models.Model):
+	reply_id = models.IntegerField()
+	link = models.CharField(max_length=255)
+	reply_link = models.CharField(max_length=255)
+	reply_status = models.CharField(max_length=255)
+	sub_reply_status = models.CharField(max_length=255)
+
+	def __str__(self):
+		return self.title
