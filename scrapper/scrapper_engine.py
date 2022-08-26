@@ -161,7 +161,7 @@ class FetchCasesLinks():
 		for title, url in self.get_title_links_urls().items():
 			logging.error(f"----> {url}")
 			for links in url:
-				_html = FetchHtml(url=url).fetcher() 
+				_html = FetchHtml(url=links).fetcher() 
 				self.links(_html, title)
 	
 
