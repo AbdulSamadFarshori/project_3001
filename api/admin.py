@@ -3,7 +3,7 @@ from .models import main_data,  response, keywords, CompletedCase, ReplyData, Re
  
 @admin.register(main_data)
 class MainDataAdmin(admin.ModelAdmin):
-  list_display = ['sub_heading', 'main_problem' ,'author_name']
+  list_display = ['id', 'title', 'sub_heading', 'main_problem' ,'author_name']
 
 @admin.register(ReplyData)
 class ReplyDataAdmin(admin.ModelAdmin):

@@ -10,30 +10,29 @@ from rest_framework.views import APIView
 from django.contrib.auth import get_user_model
 from rest_framework import status
 from core.factory import authenticated, create_hash_key, make_hash, create_user
-from core.bitio_connector.connector import data
 from website.models import Cookies
 import logging
 
 
 # -------------------------------------------->
 
-class GetDataFromBitIo(generics.ListAPIView):
-	queryset = main_data.objects.all()
-	serializer_class = MainData
+# class GetDataFromBitIo(generics.ListAPIView):
+# 	queryset = main_data.objects.all()
+# 	serializer_class = MainData
 
-	def list(self, request):
-		queryset = main_data.objects.all()
-		if queryset:
-		    serializer = MainData(queryset, many=True)
-		    return Response(serializer.data)
-		else:			
-			dict_data = data
-			for row in dict_data:
-			    main_data_object = main_data(**row)
-			    main_data_object.save()
-			serializer = MainData(queryset, many=True)
-			return Response(serializer.data)
-		return Response({"msg":"error"})
+# 	def list(self, request):
+# 		queryset = main_data.objects.all()
+# 		if queryset:
+# 		    serializer = MainData(queryset, many=True)
+# 		    return Response(serializer.data)
+# 		else:			
+# 			dict_data = data
+# 			for row in dict_data:
+# 			    main_data_object = main_data(**row)
+# 			    main_data_object.save()
+# 			serializer = MainData(queryset, many=True)
+# 			return Response(serializer.data)
+# 		return Response({"msg":"error"})
 
 # ------------------------------------------------------>
 
