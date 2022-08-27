@@ -40,6 +40,7 @@ class FormSubmitView(APIView):
 	def post(self, request):
 		username = request.POST.get("username")
 		asking = request.POST.get("asking")
+		need = request.POST.get("need")
 		keyword = request.POST.getlist("keyword[]")
 		score = int(request.POST.get("score"))
 		summary = request.POST.get("summary")
@@ -49,8 +50,9 @@ class FormSubmitView(APIView):
 		if reply and summary:
 			response_object = response(
 								case_id=main_object, 
-								counsellor=username,
-								petient_asking=asking, 
+								counselor=username,
+								patient_asking=asking,
+								patient_need=need, 
 								relavent_score=score, 
 								summary=summary, 
 								reply=reply

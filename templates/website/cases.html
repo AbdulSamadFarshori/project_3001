@@ -39,6 +39,7 @@ $( document ).ready(function() {
 
   if (window.sessionStorage.getItem('xr') == null){
     window.location.replace("/login")
+    ses
   }
 
     var temp = [];
@@ -190,7 +191,7 @@ function submitForm(){
   var summary = $("#summary").val();
   var reply = $("#reply").val();
   var case_id = sessionStorage.getItem('no');
-  var need_for = $('.form-check-input need:checked').val();
+  var need_for = $('.form-check-input.need:checked').val();
   console.log(need_for); 
   if ($('.form-check-input:checked').val() == "other"){
 
@@ -206,14 +207,15 @@ function submitForm(){
               "case_id":case_id, 
               "username":username,
               "asking": checkbox,
+              "need": need_for,
               "keyword":keywords, 
               "score":score, 
               "summary":summary,
-               "reply":reply
+              "reply":reply
              }
   $.ajax({
-    // url: "/apis/submit",
-    // method:"POST",
+    url: "/apis/submit",
+    method:"POST",
     data:data,
     dataType:"json",
     ContentType: "application/json",
@@ -333,7 +335,7 @@ function submitForm(){
                       </label>
                     </div> -->
                     <div class="form-check need-list">
-                      <input class="form-check-input need" type="radio" name="flexRadioDefault1" id="medicine" value="medicine">
+                      <input class="form-check-input need" type="radio" name="flexRadioDefault1" id="medicine" value="medicine" checked>
                       <label class="form-check-label" for="flexRadioDefault2">
                         Medicine (Psychiatrist)
                       </label>
