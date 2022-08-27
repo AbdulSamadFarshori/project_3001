@@ -215,6 +215,11 @@ class GetProblem():
 
 class ReplyFunc():
 
+	def get_id(heading):
+		obj = main_data.objects.filter(sub_heading=heading).first()
+		if obj:
+			ids = obj.id
+			return ids
 
 	def get_html(self, url=None):
 		_html = FetchHtml(url=url).fetcher()
@@ -279,6 +284,7 @@ class ReplyFunc():
 			logging.info("fetching reply page")
 			current_url = obj.link
 			current_heading = obj.heading
+			ids = self.get_id(current_heading)
 			_html = self.get_html(url=current_url)
 			list_of_link = self.reply_page_links(_html, current_url)
 			for link in list_of_link:
