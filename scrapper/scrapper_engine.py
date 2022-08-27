@@ -215,7 +215,7 @@ class GetProblem():
 
 class ReplyFunc():
 
-	def get_id(heading):
+	def get_id(self, heading):
 		obj = main_data.objects.filter(sub_heading=heading).first()
 		if obj:
 			ids = obj.id
