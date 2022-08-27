@@ -28,7 +28,6 @@ class ReplyData(models.Model):
 		verbose_name_plural = "Reply Data"
 
 class ReplyThread(models.Model):
-	id = models.AutoField(primary_key=True)
 	reply_id = models.ForeignKey(main_data, on_delete=models.CASCADE)
 	author = models.CharField(max_length=255)
 	recipient = models.CharField(max_length=255)

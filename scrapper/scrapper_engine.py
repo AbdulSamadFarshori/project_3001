@@ -218,8 +218,7 @@ class ReplyFunc():
 	def get_id(self, heading):
 		obj = main_data.objects.filter(sub_heading=heading).first()
 		if obj:
-			ids = obj.id
-			return ids
+			return obj
 
 	def get_html(self, url=None):
 		_html = FetchHtml(url=url).fetcher()
@@ -298,13 +297,12 @@ class ReplyFunc():
 					foo = ReplyData(case_id=ids,author=author,recipient=recipient,reply=reply)
 					foo.save()
 					obj.reply_status = "yes" 
-					reply_id = foo.id
 					for sec_li in self.get_unorder_list_second(li):
 						author = self.get_author(li)
 						recipient = self.get_recipient(li)
 						reply = self.get_reply(li)
 						logging.info("fetching reply thread data")
-						threadobj = ReplyThread(reply_id=reply_id,author=author,recipient=recipient,reply=reply)
+						threadobj = ReplyThread(reply_id=foo,author=author,recipient=recipient,reply=reply)
 						threadobj.save()
 			obj.save()
 
