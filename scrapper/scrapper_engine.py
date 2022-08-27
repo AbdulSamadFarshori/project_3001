@@ -222,7 +222,9 @@ class ReplyFunc():
 		return _html
 
 	def reply_page_no(self, _html):
+		print(_html)
 		select_tag = FindSingleTag(html=_html, tag="select", class_name="submit reply__control reply-pagination").get_single_tags()
+		print(select_tag)
 		if select_tag:
 			options = FindAllTags(html=select_tag, tag="option").get_without_class()
 			print(options)
