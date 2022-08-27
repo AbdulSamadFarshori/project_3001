@@ -160,8 +160,8 @@ function nextData(){
     $(".page-item").removeClass("active");
     $("#summary").val('');
     $("#reply").val('');
-    $(".form-check-input:checked").prop("checked", false);
-    $(".form-check-input need:checked").prop("checked", false);
+    $(".form-check-input.ask:checked").prop("checked", false);
+    $(".form-check-input.need:checked").prop("checked", false);
     $("#other").val('');
     checked=null;
 
@@ -193,15 +193,16 @@ function submitForm(){
   var case_id = sessionStorage.getItem('no');
   var need_for = $('.form-check-input.need:checked').val();
   console.log(need_for); 
-  if ($('.form-check-input:checked').val() == "other"){
+  if ($('.form-check-input.ask:checked').val() == "other"){
 
     checkbox = $('#other').val();
   }
   else{
-    checkbox = $('.form-check-input:checked').val();
+    checkbox = $('.form-check-input.ask:checked').val();
   }
 
-
+  console.log(checkbox);
+  
   var data = {
 
               "case_id":case_id, 
@@ -274,37 +275,37 @@ function submitForm(){
                     <h5>Patient asking for</h5>
                     <br>
                     <div class="form-check">
-                      <input class="form-check-input" type="radio" name="flexRadioDefault" id="help" value="help">
+                      <input class="form-check-input ask" type="radio" name="flexRadioDefault" id="help" value="help">
                       <label class="form-check-label" for="flexRadioDefault1">
                         Help
                       </label>
                     </div>
                     <div class="form-check">
-                      <input class="form-check-input" type="radio" name="flexRadioDefault" id="support" value="support">
+                      <input class="form-check-input ask" type="radio" name="flexRadioDefault" id="support" value="support">
                       <label class="form-check-label" for="flexRadioDefault2">
                         Support
                       </label>
                     </div>
                     <div class="form-check">
-                      <input class="form-check-input" type="radio" name="flexRadioDefault" id="advice" value="advice">
+                      <input class="form-check-input ask" type="radio" name="flexRadioDefault" id="advice" value="advice">
                       <label class="form-check-label" for="flexRadioDefault2">
                         Advice
                       </label>
                     </div>
                     <div class="form-check">
-                      <input class="form-check-input" type="radio" name="flexRadioDefault" id="suggestion" value="suggestion">
+                      <input class="form-check-input ask" type="radio" name="flexRadioDefault" id="suggestion" value="suggestion">
                       <label class="form-check-label" for="flexRadioDefault2">
                         Suggestion
                       </label>
                     </div>
                     <div class="form-check">
-                      <input class="form-check-input" type="radio" name="flexRadioDefault" id="unclear" value="unclear">
+                      <input class="form-check-input ask" type="radio" name="flexRadioDefault" id="unclear" value="unclear">
                       <label class="form-check-label" for="flexRadioDefault2">
                         Unclear
                       </label>
                     </div>
                     <div class="form-check" id="checkother">
-                      <input class="form-check-input" type="radio" name="flexRadioDefault" id="other-check" value="other">
+                      <input class="form-check-input ask" type="radio" name="flexRadioDefault" id="other-check" value="other">
                       <label class="form-check-label" for="flexRadioDefault2">
                         Other
                       </label>
@@ -394,7 +395,7 @@ function submitForm(){
                     <br>
                     <nav aria-label="Page navigation example">
                     <ul class="pagination pagination-sm justify-content-center" id="scale">
-                      <li class="page-item" value = 1><a class="page-link">0</a></li>
+                      <li class="page-item" value = 0><a class="page-link">0</a></li>
                       <li class="page-item" value = 1><a class="page-link">1</a></li>
                       <li class="page-item" value = 2><a class="page-link">2</a></li>
                       <li class="page-item" value = 3><a class="page-link">3</a></li>
