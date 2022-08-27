@@ -27,6 +27,7 @@
 
 var globtemp;
 var globtitle;
+var globallink;
 var globid;
 var keywords = [];
 var checkbox;
@@ -43,9 +44,10 @@ $( document ).ready(function() {
     var temp = [];
     var title = [];
     var id = [];
+    var author = [];
     var visited_pages = []
     $.ajax({
-          url: "/apis/get-cases",
+          url: "/apis/main-data",
           type: "GET",
           dataType: "json",
           async: false,
@@ -57,6 +59,28 @@ $( document ).ready(function() {
               temp.push(data[i]["main_problem"])
               title.push(data[i]["sub_heading"])
               id.push(data[i]["id"])
+              author.push(data[i]["author_name"])
+            }
+              }
+            if (id.length == 0){
+              window.location.replace("/error404/")
+            }
+
+          } 
+      });
+
+    var links = [];
+    $.ajax({
+          url: "/apis/link",
+          type: "GET",
+          dataType: "json",
+          async: false,
+          ContentType: "application/json",
+          success: function(data){
+            var DoneList ={{done_list}};
+            for (let i = 0; i < data.length; i++){
+              if (DoneList.includes(data[i]["id"]) == false){
+              links.push(data[i]["link"])
             }
               }
             if (id.length == 0){
@@ -67,21 +91,26 @@ $( document ).ready(function() {
       });
 
   function randomData(){
-    let x = Math.floor((Math.random() * 2000) + 1)
+    let x = Math.floor((Math.random() * 37000) + 1)
     sessionStorage.setItem('pr', temp[x]);
     sessionStorage.setItem('no', id[x]);
     sessionStorage.setItem('tag', title[x]);
+    sessionStorage.setItem('author', author[x]);
+    sessionStorage.setItem('links', links[x])
     $("#text").html(temp[x]);
     $("#id").html("<h5> Case No: "+ id[x] + "</h5>");
     $("#title").html("<h5> Title - "+ title[x] + "</h5>");
+    $(".link").html("<p> case link - "+ links[x] +" </p" );
   }
   
   function dataPoint(){
     var text = sessionStorage.getItem('pr');
     var id_no = sessionStorage.getItem('no');
     var tag = sessionStorage.getItem('tag');
+    var link_add = sessionStorage.getItem('links');
 
     $("#text").html(text);
+    $(".link").html("<p> case link - "+link_add +" </p");
     $("#id").html("<h5> Case No: "+ id_no + "</h5>");
     $("#title").html("<h5> Title - "+ tag + "</h5>");  
   }
@@ -111,16 +140,19 @@ $("#checkother").on("click", function(){
 globtemp = temp;
 globid = id;
 globtitle = title;
+globallik = links
 });
 
 function nextData(){
-    let x = Math.floor((Math.random() * 4000) + 1)
+    let x = Math.floor((Math.random() * 37000) + 1)
     sessionStorage.setItem('pr', globtemp[x]);
     sessionStorage.setItem('no', globid[x]);
     sessionStorage.setItem('tag', globtitle[x]);
+    sessionStorage.setItem('links', globallink[x]);
     $("#text").html(globtemp[x]);
     $("#id").html("<h5> Case No: "+ globid[x] + "</h5>");
     $("#title").html("<h5> Title - "+ globtitle[x] + "</h5>");
+    $(".link").html("<p> case link - "+ globallink[x] +" </p" );
     $("#tags").html('');
     score = null;
     $(".page-item").removeClass("active");
@@ -211,6 +243,20 @@ function submitForm(){
                 </div>
                 <br>
             </div>
+            <div class="container h-100">
+              <div class="row align-items-center h-100">
+                <div class="col-12">
+                  <div class="card h-100 justify-content-center" style="padding: 10px;">
+                    <h5>Rating Severity</h5>
+                    <div class=links>
+                      
+                    </div>
+                    </div>
+                  <div>
+                </div>
+              </div>
+            </div>
+          </div>
             <br>
             <button type="button" class="btn btn-outline-primary" onclick="nextData()" style="float:rigth;">Next Case</button>
             <br>

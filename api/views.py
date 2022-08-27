@@ -1,10 +1,15 @@
 from django.shortcuts import render
 from rest_framework import generics
-from api.serializers import MainData 
+from api.serializers import (MainData, 
+							ReplyDataSerializer, 
+							ReplyThreadSerializer, 
+							LinkConfigSerializer
+							) 
 from api.models import (main_data, ReplyData, 
 						response, ReplyThread,
 						keywords, 
-						CompletedCase) 
+						CompletedCase,
+						LinkConfig) 
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.contrib.auth import get_user_model
@@ -95,6 +100,13 @@ class ReplyThreadApiView(APIView):
 	def get(self, request):
 		queryset = main_data.objects.all()
 		serializer = ReplyThread(queryset, many=True)
+		return Response(serializer.data)
+
+class LinkConfigApiView(APIView):
+
+	def get(self, request):
+		queryset = LinkConfig.objects.all()
+		serializer = LinkConfig(queryset, many=True)
 		return Response(serializer.data)
 
 

@@ -21,5 +21,6 @@ urlpatterns = [
     	path('user-register', RegisterApiView.as_view(), name='user_register' ),
     	path("main-data", MainDataApiView.as_view(), name="main_data_api"),
     	path("reply-data", ReplyDataApiView.as_view(), name="reply_data_api"),
-    	path("reply-thread", ReplyThreadApiView.as_view(), name="reply_thread_api")
+    	path("reply-thread", ReplyThreadApiView.as_view(), name="reply_thread_api"),
+    	path("links", ReplyThreadApiView.as_view(), name="link_api")
 		]
