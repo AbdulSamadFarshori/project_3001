@@ -150,6 +150,7 @@ function nextData(){
     sessionStorage.setItem('no', globid[x]);
     sessionStorage.setItem('tag', globtitle[x]);
     sessionStorage.setItem('links', globallink[x]);
+    console.log(globallink[x])
     $("#text").html(globtemp[x]);
     $("#id").html("<h5> Case No: "+ globid[x] + "</h5>");
     $("#title").html("<h5> Title - "+ globtitle[x] + "</h5>");
