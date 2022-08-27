@@ -297,7 +297,7 @@ class ReplyFunc():
 					foo = ReplyData(case_id=ids,author=author,recipient=recipient,reply=reply)
 					foo.save()
 					obj.reply_status = "yes" 
-					for sec_li in self.get_unorder_list_second(sec_li):
+					for sec_li in self.get_unorder_list_second(li):
 						author = self.get_author(sec_li)
 						recipient = self.get_recipient(sec_li)
 						reply = self.get_reply(sec_li)
