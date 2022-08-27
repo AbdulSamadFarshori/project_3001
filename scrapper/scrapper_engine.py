@@ -215,8 +215,8 @@ class GetProblem():
 
 class ReplyFunc():
 
-	def get_id(self, id):
-		obj = main_data.objects.filter(id=id).first()
+	def get_id(self, ids):
+		obj = main_data.objects.filter(id=ids).first()
 		if obj:
 			return obj
 
@@ -279,7 +279,7 @@ class ReplyFunc():
 		return None
 	
 	def run(self):
-		link_data = LinkConfig.objects.filter(reply_status="No").all()
+		link_data = LinkConfig.objects.all()
 		for obj in link_data:
 			logging.info("fetching reply page")
 			current_url = obj.link
