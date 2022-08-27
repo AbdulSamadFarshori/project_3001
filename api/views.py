@@ -91,7 +91,7 @@ class ReplyDataApiView(APIView):
 
 	def get(self, request):
 		queryset = main_data.objects.all()
-		serializer = ReplyData(queryset, many=True)
+		serializer = ReplyDataSerializer(queryset, many=True)
 		return Response(serializer.data)
 		
 
@@ -99,14 +99,14 @@ class ReplyThreadApiView(APIView):
 
 	def get(self, request):
 		queryset = main_data.objects.all()
-		serializer = ReplyThread(queryset, many=True)
+		serializer = ReplyThreadSerializer(queryset, many=True)
 		return Response(serializer.data)
 
 class LinkConfigApiView(APIView):
 
 	def get(self, request):
 		queryset = LinkConfig.objects.all()
-		serializer = LinkConfig(queryset, many=True)
+		serializer = LinkConfigSerializer(queryset, many=True)
 		return Response(serializer.data)
 
 
