@@ -110,7 +110,7 @@ $( document ).ready(function() {
     var link_add = sessionStorage.getItem('links');
 
     $("#text").html(text);
-    $(".links").html("<p> case link - <a href=" + links[x] +">"+ links[x] +"</a></p>");
+    $(".links").html("<p> case link - <a href=" + link_add +">"+ link_add +"</a></p>");
     $("#id").html("<h5> Case No: "+ id_no + "</h5>");
     $("#title").html("<h5> Title - "+ tag + "</h5>");  
   }
@@ -248,7 +248,7 @@ function submitForm(){
               <div class="row align-items-center h-100">
                 <div class="col-12">
                   <div class="card h-100 justify-content-center" style="padding: 10px;">
-                    <h5>Rating Severity</h5>
+                    <h5>Case Link</h5>
                     <div class="links">
                       
                     </div>
