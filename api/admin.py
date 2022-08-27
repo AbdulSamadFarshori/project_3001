@@ -15,7 +15,7 @@ class ReplyThreadAdmin(admin.ModelAdmin):
 
 @admin.register(response)
 class ResponseAdmin(admin.ModelAdmin):
-  list_display = ['case_id', 'counsellor', 'petient_asking', 'relavent_score' ,'summary', 'reply']
+  list_display = ['case_id', 'counselor', 'patient_asking', 'patient_need', 'relavent_score' ,'summary', 'reply']
 
 
 @admin.register(keywords)
