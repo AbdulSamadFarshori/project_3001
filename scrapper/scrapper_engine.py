@@ -232,7 +232,7 @@ class ReplyFunc():
 				return page
 		return 0
 
-	def reply_page_links(self, _html):
+	def reply_page_links(self, _html, current_url):
 		_temp = []
 		for link in range(self.reply_page_no(_html)):
 			reply_url = current_url + f"?order=oldest&page={page}"
@@ -280,7 +280,7 @@ class ReplyFunc():
 			current_url = obj.link
 			current_heading = obj.heading
 			_html = self.get_html(url=current_url)
-			list_of_link = self.reply_page_links(_html)
+			list_of_link = self.reply_page_links(_html, current_url)
 			for link in list_of_link:
 				logging.info(f"link -----> {link}")
 				reply_page_html = self.get_html(url=link)
