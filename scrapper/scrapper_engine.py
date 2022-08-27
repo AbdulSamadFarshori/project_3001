@@ -223,7 +223,6 @@ class ReplyFunc():
 
 	def reply_page_no(self, _html):
 		select_tag = FindSingleTag(html=_html, tag="select", class_name="submit reply__control reply-pagination").get_single_tags()
-		print(select_tag)
 		if select_tag:
 			options = FindAllTags(html=select_tag, tag="option").get_without_class()
 			print(options)
@@ -281,7 +280,6 @@ class ReplyFunc():
 			current_url = obj.link
 			current_heading = obj.heading
 			_html = self.get_html(url=current_url)
-			logging.info(f"_html ---> {_html}")
 			list_of_link = self.reply_page_links(_html)
 			for link in list_of_link:
 				logging.info(f"link -----> {link}")
