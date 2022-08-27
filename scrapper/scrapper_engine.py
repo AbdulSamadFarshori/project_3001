@@ -254,18 +254,17 @@ class ReplyFunc():
 		if author_tag:
 			author = author_tag.text
 			return author
-		return "uknown"
+		return None
 
 	def get_recipient(self, _html):
 		recipient_tag = FindSingleTag(html=_html, tag="a", class_name="author__recipient").get_single_tags()
 		if recipient_tag:
 			recipient = recipient_tag.text
 			return recipient
-		return "uknown"
+		return None
 
 	def get_unorder_list_second(self, _html):
 		lists = FindSingleTag(html=_html, tag="ul", class_name="comments comments--nested").get_single_tags()
-		print(lists)
 		if lists:
 			all_lists = FindAllTags(html=lists, tag="li", class_name="comment comment--nested").get_all_tags()
 			return all_lists	
@@ -276,6 +275,7 @@ class ReplyFunc():
 		if input_tag:
 			reply = input_tag["value"]
 			return reply
+		return None
 	
 	def run(self):
 		link_data = LinkConfig.objects.filter(reply_status="No").all()
@@ -294,8 +294,9 @@ class ReplyFunc():
 					recipient = self.get_recipient(li)
 					reply = self.get_reply(li)
 					logging.info("fetching reply data")
-					foo = ReplyData(case_id=ids,author=author,recipient=recipient,reply=reply)
-					foo.save()
+					if author and recipient and reply:
+						foo = ReplyData(case_id=ids,author=author,recipient=recipient,reply=reply)
+						foo.save()
 					obj.reply_status = "yes" 
 					for sec_li in self.get_unorder_list_second(li):
 						author = self.get_author(sec_li)
@@ -305,8 +306,9 @@ class ReplyFunc():
 						reply = self.get_reply(sec_li)
 						print(f"reply ----> {reply}")
 						logging.info("fetching reply thread data")
-						threadobj = ReplyThread(reply_id=foo,author=author,recipient=recipient,reply=reply)
-						threadobj.save()
+						if author and recipient and reply:
+							threadobj = ReplyThread(reply_id=foo,author=author,recipient=recipient,reply=reply)
+							threadobj.save()
 			obj.save()
 
 if __name__ == "__main__":
