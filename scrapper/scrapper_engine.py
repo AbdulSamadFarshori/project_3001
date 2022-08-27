@@ -29,7 +29,7 @@ class FetchHtml():
 		self.url = url
 
 	def fetcher(self):
-		response = requests.get(self.url, headers= self.headers, timeout=10)
+		response = requests.get(self.url, timeout=20)
 		html = BeautifulSoup(response.text, "html.parser")
 		return html
 
