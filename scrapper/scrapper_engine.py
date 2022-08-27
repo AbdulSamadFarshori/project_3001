@@ -225,6 +225,7 @@ class ReplyFunc():
 		select_tag = FindSingleTag(html=_html, tag="select", class_name="submit reply__control reply-pagination").get_single_tags()
 		if select_tag:
 			options = FindAllTags(html=select_tag, tag="option").get_without_class()
+			print(options)
 			if len(options) > 0:
 				last_page = options[-1]["value"]
 				page = int(last_page)
