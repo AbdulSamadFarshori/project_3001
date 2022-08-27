@@ -91,7 +91,7 @@ $( document ).ready(function() {
       });
 
   function randomData(){
-    let x = Math.floor((Math.random() * 37000) + 1)
+    let x = Math.floor((Math.random() * 1000) + 1)
     sessionStorage.setItem('pr', temp[x]);
     sessionStorage.setItem('no', id[x]);
     sessionStorage.setItem('tag', title[x]);
@@ -144,7 +144,7 @@ globallink = links;
 });
 
 function nextData(){
-    let x = Math.floor((Math.random() * 37000) + 1)
+    let x = Math.floor((Math.random() * 1000) + 1)
     sessionStorage.setItem('pr', globtemp[x]);
     sessionStorage.setItem('no', globid[x]);
     sessionStorage.setItem('tag', globtitle[x]);
