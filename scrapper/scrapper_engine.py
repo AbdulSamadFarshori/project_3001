@@ -229,7 +229,6 @@ class ReplyFunc():
 		select_tag = FindSingleTag(html=_html, tag="select", class_name="submit reply__control reply-pagination").get_single_tags()
 		if select_tag:
 			options = FindAllTags(html=select_tag, tag="option").get_without_class()
-			print(options)
 			if len(options) > 0:
 				last_page = options[-1]["value"]
 				page = int(last_page)
@@ -255,14 +254,14 @@ class ReplyFunc():
 		if author_tag:
 			author = author_tag.text
 			return author
-		return None
+		return "uknown"
 
 	def get_recipient(self, _html):
 		recipient_tag = FindSingleTag(html=_html, tag="a", class_name="author__recipient").get_single_tags()
 		if recipient_tag:
 			recipient = recipient_tag.text
 			return recipient
-		return None
+		return "uknown"
 
 	def get_unorder_list_second(self, _html):
 		lists = FindSingleTag(html=_html, tag="ul", class_name="comments comments--nested").get_single_tags()
@@ -288,7 +287,7 @@ class ReplyFunc():
 			_html = self.get_html(url=current_url)
 			list_of_link = self.reply_page_links(_html, current_url)
 			for link in list_of_link:
-				logging.info(f"link -----> {link}")
+				print(f"link -----> {link}")
 				reply_page_html = self.get_html(url=link)
 				for li in self.get_unorder_list(reply_page_html):
 					author = self.get_author(li)
@@ -298,10 +297,10 @@ class ReplyFunc():
 					foo = ReplyData(case_id=ids,author=author,recipient=recipient,reply=reply)
 					foo.save()
 					obj.reply_status = "yes" 
-					for sec_li in self.get_unorder_list_second(li):
-						author = self.get_author(li)
-						recipient = self.get_recipient(li)
-						reply = self.get_reply(li)
+					for sec_li in self.get_unorder_list_second(sec_li):
+						author = self.get_author(sec_li)
+						recipient = self.get_recipient(sec_li)
+						reply = self.get_reply(sec_li)
 						logging.info("fetching reply thread data")
 						threadobj = ReplyThread(reply_id=foo,author=author,recipient=recipient,reply=reply)
 						threadobj.save()
