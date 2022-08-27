@@ -240,7 +240,7 @@ class ReplyFunc():
 		return _temp
 		
 	def get_unorder_list(self, _html):
-		lists = self.FindSingleTag(html=_html, tag="ul", class_name="comments").get_single_tags()
+		lists = FindSingleTag(html=_html, tag="ul", class_name="comments").get_single_tags()
 		if lists:
 			all_lists = FindAllTags(html=lists, tag="li", class_name="comment").get_all_tags()
 			return all_lists
