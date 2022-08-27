@@ -242,33 +242,33 @@ class ReplyFunc():
 	def get_unorder_list(self, _html):
 		lists = self.FindSingleTag(html=_html, tag="ul", class_name="comments").get_single_tags()
 		if lists:
-			all_lists = self.FindAllTags(html=lists, tag="li", class_name="comment").get_all_tags()
+			all_lists = FindAllTags(html=lists, tag="li", class_name="comment").get_all_tags()
 			return all_lists
 		return None
 
 	def get_author(self, _html):
-		author_tag = self.FindSingleTag(html=_html, tag="a", class_name="author__name").get_single_tags()
+		author_tag = FindSingleTag(html=_html, tag="a", class_name="author__name").get_single_tags()
 		if author_tag:
 			author = author_tag.text
 			return author
 		return None
 
 	def get_recipient(self, _html):
-		recipient_tag = self.FindSingleTag(html=_html, tag="a", class_name="author__recipient").get_single_tags()
+		recipient_tag = FindSingleTag(html=_html, tag="a", class_name="author__recipient").get_single_tags()
 		if recipient_tag:
 			recipient = recipient_tag.text
 			return recipient
 		return None
 
 	def get_unorder_list_second(self, _html):
-		lists = self.FindSingleTag(html=_html, tag="ul", class_name="comments comments--nested").get_single_tags()
+		lists = FindSingleTag(html=_html, tag="ul", class_name="comments comments--nested").get_single_tags()
 		if lists:
-			all_lists = self.FindAllTags(html=lists, tag="li", class_name="comment comment--nested").get_all_tags()
+			all_lists = FindAllTags(html=lists, tag="li", class_name="comment comment--nested").get_all_tags()
 			return all_lists	
 		return all_lists
 
 	def get_reply(self, _html):
-		input_tag = self.FindSingleTag(html=_html, tag="input", class_name="moderation-conent").get_single_tags()
+		input_tag = FindSingleTag(html=_html, tag="input", class_name="moderation-conent").get_single_tags()
 		if input_tag:
 			reply = input_tag["value"]
 			return reply
