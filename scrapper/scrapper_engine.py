@@ -29,7 +29,7 @@ class FetchHtml():
 		self.url = url
 
 	def fetcher(self):
-		response = requests.get(self.url, headers= self.headers)
+		response = requests.get(self.url, headers= self.headers, timeout=10)
 		html = BeautifulSoup(response.text, "html.parser")
 		return html
 
@@ -221,6 +221,7 @@ class ReplyFunc():
 			return obj
 
 	def get_html(self, url=None):
+		print("waiting for html..")
 		_html = FetchHtml(url=url).fetcher()
 		logging.info("feching html")
 		return _html
