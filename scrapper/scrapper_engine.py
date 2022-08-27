@@ -303,14 +303,13 @@ class ReplyFunc():
 			obj.save()
 
 if __name__ == "__main__":
-	try:
-		# first = FetchMainPage()
-		# first.linklist()
-		# sec = FetchCasesLinks()
-		# sec.fetch_links()
-		# thr = GetProblem()
-		# thr.run_appliction()
-		frt = ReplyFunc()
-		frt.run()
-	except Exception as e:
-		logging.error(e)
+	
+	# first = FetchMainPage()
+	# first.linklist()
+	# sec = FetchCasesLinks()
+	# sec.fetch_links()
+	# thr = GetProblem()
+	# thr.run_appliction()
+	frt = ReplyFunc()
+	frt.run()
+	
