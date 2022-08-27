@@ -294,7 +294,7 @@ class ReplyFunc():
 					recipient = self.get_recipient(li)
 					reply = self.get_reply(li)
 					logging.info("fetching reply data")
-					if author and recipient and reply:
+					if author and reply:
 						foo = ReplyData(case_id=ids,author=author,recipient=recipient,reply=reply)
 						foo.save()
 					obj.reply_status = "yes"
@@ -306,7 +306,7 @@ class ReplyFunc():
 						print(f"recipient ----> {recipient}")
 						reply = self.get_reply(sec_li)
 						logging.info("fetching reply thread data")
-						if author and recipient and reply:
+						if author and reply:
 							threadobj = ReplyThread(reply_id=foo,author=author,recipient=recipient,reply=reply)
 							threadobj.save()
 
