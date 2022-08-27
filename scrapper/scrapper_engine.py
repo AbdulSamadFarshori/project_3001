@@ -215,8 +215,8 @@ class GetProblem():
 
 class ReplyFunc():
 
-	def get_id(self, heading):
-		obj = main_data.objects.filter(sub_heading=heading).first()
+	def get_id(self, id):
+		obj = main_data.objects.filter(id=id).first()
 		if obj:
 			return obj
 
@@ -283,7 +283,7 @@ class ReplyFunc():
 			logging.info("fetching reply page")
 			current_url = obj.link
 			current_heading = obj.heading
-			ids = self.get_id(current_heading)
+			ids = self.get_id(obj.id)
 			_html = self.get_html(url=current_url)
 			list_of_link = self.reply_page_links(_html, current_url)
 			for link in list_of_link:
@@ -297,7 +297,8 @@ class ReplyFunc():
 					if author and recipient and reply:
 						foo = ReplyData(case_id=ids,author=author,recipient=recipient,reply=reply)
 						foo.save()
-					obj.reply_status = "yes" 
+					obj.reply_status = "yes"
+					obj.save() 
 					for sec_li in self.get_unorder_list_second(li):
 						author = self.get_author(sec_li)
 						print(f"author ----> {author}")
@@ -309,7 +310,6 @@ class ReplyFunc():
 						if author and recipient and reply:
 							threadobj = ReplyThread(reply_id=foo,author=author,recipient=recipient,reply=reply)
 							threadobj.save()
-			obj.save()
 
 if __name__ == "__main__":
 	
