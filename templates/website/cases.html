@@ -77,7 +77,6 @@ $( document ).ready(function() {
           async: false,
           ContentType: "application/json",
           success: function(data){
-            console.log(data)
             var DoneList ={{done_list}};
             for (let i = 0; i < data.length; i++){
               if (DoneList.includes(data[i]["id"]) == false){
@@ -98,6 +97,7 @@ $( document ).ready(function() {
     sessionStorage.setItem('tag', title[x]);
     sessionStorage.setItem('author', author[x]);
     sessionStorage.setItem('links', links[x])
+    console.log(links[x])
     $("#text").html(temp[x]);
     $("#id").html("<h5> Case No: "+ id[x] + "</h5>");
     $("#title").html("<h5> Title - "+ title[x] + "</h5>");
