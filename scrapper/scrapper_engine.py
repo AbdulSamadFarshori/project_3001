@@ -28,7 +28,7 @@ class FetchHtml():
 		self.headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'}
 
 	def fetcher(self):
-		response = requests.get(url=self.url, headers=headers)
+		response = requests.get(url=self.url, headers=self.headers)
 		html = BeautifulSoup(response.text, "html.parser")
 		return html
 
