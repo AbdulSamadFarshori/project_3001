@@ -234,7 +234,7 @@ class ReplyFunc():
 
 	def reply_page_links(self, _html, current_url):
 		_temp = []
-		for link in range(self.reply_page_no(_html)):
+		for page in range(self.reply_page_no(_html)):
 			reply_url = current_url + f"?order=oldest&page={page}"
 			_temp.append(reply_url)
 		return _temp
