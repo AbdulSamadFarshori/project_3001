@@ -299,8 +299,11 @@ class ReplyFunc():
 					obj.reply_status = "yes" 
 					for sec_li in self.get_unorder_list_second(li):
 						author = self.get_author(sec_li)
+						print(f"author ----> {author}")
 						recipient = self.get_recipient(sec_li)
+						print(f"recipient ----> {recipient}")
 						reply = self.get_reply(sec_li)
+						print(f"reply ----> {reply}")
 						logging.info("fetching reply thread data")
 						threadobj = ReplyThread(reply_id=foo,author=author,recipient=recipient,reply=reply)
 						threadobj.save()
