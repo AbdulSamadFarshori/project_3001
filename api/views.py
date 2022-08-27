@@ -84,7 +84,7 @@ class RegisterApiView(APIView):
 class MainDataApiView(APIView):
 
 	def get(self, request):
-		queryset = main_data.objects.all()[0:1000]
+		queryset = main_data.objects.filter(title="Anxiety Disorders").all()[0:1000]
 		serializer = MainData(queryset, many=True)
 		return Response(serializer.data)
 
@@ -107,7 +107,7 @@ class ReplyThreadApiView(APIView):
 class LinkConfigApiView(APIView):
 
 	def get(self, request):
-		queryset = LinkConfig.objects.all()[0:1000]
+		queryset = LinkConfig.objects.filter(title="Anxiety Disorders").all()[0:1000]
 		serializer = LinkConfigSerializer(queryset, many=True)
 		return Response(serializer.data)
 

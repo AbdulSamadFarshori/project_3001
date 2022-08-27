@@ -150,7 +150,6 @@ function nextData(){
     sessionStorage.setItem('no', globid[x]);
     sessionStorage.setItem('tag', globtitle[x]);
     sessionStorage.setItem('links', globallink[x]);
-    console.log(globallink[x])
     $("#text").html(globtemp[x]);
     $("#id").html("<h5> Case No: "+ globid[x] + "</h5>");
     $("#title").html("<h5> Title - "+ globtitle[x] + "</h5>");
@@ -192,7 +191,6 @@ function submitForm(){
   var reply = $("#reply").val();
   var case_id = sessionStorage.getItem('no');
   var need_for = $('.form-check-input.need:checked').val();
-  console.log(need_for); 
   if ($('.form-check-input.ask:checked').val() == "other"){
 
     checkbox = $('#other').val();
@@ -201,8 +199,6 @@ function submitForm(){
     checkbox = $('.form-check-input.ask:checked').val();
   }
 
-  console.log(checkbox);
-  
   var data = {
 
               "case_id":case_id, 
