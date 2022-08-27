@@ -82,7 +82,9 @@ class RegisterApiView(APIView):
 class MainDataApiView(APIView):
 
 	def get(self, request):
-		queryset = main_data.objects.all()
+		start = 0
+		end = 10000
+		queryset = main_data.objects.all()[start:end]
 		serializer = MainData(queryset, many=True)
 		return Response(serializer.data)
 
@@ -105,7 +107,9 @@ class ReplyThreadApiView(APIView):
 class LinkConfigApiView(APIView):
 
 	def get(self, request):
-		queryset = LinkConfig.objects.all()
+		start = 0
+		end = 10000
+		queryset = LinkConfig.objects.all()[start:end]
 		serializer = LinkConfigSerializer(queryset, many=True)
 		return Response(serializer.data)
 
