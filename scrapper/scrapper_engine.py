@@ -266,10 +266,11 @@ class ReplyFunc():
 
 	def get_unorder_list_second(self, _html):
 		lists = FindSingleTag(html=_html, tag="ul", class_name="comments comments--nested").get_single_tags()
+		print(lists)
 		if lists:
 			all_lists = FindAllTags(html=lists, tag="li", class_name="comment comment--nested").get_all_tags()
 			return all_lists	
-		return all_lists
+		return []
 
 	def get_reply(self, _html):
 		input_tag = FindSingleTag(html=_html, tag="input", class_name="moderation-conent").get_single_tags()
