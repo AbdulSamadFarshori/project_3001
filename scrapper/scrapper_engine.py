@@ -281,6 +281,7 @@ class ReplyFunc():
 	def run(self):
 		link_data = LinkConfig.objects.all()
 		for obj in link_data:
+			print(f"link -----> {obj.link}")
 			logging.info("fetching reply page")
 			current_url = obj.link
 			current_heading = obj.heading
@@ -288,7 +289,6 @@ class ReplyFunc():
 			_html = self.get_html(url=current_url)
 			list_of_link = self.reply_page_links(_html, current_url)
 			for link in list_of_link:
-				print(f"link -----> {link}")
 				reply_page_html = self.get_html(url=link)
 				for li in self.get_unorder_list(reply_page_html):
 					author = self.get_author(li)
@@ -306,7 +306,6 @@ class ReplyFunc():
 						recipient = self.get_recipient(sec_li)
 						print(f"recipient ----> {recipient}")
 						reply = self.get_reply(sec_li)
-						print(f"reply ----> {reply}")
 						logging.info("fetching reply thread data")
 						if author and recipient and reply:
 							threadobj = ReplyThread(reply_id=foo,author=author,recipient=recipient,reply=reply)
