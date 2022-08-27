@@ -80,6 +80,7 @@ $( document ).ready(function() {
             var DoneList ={{done_list}};
             for (let i = 0; i < data.length; i++){
               if (DoneList.includes(data[i]["id"]) == false){
+              console.log(data[i]["id"])
               links.push(data[i]["link"])
             }
               }
