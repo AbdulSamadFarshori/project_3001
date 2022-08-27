@@ -100,7 +100,7 @@ $( document ).ready(function() {
     $("#text").html(temp[x]);
     $("#id").html("<h5> Case No: "+ id[x] + "</h5>");
     $("#title").html("<h5> Title - "+ title[x] + "</h5>");
-    $(".links").html("<p> case link - "+ links[x] +" </p>" );
+    $(".links").html("<p> case link - <a href=" + links[x] +">"+ links[x] +"</a></p>");
   }
   
   function dataPoint(){
@@ -110,7 +110,7 @@ $( document ).ready(function() {
     var link_add = sessionStorage.getItem('links');
 
     $("#text").html(text);
-    $(".links").html("<p> case link - "+link_add +" </p");
+    $(".links").html("<p> case link - <a href=" + links[x] +">"+ links[x] +"</a></p>");
     $("#id").html("<h5> Case No: "+ id_no + "</h5>");
     $("#title").html("<h5> Title - "+ tag + "</h5>");  
   }
@@ -153,7 +153,7 @@ function nextData(){
     $("#text").html(globtemp[x]);
     $("#id").html("<h5> Case No: "+ globid[x] + "</h5>");
     $("#title").html("<h5> Title - "+ globtitle[x] + "</h5>");
-    $(".links").html("<p> case link - "+ globallink[x] +" </p" );
+    $(".links").html("<p> case link - <a href="+ globallink[x] +">"+ globallink[x] +"</a></p>" );
     $("#tags").html('');
     score = null;
     $(".page-item").removeClass("active");
