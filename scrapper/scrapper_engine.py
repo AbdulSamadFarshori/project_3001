@@ -278,8 +278,10 @@ class ReplyFunc():
 			current_url = obj.link
 			current_heading = obj.heading
 			_html = self.get_html(url=current_url)
+			logging.info(f"_html ---> {_html}")
 			list_of_link = self.reply_page_links(_html)
 			for link in list_of_link:
+				logging.info(f"link -----> {link}")
 				reply_page_html = self.get_html(url=link)
 				for li in self.get_unorder_list(reply_page_html):
 					author = self.get_author(li)
