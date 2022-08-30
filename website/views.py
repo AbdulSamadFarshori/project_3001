@@ -13,9 +13,11 @@ class HomeView(TemplateView):
 
 class LoginView(TemplateView):
 	template_name = "website/login.html"
+
 class MainView(View):
 
 	template_name = 'website/cases.html'
+	
 	def get(self, request, var):
 		meta_data = request.META.get('HTTP_X_FORWARDED_FOR')
 		ip= ""
@@ -25,11 +27,18 @@ class MainView(View):
 			ip = request.META.get('REMOTE_ADDR')
 		done_list = [i.case_id.id for i in CompletedCase.objects.all()]
 		status = user_is_valid(var)
-		steps = FingerPrints(ip=ip, user=var)
-		steps.save()
+		if var != "sumir":
+			steps = FingerPrints(ip=ip, user=var)
+			steps.save()
 		if status:
 			return render(request, self.template_name, {"context":var, "done_list":done_list})
 		return redirect("login")
+
+
+class LabelView(TemplateView):
+
+	template_name = 'website/new_label.html'
+
 
 
 

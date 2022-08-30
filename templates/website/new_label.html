@@ -125,19 +125,6 @@ $( document ).ready(function() {
       dataPoint();
   }
 
-$("#scale").on("click","li", function(){
-      var s = $( this ).attr("value");
-      $(".page-item").removeClass("active");
-      $(this).addClass("active");
-      score = s
-
-});
-
-$("#checkother").on("click", function(){
-  $("#other").removeAttr("hidden");
-});
-
-
 globtemp = temp;
 globid = id;
 globtitle = title;
@@ -166,6 +153,56 @@ function nextData(){
 
   }
 
+function addSymptomTag(){
+  var takeValue = $("#symptomtag").val();
+  if (takeValue != null){
+  keywords.push(takeValue);
+  var ItemAdd = "<h6 class='hsix'><span class='badge bg-primary' id='"+ takeValue + "' style='margin:4px;'>"+takeValue+"<button class='btn-close' aria-label='Close' onClick='removeSymptomTag()'></button></span></h6>"
+  $("#symptoms").append(ItemAdd);
+  $('#symptomtag').val('');
+  }
+}
+
+function addProblemTag(){
+  var takeValue = $("#problemtag").val();
+  if (takeValue != null){
+  keywords.push(takeValue);
+  var ItemAdd = "<h6 class='hsix'><span class='badge bg-primary' id='"+ takeValue + "' style='margin:4px;'>"+takeValue+"<button class='btn-close' aria-label='Close' onClick='removeProblemTag()'></button></span></h6>"
+  $("#problem").append(ItemAdd);
+  $('#problemtag').val('');
+  }
+}
+
+function addLastingTag(){
+  var takeValue = $("#lastingtag").val();
+  if (takeValue != null){
+  keywords.push(takeValue);
+  var ItemAdd = "<h6 class='hsix'><span class='badge bg-primary' id='"+ takeValue + "' style='margin:4px;'>"+takeValue+"<button class='btn-close' aria-label='Close' onClick='removeLastingTag()'></button></span></h6>"
+  $("#lasting").append(ItemAdd);
+  $('#lastingtag').val('');
+  }
+}
+
+function addAgeTags(){
+  var takeValue = $("#agetag").val();
+  if (takeValue != null){
+  keywords.push(takeValue);
+  var ItemAdd = "<h6 class='hsix'><span class='badge bg-primary' id='"+ takeValue + "' style='margin:4px;'>"+takeValue+"<button class='btn-close' aria-label='Close' onClick='removeAgeTag()'></button></span></h6>"
+  $("#age").append(ItemAdd);
+  $('#agetag').val('');
+  }
+}
+
+function addCauseTags(){
+  var takeValue = $("#causetag").val();
+  if (takeValue != null){
+  keywords.push(takeValue);
+  var ItemAdd = "<h6 class='hsix'><span class='badge bg-primary' id='"+ takeValue + "' style='margin:4px;'>"+takeValue+"<button class='btn-close' aria-label='Close' onClick='removeCauseTag()'></button></span></h6>"
+  $("#cause").append(ItemAdd);
+  $('#causetag').val('');
+  }
+}
+
 function addTags(){
   var takeValue = $("#inputtags").val();
   if (takeValue != null){
@@ -186,8 +223,59 @@ function removeTag(){
   });
 }
 
+function removeSymptomTag(){
+  $("#symptomtag").on("click","span", function(){
+      var key = $( this ).attr("id");
+      $(this).remove();
+      var keyIndex = keywords.indexOf(key);
+      keywords.splice(keyIndex, 1);
+
+  });
+}
+
+function removeProblemTag(){
+  $("#problemtag").on("click","span", function(){
+      var key = $( this ).attr("id");
+      $(this).remove();
+      var keyIndex = keywords.indexOf(key);
+      keywords.splice(keyIndex, 1);
+
+  });
+}
+
+function removeLastingTag(){
+  $("#lastingtag").on("click","span", function(){
+      var key = $( this ).attr("id");
+      $(this).remove();
+      var keyIndex = keywords.indexOf(key);
+      keywords.splice(keyIndex, 1);
+
+  });
+}
+
+function removeAgeTag(){
+  $("#agetag").on("click","span", function(){
+      var key = $( this ).attr("id");
+      $(this).remove();
+      var keyIndex = keywords.indexOf(key);
+      keywords.splice(keyIndex, 1);
+
+  });
+}
+
+function removeCauseTag(){
+  $("#causetag").on("click","span", function(){
+      var key = $( this ).attr("id");
+      $(this).remove();
+      var keyIndex = keywords.indexOf(key);
+      keywords.splice(keyIndex, 1);
+
+  });
+}
+
+
 function submitForm(){
-  var username = "{{context}}"
+  var username = "{{context}}";
   var summary = $("#summary").val();
   var reply = $("#reply").val();
   var case_id = sessionStorage.getItem('no');
@@ -227,7 +315,6 @@ function submitForm(){
         }
 </script>
 {% endblock %}
-
 <body>
  <div class="container h-300" style="margin-top: 5%;">
     <div class="row align-items-center h-300">
@@ -252,8 +339,7 @@ function submitForm(){
                 <div class="col-12">
                   <div class="card h-100 justify-content-center" style="padding: 10px;">
                     <h5>Case Link</h5>
-                    <div class="links">
-                      
+                    <div class="links">  
                     </div>
                     </div>
                   <div>
@@ -261,100 +347,25 @@ function submitForm(){
               </div>
             </div>
           </div>
-            <br>
+          <br>
             <button type="button" class="btn btn-outline-primary" onclick="nextData()" style="float:rigth;">Next Case</button>
             <br>
             <br>
             <div class="container h-100">
               <div class="row align-items-center h-100">
                 <div class="col-12">
-                  <div class="card h-100 justify-content-center" id = "clicked" style="padding: 15px;">
-                    <h5>Patient asking for</h5>
+                  <div class="card h-100 justify-content-center" style="padding: 15px;">
+                    <h5>Context of Emotion</h5>
                     <br>
-                    <div class="form-check">
-                      <input class="form-check-input ask" type="radio" name="flexRadioDefault" id="help" value="help">
-                      <label class="form-check-label" for="flexRadioDefault1">
-                        Help
-                      </label>
+                    <div class="form-group mx-sm-3 mb-2">
+                      <input type="text" class="form-control" id="inputtags" placeholder="type here...">
                     </div>
-                    <div class="form-check">
-                      <input class="form-check-input ask" type="radio" name="flexRadioDefault" id="support" value="support">
-                      <label class="form-check-label" for="flexRadioDefault2">
-                        Support
-                      </label>
-                    </div>
-                    <div class="form-check">
-                      <input class="form-check-input ask" type="radio" name="flexRadioDefault" id="advice" value="advice">
-                      <label class="form-check-label" for="flexRadioDefault2">
-                        Advice
-                      </label>
-                    </div>
-                    <div class="form-check">
-                      <input class="form-check-input ask" type="radio" name="flexRadioDefault" id="suggestion" value="suggestion">
-                      <label class="form-check-label" for="flexRadioDefault2">
-                        Suggestion
-                      </label>
-                    </div>
-                    <div class="form-check">
-                      <input class="form-check-input ask" type="radio" name="flexRadioDefault" id="unclear" value="unclear">
-                      <label class="form-check-label" for="flexRadioDefault2">
-                        Unclear
-                      </label>
-                    </div>
-                    <div class="form-check" id="checkother">
-                      <input class="form-check-input ask" type="radio" name="flexRadioDefault" id="other-check" value="other">
-                      <label class="form-check-label" for="flexRadioDefault2">
-                        Other
-                      </label>
-                      <br>
-                      <br>
-                      <input type="text" class="form-control" id="other" placeholder="Mention here.." hidden>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <br>
-            <div class="container h-100">
-              <div class="row align-items-center h-100">
-                <div class="col-12">
-                  <div class="card h-100 justify-content-center" id = "clicked" style="padding: 15px;">
-                    <h5>Patient need for</h5>
                     <br>
-                    <!-- <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                      <label class="btn btn-secondary active">
-                        <input type="radio" name="options" id="option1" autocomplete="off"> Active
-                      </label>
-                      <label class="btn btn-secondary">
-                        <input type="radio" name="options" id="option2" autocomplete="off"> Radio
-                      </label>
-                      <label class="btn btn-secondary">
-                        <input type="radio" name="options" id="option3" autocomplete="off"> Radio
-                      </label>
-                    </div> -->
-                    <div class="form-check need-list">
-                      <input class="form-check-input need" type="radio" name="flexRadioDefault1" id="medicine" value="medicine">
-                      <label class="form-check-label" for="flexRadioDefault2">
-                        Medicine (Psychiatrist)
-                      </label>
+                    <button class="btn btn-primary mb-2" onclick="addTags()">Add tag</button>
+                    <br>
+                    <div class="d-flex flex-wrap bd-highlight mb-3" id="tags">   
                     </div>
-                    <div class="form-check need-list">
-                      <input class="form-check-input need" type="radio" name="flexRadioDefault1" id="counselling" value="counselling">
-                      <label class="form-check-label" for="flexRadioDefault2">
-                        Counselling (Counselor)
-                      </label>
-                    </div>
-                    <div class="form-check need-list">
-                      <input class="form-check-input need" type="radio" name="flexRadioDefault1" id="rehab" value="rehab">
-                      <label class="form-check-label" for="flexRadioDefault2">
-                        Rehab (Deaddiction)
-                      </label>
-                    </div>
-                    <div class="form-check need-list">
-                      <input class="form-check-input need" type="radio" name="flexRadioDefault1" id="Therapy" value="Therapy">
-                      <label class="form-check-label" for="flexRadioDefault2">
-                        Therapy (Psychologist)
-                      </label>
+                    <div>
                     </div>
                   </div>
                 </div>
@@ -365,20 +376,17 @@ function submitForm(){
               <div class="row align-items-center h-100">
                 <div class="col-12">
                   <div class="card h-100 justify-content-center" style="padding: 15px;">
-                    <h5>Important Keywords</h5>
+                    <h5>Context of symptoms</h5>
                     <br>
-                    <small><i>** you can add multiple keywords</i></small>
                     <div class="form-group mx-sm-3 mb-2">
-                      <input type="text" class="form-control" id="inputtags" placeholder="type here...">
+                      <input type="text" class="form-control" id="symptomtag" placeholder="type here...">
                     </div>
                     <br>
-                    <button class="btn btn-primary mb-2" onclick="addTags()">Add tag</button>
+                    <button class="btn btn-primary mb-2" onclick="addSymptomTags()">Add tag</button>
                     <br>
-                    <div class="d-flex flex-wrap bd-highlight mb-3" id="tags">
-                      
+                    <div class="d-flex flex-wrap bd-highlight mb-3" id="symptom">
                     </div>
                     <div>
-
                     </div>
                   </div>
                 </div>
@@ -388,66 +396,87 @@ function submitForm(){
             <div class="container h-100">
               <div class="row align-items-center h-100">
                 <div class="col-12">
-                  <div class="card h-100 justify-content-center" style="padding: 10px;">
-                    <h5>Severity Rating</h5>
+                  <div class="card h-100 justify-content-center" style="padding: 15px;">
+                    <h5>Context of Problem</h5>
                     <br>
-                    <nav aria-label="Page navigation example">
-                    <ul class="pagination pagination-sm justify-content-center" id="scale">
-                      <li class="page-item" value = 0><a class="page-link">0</a></li>
-                      <li class="page-item" value = 1><a class="page-link">1</a></li>
-                      <li class="page-item" value = 2><a class="page-link">2</a></li>
-                      <li class="page-item" value = 3><a class="page-link">3</a></li>
-                      <li class="page-item" value = 4><a class="page-link">4</a></li>
-                      <li class="page-item" value = 5><a class="page-link">5</a></li>
-                      <li class="page-item" value = 6><a class="page-link">6</a></li>
-                      <li class="page-item" value = 7><a class="page-link">7</a></li>
-                      <li class="page-item" value = 8><a class="page-link">8</a></li>
-                      <li class="page-item" value = 9><a class="page-link">9</a></li>
-                      <li class="page-item" value = 10><a class="page-link">10</a></li>
-                    </ul>
-                  </nav>
-                  <br>
-                  <div class= "justify-content-center">
-                  <small><i> 0 = Not Relevant,  10 = Most Relevant</i></small>
-                </div>
+                    <div class="form-group mx-sm-3 mb-2">
+                      <input type="text" class="form-control" id="problemtag" placeholder="type here...">
                     </div>
-                  <div>
+                    <br>
+                    <button class="btn btn-primary mb-2" onclick="addProblemTags()">Add tag</button>
+                    <br>
+                    <div class="d-flex flex-wrap bd-highlight mb-3" id="problem">
+                    </div>
+                    <div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <br>
+            <br>
             <div class="container h-100">
               <div class="row align-items-center h-100">
                 <div class="col-12">
-                  <div class="card h-100 justify-content-center" style="padding: 10px;">
-                    <h5>Summarize</h5>
-                      <br>
-                      <label for="summary" class="form-label">Summary</label>
-                      <textarea class="form-control"  rows="3" id="summary" placeholder="Summarize here.." required></textarea> 
+                  <div class="card h-100 justify-content-center" style="padding: 15px;">
+                    <h5>Context of Prolonged</h5>
+                    <br>
+                    <div class="form-group mx-sm-3 mb-2">
+                      <input type="text" class="form-control" id="lastingtag" placeholder="type here...">
+                    </div>
+                    <br>
+                    <button class="btn btn-primary mb-2" onclick="addLastingTags()">Add tag</button>
+                    <br>
+                    <div class="d-flex flex-wrap bd-highlight mb-3" id="lasting">
+                    </div>
+                    <div>
+                    </div>
                   </div>
-                <div>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
-          <br>
+            <br>
             <div class="container h-100">
               <div class="row align-items-center h-100">
                 <div class="col-12">
-                  <div class="card h-100 justify-content-center" style="padding: 10px;">
-                    <h5>Reply</h5>
-                      <br>
-                      <label for="reply" class="form-label">Reply</label>
-                      <textarea class="form-control" rows="3" id="reply" placeholder="Give your reply here.." required></textarea> 
+                  <div class="card h-100 justify-content-center" style="padding: 15px;">
+                    <h5>Context of Client Age</h5>
+                    <br>
+                    <div class="form-group mx-sm-3 mb-2">
+                      <input type="text" class="form-control" id="agetag" placeholder="type here...">
+                    </div>
+                    <br>
+                    <button class="btn btn-primary mb-2" onclick="addAgeTags()">Add tag</button>
+                    <br>
+                    <div class="d-flex flex-wrap bd-highlight mb-3" id="age">
+                    </div>
+                    <div>
+                    </div>
                   </div>
-                <div>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
-        <br>
-        <div class="container h-100">
+            <br>
+            <div class="container h-100">
+              <div class="row align-items-center h-100">
+                <div class="col-12">
+                  <div class="card h-100 justify-content-center" style="padding: 15px;">
+                    <h5>Context of Cause</h5>
+                    <br>
+                    <div class="form-group mx-sm-3 mb-2">
+                      <input type="text" class="form-control" id="causetag" placeholder="type here...">
+                    </div>
+                    <br>
+                    <button class="btn btn-primary mb-2" onclick="addCauseTags()">Add tag</button>
+                    <br>
+                    <div class="d-flex flex-wrap bd-highlight mb-3" id="cause">
+                    </div>
+                    <div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="container h-100">
               <div class="row align-items-center h-100">
                 <div class="col-12">
                   <div class="card h-100 justify-content-center" style="padding: 10px;">
