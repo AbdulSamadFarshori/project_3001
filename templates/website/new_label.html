@@ -35,7 +35,7 @@ var chSatus = false;
 var score;
 
 $( document ).ready(function() {
-  
+
   if (window.sessionStorage.getItem('xr') == null){
     window.location.replace("/login")
     ses
@@ -74,7 +74,6 @@ $( document ).ready(function() {
           async: false,
           ContentType: "application/json",
           success: function(data){
-            var DoneList ={{done_list}};
             for (let i = 0; i < data.length; i++){
               links.push(data[i]["link"])
               }
