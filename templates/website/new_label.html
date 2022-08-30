@@ -36,7 +36,6 @@ var score;
 
 $( document ).ready(function() {
   
-
   if (window.sessionStorage.getItem('xr') == null){
     window.location.replace("/login")
     ses
@@ -54,14 +53,11 @@ $( document ).ready(function() {
           async: false,
           ContentType: "application/json",
           success: function(data){
-            var DoneList ={{done_list}};
             for (let i = 0; i < data.length; i++){
-              if (DoneList.includes(data[i]["id"]) == false){
               temp.push(data[i]["main_problem"])
               title.push(data[i]["sub_heading"])
               id.push(data[i]["id"])
               author.push(data[i]["author_name"])
-            }
               }
             if (id.length == 0){
               window.location.replace("/error404/")
@@ -80,9 +76,7 @@ $( document ).ready(function() {
           success: function(data){
             var DoneList ={{done_list}};
             for (let i = 0; i < data.length; i++){
-              if (DoneList.includes(data[i]["id"]) == false){
               links.push(data[i]["link"])
-            }
               }
             if (id.length == 0){
               window.location.replace("/error404/")
