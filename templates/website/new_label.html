@@ -196,6 +196,16 @@ function addCauseTags(){
   }
 }
 
+function addWantTags(){
+  var takeValue = $("#wanttag").val();
+  if (takeValue != null){
+  keywords.push(takeValue);
+  var ItemAdd = "<h6 class='hsix'><span class='badge bg-primary' id='"+ takeValue + "' style='margin:4px;'>"+takeValue+"<button class='btn-close' aria-label='Close' onClick='removeWantTag()'></button></span></h6>"
+  $("#want").append(ItemAdd);
+  $('#wanttag').val('');
+  }
+}
+
 function addTags(){
   var takeValue = $("#inputtags").val();
   if (takeValue != null){
@@ -215,6 +225,17 @@ function removeTag(){
 
   });
 }
+
+function removeWantTag(){
+  $("#want").on("click","span", function(){
+      var key = $( this ).attr("id");
+      $(this).remove();
+      var keyIndex = keywords.indexOf(key);
+      keywords.splice(keyIndex, 1);
+
+  });
+}
+
 
 function removeSymptomTag(){
   $("#symptomtag").on("click","span", function(){
@@ -268,30 +289,7 @@ function removeCauseTag(){
 
 
 function submitForm(){
-  var username = "{{context}}";
-  var summary = $("#summary").val();
-  var reply = $("#reply").val();
-  var case_id = sessionStorage.getItem('no');
-  var need_for = $('.form-check-input.need:checked').val();
-  if ($('.form-check-input.ask:checked').val() == "other"){
-
-    checkbox = $('#other').val();
-  }
-  else{
-    checkbox = $('.form-check-input.ask:checked').val();
-  }
-
-  var data = {
-
-              "case_id":case_id, 
-              "username":username,
-              "asking": checkbox,
-              "need": need_for,
-              "keyword":keywords, 
-              "score":score, 
-              "summary":summary,
-              "reply":reply
-             }
+  
   $.ajax({
     url: "/apis/submit",
     method:"POST",
@@ -432,7 +430,7 @@ function submitForm(){
               <div class="row align-items-center h-100">
                 <div class="col-12">
                   <div class="card h-100 justify-content-center" style="padding: 15px;">
-                    <h5>Context of Client Age</h5>
+                    <h5>Context of Suffering from</h5>
                     <br>
                     <div class="form-group mx-sm-3 mb-2">
                       <input type="text" class="form-control" id="agetag" placeholder="type here...">
@@ -462,6 +460,47 @@ function submitForm(){
                     <button class="btn btn-primary mb-2" onclick="addCauseTags()">Add tag</button>
                     <br>
                     <div class="d-flex flex-wrap bd-highlight mb-3" id="cause">
+                    </div>
+                    <div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <br>
+            <div class="container h-100">
+              <div class="row align-items-center h-100">
+                <div class="col-12">
+                  <div class="card h-100 justify-content-center" style="padding: 15px;">
+                    <h5>Context of Thoughts</h5>
+                    <br>
+                    <div class="form-group mx-sm-3 mb-2">
+                      <input type="text" class="form-control" id="thoughttag" placeholder="type here...">
+                    </div>
+                    <br>
+                    <button class="btn btn-primary mb-2" onclick="addProblemTags()">Add tag</button>
+                    <br>
+                    <div class="d-flex flex-wrap bd-highlight mb-3" id="thought">
+                    </div>
+                    <div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="container h-100">
+              <div class="row align-items-center h-100">
+                <div class="col-12">
+                  <div class="card h-100 justify-content-center" style="padding: 15px;">
+                    <h5>Context of Patient wants</h5>
+                    <br>
+                    <div class="form-group mx-sm-3 mb-2">
+                      <input type="text" class="form-control" id="wanttag" placeholder="type here...">
+                    </div>
+                    <br>
+                    <button class="btn btn-primary mb-2" onclick="addWantTags()">Add tag</button>
+                    <br>
+                    <div class="d-flex flex-wrap bd-highlight mb-3" id="want">
                     </div>
                     <div>
                     </div>
