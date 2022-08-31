@@ -259,6 +259,7 @@ function removeSymptomTag(){
 
 function removeProblemTag(){
   $("#problemtag").on("click","span", function(){
+    console.log(this);
       var key = $( this ).attr("id");
       $(this).remove();
       var keyIndex = keywords.indexOf(key);
@@ -436,27 +437,6 @@ function submitForm(){
                     <button class="btn btn-primary mb-2" onclick="addLastingTags()">Add tag</button>
                     <br>
                     <div class="d-flex flex-wrap bd-highlight mb-3" id="lasting">
-                    </div>
-                    <div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <br>
-            <div class="container h-100">
-              <div class="row align-items-center h-100">
-                <div class="col-12">
-                  <div class="card h-100 justify-content-center" style="padding: 15px;">
-                    <h5>Context of Suffering from</h5>
-                    <br>
-                    <div class="form-group mx-sm-3 mb-2">
-                      <input type="text" class="form-control" id="agetag" placeholder="type here...">
-                    </div>
-                    <br>
-                    <button class="btn btn-primary mb-2" onclick="addAgeTags()">Add tag</button>
-                    <br>
-                    <div class="d-flex flex-wrap bd-highlight mb-3" id="age">
                     </div>
                     <div>
                     </div>
