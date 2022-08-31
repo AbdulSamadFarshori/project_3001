@@ -146,7 +146,7 @@ function nextData(){
 
   }
 
-function addSymptomTag(){
+function addSymptomTags(){
   var takeValue = $("#symptomtag").val();
   if (takeValue != null){
   keywords.push(takeValue);
@@ -156,7 +156,7 @@ function addSymptomTag(){
   }
 }
 
-function addProblemTag(){
+function addProblemTags(){
   var takeValue = $("#problemtag").val();
   if (takeValue != null){
   keywords.push(takeValue);
@@ -166,7 +166,7 @@ function addProblemTag(){
   }
 }
 
-function addLastingTag(){
+function addLastingTags(){
   var takeValue = $("#lastingtag").val();
   if (takeValue != null){
   keywords.push(takeValue);
@@ -203,6 +203,16 @@ function addWantTags(){
   var ItemAdd = "<h6 class='hsix'><span class='badge bg-primary' id='"+ takeValue + "' style='margin:4px;'>"+takeValue+"<button class='btn-close' aria-label='Close' onClick='removeWantTag()'></button></span></h6>"
   $("#want").append(ItemAdd);
   $('#wanttag').val('');
+  }
+}
+
+function addWantTags(){
+  var takeValue = $("#thoughtag").val();
+  if (takeValue != null){
+  keywords.push(takeValue);
+  var ItemAdd = "<h6 class='hsix'><span class='badge bg-primary' id='"+ takeValue + "' style='margin:4px;'>"+takeValue+"<button class='btn-close' aria-label='Close' onClick='removeThoughtTag()'></button></span></h6>"
+  $("#though").append(ItemAdd);
+  $('#thoughttag').val('');
   }
 }
 
@@ -287,6 +297,12 @@ function removeCauseTag(){
   });
 }
 
+function removeThoughtTag(){
+  $("#thoughttag").on("click","span", function(){
+      var key = $( this ).attr("id");
+      $(this).remove();
+      var keyIndex = keywords.indexOf(key);
+      keywords.splice(keyIndex, 1);
 
 function submitForm(){
   
@@ -478,7 +494,7 @@ function submitForm(){
                       <input type="text" class="form-control" id="thoughttag" placeholder="type here...">
                     </div>
                     <br>
-                    <button class="btn btn-primary mb-2" onclick="addProblemTags()">Add tag</button>
+                    <button class="btn btn-primary mb-2" onclick="addThoughtTags()">Add tag</button>
                     <br>
                     <div class="d-flex flex-wrap bd-highlight mb-3" id="thought">
                     </div>
