@@ -248,7 +248,7 @@ function removeWantTag(){
 
 
 function removeSymptomTag(){
-  $("#symptomtag").on("click","span", function(){
+  $("#symptom").on("click","span", function(){
       var key = $( this ).attr("id");
       $(this).remove();
       var keyIndex = keywords.indexOf(key);
@@ -258,7 +258,7 @@ function removeSymptomTag(){
 }
 
 function removeProblemTag(){
-  $("#problemtag").on("click","span", function(){
+  $("#problem").on("click","span", function(){
     console.log(this);
       var key = $( this ).attr("id");
       $(this).remove();
@@ -269,7 +269,7 @@ function removeProblemTag(){
 }
 
 function removeLastingTag(){
-  $("#lastingtag").on("click","span", function(){
+  $("#lasting").on("click","span", function(){
       var key = $( this ).attr("id");
       $(this).remove();
       var keyIndex = keywords.indexOf(key);
@@ -289,7 +289,7 @@ function removeAgeTag(){
 }
 
 function removeCauseTag(){
-  $("#causetag").on("click","span", function(){
+  $("#cause").on("click","span", function(){
       var key = $( this ).attr("id");
       $(this).remove();
       var keyIndex = keywords.indexOf(key);
@@ -299,7 +299,7 @@ function removeCauseTag(){
 }
 
 function removeThoughtTag(){
-  $("#thoughttag").on("click","span", function(){
+  $("#thought").on("click","span", function(){
       var key = $( this ).attr("id");
       $(this).remove();
       var keyIndex = keywords.indexOf(key);
