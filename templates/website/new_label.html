@@ -39,7 +39,7 @@ $( document ).ready(function() {
           async: false,
           ContentType: "application/json",
           success: function(data){
-            console.log(data)
+            console.log(data["results"]["main_problem"])
               window.sessionStorage.setItem("text", data["results"]["main_problem"]);
               window.sessionStorage.setItem("heading", data["results"]["sub_heading"]);
               window.sessionStorage.setItem("id", data["results"]["id"]);
