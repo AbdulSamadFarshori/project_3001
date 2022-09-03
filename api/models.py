@@ -50,7 +50,7 @@ class response(models.Model):
 	reply = models.CharField(max_length=2000)
 
 	def __str__(self):
-		return self.case_id
+		return self.counselor
 
 	class Meta:
 		verbose_name_plural = "Responses"
@@ -60,7 +60,7 @@ class keywords(models.Model):
 	keyword = models.CharField(max_length=255)
 
 	def __str__(self):
-		return self.case_id
+		return self.case_id.sub_heading
 
 	class Meta:
 		verbose_name_plural = "Keywords"
@@ -86,11 +86,12 @@ class IntentData(models.Model):
 	case_id = models.ForeignKey(main_data, on_delete=models.CASCADE)
 	intent = models.CharField(max_length=255)
 
+	def __str__(self):
+		return self.case_id
+
 class EntityData(models.Model):
 	case_id = models.ForeignKey(main_data, on_delete=models.CASCADE)
 	entity = models.CharField(max_length=255)
-
-
 
 	def __str__(self):
 		return self.case_id
