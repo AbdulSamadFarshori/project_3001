@@ -55,7 +55,7 @@ $( document ).ready(function() {
           async: false,
           ContentType: "application/json",
           success: function(data){
-              sessionStorage.setItem("link",data["result"]["link"])
+              sessionStorage.setItem("link",data["results"]["link"])
               sessionStorage.setItem("link_next", data["next"])
               sessionStorage.setItem("link_prev", data["previous"])
           } 
@@ -100,7 +100,7 @@ function nextData(){
           async: false,
           ContentType: "application/json",
           success: function(data){
-              sessionStorage.setItem("link",data["result"]["link"])
+              sessionStorage.setItem("link",data["results"]["link"])
               sessionStorage.setItem("link_next", data["next"])
               sessionStorage.setItem("link_prev", data["previous"])
           } 
