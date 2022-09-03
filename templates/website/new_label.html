@@ -25,13 +25,15 @@
 {% block jquery %}
 <script type="text/javascript">
 
+var entity = [];
+
 $( document ).ready(function() {
   window.sessionStorage.getItem('xr')
   if (window.sessionStorage.getItem('xr') == null){
     window.location.replace("/login")
   }
 
-var entity = []; 
+ 
 
   if (window.sessionStorage.getItem("text") == null){
     $.ajax({
