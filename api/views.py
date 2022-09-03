@@ -14,7 +14,7 @@ from api.models import (main_data, ReplyData,
 						IntentData) 
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .pagination_veiw import Pagination
+from .pagination_veiw import MyPagination
 from django.contrib.auth import get_user_model
 from rest_framework import status
 from core.factory import authenticated, create_hash_key, make_hash, create_user
@@ -89,7 +89,7 @@ class MainDataApiView(generics.ListCreateAPIView):
 	queryset = main_data.objects.filter(title="Anxiety Disorders").all()
 	serializer_class = MainData
 	# permission_classes = [IsAdminUser]
-	pagination_class = Pagination()
+	pagination_class = MyPagination
 
 	def list(self, request):
 		queryset = self.get_queryset()
