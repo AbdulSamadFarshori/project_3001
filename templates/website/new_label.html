@@ -186,8 +186,8 @@ function removeSymptomTag(){
   $("#symptom").on("click","span", function(){
       var key = $( this ).attr("id");
       $(this).remove();
-      var keyIndex = keywords.indexOf(key);
-      keywords.splice(keyIndex, 1);
+      var keyIndex = entity.indexOf(key);
+      entity.splice(keyIndex, 1);
 
   });
 }

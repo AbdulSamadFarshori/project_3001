@@ -41,31 +41,15 @@ class LoginView(APIView):
 class FormSubmitView(APIView):
 
 	def post(self, request):
-		username = request.POST.get("username")
-		asking = request.POST.get("asking")
-		need = request.POST.get("need")
-		keyword = request.POST.getlist("keyword[]")
-		score = int(request.POST.get("score"))
-		summary = request.POST.get("summary")
-		reply = request.POST.get("reply")
+		
+		entity = request.POST.getlist("entity[]")
+		intent = request.POST.get("intent")
 		case_id = int(request.POST.get("case_id"))
+
+		logging.info(f" --> {entity}, {intent}, {case_id}")
 		main_object = main_data.objects.filter(id=case_id).first()
-		if reply and summary:
-			response_object = response(
-								case_id=main_object, 
-								counselor=username,
-								patient_asking=asking,
-								patient_need=need, 
-								relavent_score=score, 
-								summary=summary, 
-								reply=reply
-								)
-			response_object.save()
-			for tag in keyword:
-				keyword_object = keywords(case_id=main_object, keyword=tag.lower())
-				keyword_object.save()
-			done_object = CompletedCase(case_id=main_object)
-			done_object.save()
+
+	
 			return Response({"response":True})
 
 		return Response({"response":False})
