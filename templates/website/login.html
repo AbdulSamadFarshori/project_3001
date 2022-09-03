@@ -41,7 +41,9 @@
           if (data["cookies"] != null){
 
             window.sessionStorage.setItem('xr', data["cookies"]);
+            window.sessionStorage.getItem('url', '?limit=1&offset=0')
             window.location.replace("/main/" + username);
+
         }
 
         

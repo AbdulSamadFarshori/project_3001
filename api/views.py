@@ -21,7 +21,6 @@ from core.factory import authenticated, create_hash_key, make_hash, create_user
 from website.models import Cookies
 import logging
 
-
 class LoginView(APIView):
 	
 	def post(self, request):
@@ -71,7 +70,6 @@ class FormSubmitView(APIView):
 
 		return Response({"response":False})
 
-
 class RegisterApiView(APIView):
 
 	def post(self, request):
@@ -85,51 +83,19 @@ class RegisterApiView(APIView):
 		return {"msg":"Error"}
 
 
-class MainDataApiView(generics.ListCreateAPIView):
+class MainDataApiView(generics.ListAPIView):
+	
 	queryset = main_data.objects.filter(title="Anxiety Disorders").all()
 	serializer_class = MainData
 	# permission_classes = [IsAdminUser]
 	pagination_class = MyPagination
 
-	# def list(self, request):
-	# 	queryset = self.get_queryset()
-	# 	serializer = MainData(queryset, many=True)
-	# 	return Response(serializer.data)
-
-
-class ReplyDataApiView(APIView):
-
-	def get(self, request):
-		queryset = main_data.objects.all()
-		serializer = ReplyDataSerializer(queryset, many=True)
-		return Response(serializer.data)
-		
-
-class ReplyThreadApiView(APIView):
-
-	def get(self, request):
-		queryset = main_data.objects.all()
-		serializer = ReplyThreadSerializer(queryset, many=True)
-		return Response(serializer.data)
-
-class LinkConfigApiView(APIView):
-
-	def get(self, request):
-		queryset = LinkConfig.objects.filter(title="Anxiety Disorders").all()
-		serializer = LinkConfigSerializer(queryset, many=True)
-		return Response(serializer.data)
-
-class LabelApiView(APIView):
-
-	def post(self, request):
-		# case_id = request.data.get("case_id")
-		# symptom = request.data.get("symptom")
-		# condition = request.data.get("condition")
-		# problem = request.data.get("problem")
-		# cause = request.data.get("cause")
-
-		# obj = main_data.objects.filter(id=case_id)
-
-		return Response({"msg":"done!!"})
+	
+class LinkConfigApiView(generics.ListAPIView):
+	
+	queryset = LinkConfig.objects.filter(title="Anxiety Disorders").all()
+	serializer_class = LinkConfigSerializer
+	# permission_classes = [IsAdminUser]
+	pagination_class = MyPagination
 
 

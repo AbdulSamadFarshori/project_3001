@@ -25,126 +25,100 @@
 {% block jquery %}
 <script type="text/javascript">
 
-var globtemp;
-var globtitle;
-var globallink;
-var globid;
-var keywords = [];
-var checkbox;
-var chSatus = false;
-var score;
-
 $( document ).ready(function() {
-
+  window.sessionStorage.getItem('xr')
   if (window.sessionStorage.getItem('xr') == null){
     window.location.replace("/login")
-    ses
   }
 
-    var temp = [];
-    var title = [];
-    var id = [];
-    var author = [];
-    var visited_pages = []
+
     $.ajax({
-          url: "/apis/main-data",
+          url: '/apis/main-data' + window.sessionStorage.getItem('url'),
           type: "GET",
           dataType: "json",
           async: false,
           ContentType: "application/json",
           success: function(data){
-            for (let i = 0; i < data.length; i++){
-              temp.push(data[i]["main_problem"])
-              title.push(data[i]["sub_heading"])
-              id.push(data[i]["id"])
-              author.push(data[i]["author_name"])
-              }
-            if (id.length == 0){
-              window.location.replace("/error404/")
-            }
-
-          } 
+              sessionStorage.setItem("text", data["results"]["main_problem"])
+              sessionStorage.setItem("heading", data["results"]["sub_heading"])
+              sessionStorage.setItem("id", data["results"]["id"])
+              // sessionStorage.setItem("author", data["results"]["author_name"])
+              sessionStorage.setItem("data_next" ,data["next"])
+              sessionStorage.setItem("data_prev" ,data["previous"])
+        }
       });
 
-    var links = [];
     $.ajax({
-          url: "/apis/links",
+          url: "/apis/links" + window.sessionStorage.getItem('url'),
           type: "GET",
           dataType: "json",
           async: false,
           ContentType: "application/json",
           success: function(data){
-            for (let i = 0; i < data.length; i++){
-              links.push(data[i]["link"])
-              }
-            if (id.length == 0){
-              window.location.replace("/error404/")
-            }
-
+              sessionStorage.setItem("link",data["result"]["link"])
+              sessionStorage.setItem("link_next", data["next"])
+              sessionStorage.setItem("link_prev", data["previous"])
           } 
       });
 
-  function randomData(){
-    let x = Math.floor((Math.random() * 1000) + 1)
-    sessionStorage.setItem('pr', temp[x]);
-    sessionStorage.setItem('no', id[x]);
-    sessionStorage.setItem('tag', title[x]);
-    sessionStorage.setItem('author', author[x]);
-    sessionStorage.setItem('links', links[x])
-    $("#text").html(temp[x]);
-    $("#id").html("<h5> Case No: "+ id[x] + "</h5>");
-    $("#title").html("<h5> Title - "+ title[x] + "</h5>");
-    $(".links").html("<p> case link - <a href=" + links[x] +">"+ links[x] +"</a></p>");
-  }
-  
-  function dataPoint(){
-    var text = sessionStorage.getItem('pr');
-    var id_no = sessionStorage.getItem('no');
-    var tag = sessionStorage.getItem('tag');
-    var link_add = sessionStorage.getItem('links');
+function datapoint() {
+  var text = sessionStorage.getItem('text');
+  var link_add = sessionStorage.getItem('link');
+  var id_no = sessionStorage.getItem('id');
+  var tag = sessionStorage.getItem('heading')
+  $("#text").html(text);
+  $(".links").html("<p> case link - <a href=" + link_add +">"+ link_add +"</a></p>");
+  $("#id").html("<h5> Case No: "+ id_no + "</h5>");
+  $("#title").html("<h5> Title - "+ tag + "</h5>");  
+}
 
-    $("#text").html(text);
-    $(".links").html("<p> case link - <a href=" + link_add +">"+ link_add +"</a></p>");
-    $("#id").html("<h5> Case No: "+ id_no + "</h5>");
-    $("#title").html("<h5> Title - "+ tag + "</h5>");  
-  }
-
-  if (sessionStorage.getItem('pr')== null) {
-      
-      randomData();
-  }
-  else {
-
-      dataPoint();
-  }
-
-globtemp = temp;
-globid = id;
-globtitle = title;
-globallink = links;
+datapoint()
 });
 
 function nextData(){
-    let x = Math.floor((Math.random() * 1000) + 1)
-    sessionStorage.setItem('pr', globtemp[x]);
-    sessionStorage.setItem('no', globid[x]);
-    sessionStorage.setItem('tag', globtitle[x]);
-    sessionStorage.setItem('links', globallink[x]);
-    $("#text").html(globtemp[x]);
-    $("#id").html("<h5> Case No: "+ globid[x] + "</h5>");
-    $("#title").html("<h5> Title - "+ globtitle[x] + "</h5>");
-    $(".links").html("<p> case link - <a href="+ globallink[x] +">"+ globallink[x] +"</a></p>" );
-    $("#tags").html('');
-    score = null;
-    $(".page-item").removeClass("active");
-    $("#summary").val('');
-    $("#reply").val('');
-    $(".form-check-input.ask:checked").prop("checked", false);
-    $(".form-check-input.need:checked").prop("checked", false);
-    $("#other").val('');
-    checked=null;
 
+  $.ajax({
+          url: sessionStorage.getItem('data_next'),
+          type: "GET",
+          dataType: "json",
+          async: false,
+          ContentType: "application/json",
+          success: function(data){
+              sessionStorage.setItem("text", data["results"]["main_problem"])
+              sessionStorage.setItem("heading", data["results"]["sub_heading"])
+              sessionStorage.setItem("id", data["results"]["id"])
+              // sessionStorage.setItem("author", data["results"]["author_name"])
+              sessionStorage.setItem("data_next" ,data["next"])
+              sessionStorage.setItem("data_prev" ,data["previous"])
+        }
+      });
+
+    $.ajax({
+          url: sessionStorage.getItem('link_next'),
+          type: "GET",
+          dataType: "json",
+          async: false,
+          ContentType: "application/json",
+          success: function(data){
+              sessionStorage.setItem("link",data["result"]["link"])
+              sessionStorage.setItem("link_next", data["next"])
+              sessionStorage.setItem("link_prev", data["previous"])
+          } 
+      });
+
+    var text = sessionStorage.getItem('text');
+    var link_add = sessionStorage.getItem('link');
+    var id_no = sessionStorage.getItem('id');
+    var tag = sessionStorage.getItem('heading')
+    
+    $("#text").html(text);
+    $("#id").html("<h5> Case No: "+ id_no + "</h5>");
+    $("#title").html("<h5> Title - "+ tag + "</h5>");
+    $(".links").html("<p> case link - <a href="+ link_add +">"+ link_add +"</a></p>" );
+    $("#tags").html('');
   }
+
+
 
 function addSymptomTags(){
   var takeValue = $("#symptomtag").val();
