@@ -88,6 +88,7 @@ class MainDataApiView(generics.ListCreateAPIView):
 	queryset = main_data.objects.filter(title="Anxiety Disorders").all()
 	serializer_class = MainData
 	# permission_classes = [IsAdminUser]
+	pagination_class = LimitOffsetPagination()
 
 	def list(self, request):
 		queryset = self.get_queryset()
