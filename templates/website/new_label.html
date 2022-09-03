@@ -194,6 +194,9 @@ function removeSymptomTag(){
 
 
 function submitForm(){
+
+  var case_id = window.sessionStorage.getItem("id");
+
   var takeValue = $("#inputtags").val();
   
   if (takeValue != null){
