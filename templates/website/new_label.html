@@ -31,6 +31,8 @@ $( document ).ready(function() {
     window.location.replace("/login")
   }
 
+var entity = []; 
+
   if (window.sessionStorage.getItem("text") == null){
     $.ajax({
           url: '/apis/main-data?limit=1&offset=0',
@@ -118,6 +120,7 @@ function nextData(){
     $("#title").html("<h5> Title - "+ tag + "</h5>");
     $(".links").html("<p> case link - <a href="+ link_add +">"+ link_add +"</a></p>" );
     $("#tags").html('');
+    $("#inputtags").val('');
   }
 
 
@@ -161,7 +164,8 @@ function prevData(){
     $("#id").html("<h5> Case No: "+ id_no + "</h5>");
     $("#title").html("<h5> Title - "+ tag + "</h5>");
     $(".links").html("<p> case link - <a href="+ link_add +">"+ link_add +"</a></p>" );
-    $("#tags").html('');
+    $("#symptom").html('');
+    $()
   }
 
 
@@ -169,34 +173,12 @@ function prevData(){
 function addSymptomTags(){
   var takeValue = $("#symptomtag").val();
   if (takeValue != null){
-  keywords.push(takeValue);
+  entity.push(takeValue);
   var ItemAdd = "<h6 class='hsix'><span class='badge bg-primary' id='"+ takeValue + "' style='margin:4px;'>"+takeValue+"<button class='btn-close' aria-label='Close' onClick='removeSymptomTag()'></button></span></h6>"
   $("#symptom").append(ItemAdd);
   $('#symptomtag').val('');
   }
 }
-
-
-function addTags(){
-  var takeValue = $("#inputtags").val();
-  if (takeValue != null){
-  keywords.push(takeValue);
-  var ItemAdd = "<h6 class='hsix'><span class='badge bg-primary' id='"+ takeValue + "' style='margin:4px;'>"+takeValue+"<button class='btn-close' aria-label='Close' onClick='removeTag()'></button></span></h6>"
-  $("#tags").append(ItemAdd);
-  $('#inputtags').val('');
-  }
-}
-
-function removeTag(){
-  $("#tags").on("click","span", function(){
-      var key = $( this ).attr("id");
-      $(this).remove();
-      var keyIndex = keywords.indexOf(key);
-      keywords.splice(keyIndex, 1);
-
-  });
-}
-
 
 function removeSymptomTag(){
   $("#symptom").on("click","span", function(){
@@ -210,6 +192,19 @@ function removeSymptomTag(){
 
 
 function submitForm(){
+  var takeValue = $("#inputtags").val();
+  
+  if (takeValue != null){
+    
+    intent = takeValue;
+    
+    }
+
+  var data = {
+              "id":case_id, 
+              "entity":entity, 
+              "intent":intent
+            };
   
   $.ajax({
     url: "/apis/submit",
@@ -274,12 +269,6 @@ function submitForm(){
                       <input type="text" class="form-control" id="inputtags" placeholder="type here...">
                     </div>
                     <br>
-                    <button class="btn btn-primary mb-2" onclick="addTags()">Add tag</button>
-                    <br>
-                    <div class="d-flex flex-wrap bd-highlight mb-3" id="tags">   
-                    </div>
-                    <div>
-                    </div>
                   </div>
                 </div>
               </div>
