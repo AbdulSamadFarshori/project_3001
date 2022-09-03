@@ -46,7 +46,7 @@ class FormSubmitView(APIView):
 		intent = request.POST.get("intent")
 		case_id = request.POST.get("case_id")
 
-		logging.info(f" --> {entity}, {intent}, {case_id}")
+		logging.error(f" --> {entity}, {intent}, {case_id}")
 		main_object = main_data.objects.filter(id=case_id).first()
 
 		if case_id:
