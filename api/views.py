@@ -49,7 +49,7 @@ class FormSubmitView(APIView):
 		logging.info(f" --> {entity}, {intent}, {case_id}")
 		main_object = main_data.objects.filter(id=case_id).first()
 
-	
+		if case_id:
 			return Response({"response":True})
 
 		return Response({"response":False})
