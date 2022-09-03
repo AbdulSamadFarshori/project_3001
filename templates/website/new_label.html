@@ -39,6 +39,7 @@ $( document ).ready(function() {
           async: false,
           ContentType: "application/json",
           success: function(data){
+            console.log(data)
               sessionStorage.setItem("text", data["results"]["main_problem"])
               sessionStorage.setItem("heading", data["results"]["sub_heading"])
               sessionStorage.setItem("id", data["results"]["id"])
@@ -55,6 +56,7 @@ $( document ).ready(function() {
           async: false,
           ContentType: "application/json",
           success: function(data){
+            console.log(data)
               sessionStorage.setItem("link",data["results"]["link"])
               sessionStorage.setItem("link_next", data["next"])
               sessionStorage.setItem("link_prev", data["previous"])
