@@ -194,7 +194,7 @@ function removeSymptomTag(){
 
 
 function submitForm(){
-
+  
   var case_id = sessionStorage.getItem("id");
 
   var takeValue = $("#inputtags").val();
@@ -218,7 +218,7 @@ function submitForm(){
     dataType:"json",
     ContentType: "application/json",
     success: function(response){
-      console.log("yes")
+      console.log(sessionStorage.getItem("id"))
       if (response["response"] == true){
         nextData();
       }
