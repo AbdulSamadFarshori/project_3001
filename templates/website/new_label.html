@@ -31,7 +31,7 @@ $( document ).ready(function() {
     window.location.replace("/login")
   }
 
-
+  if (window.sessionStorage.getItem("text") == null){
     $.ajax({
           url: '/apis/main-data?limit=1&offset=0',
           type: "GET",
@@ -61,6 +61,7 @@ $( document ).ready(function() {
               window.sessionStorage.setItem("link_prev", data["previous"])
           } 
       });
+  }
 
 function datapoint() {
   var text = sessionStorage.getItem('text');
