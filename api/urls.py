@@ -6,7 +6,8 @@ from .views import (
 							MainDataApiView, 
 							ReplyDataApiView,
 							ReplyThreadApiView,
-							LinkConfigApiView)
+							LinkConfigApiView,
+							LabelApiView)
 
 from .models import main_data
 from api.serializers import MainData
@@ -23,5 +24,6 @@ urlpatterns = [
     	path("main-data", MainDataApiView.as_view(), name="main_data_api"),
     	path("reply-data", ReplyDataApiView.as_view(), name="reply_data_api"),
     	path("reply-thread", ReplyThreadApiView.as_view(), name="reply_thread_api"),
-    	path("links", LinkConfigApiView.as_view(), name="link_api")
+    	path("links", LinkConfigApiView.as_view(), name="link_api"),
+    	path("label", LabelApiView.as_view(), name="label")
 		]

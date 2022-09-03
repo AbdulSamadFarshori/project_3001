@@ -72,7 +72,7 @@ def clean_text(text):
 	text = re.sub(r"\'ll", " will ", text)
 	text = re.sub(r" ill ", " i will ", text)
 	text = re.sub(r"\'d", " would", text)
-	text = re.sub(r" idk ", " i don not know ", text)
+	text = re.sub(r" idk ", " i do not know ", text)
 	text = re.sub(r" ive ", " i have ", text)
 	text = re.sub(r"\'ve", " have", text)
 	text = re.sub(r"\'re", " are", text)

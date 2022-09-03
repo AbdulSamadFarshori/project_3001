@@ -156,65 +156,6 @@ function addSymptomTags(){
   }
 }
 
-function addProblemTags(){
-  var takeValue = $("#problemtag").val();
-  if (takeValue != null){
-  keywords.push(takeValue);
-  var ItemAdd = "<h6 class='hsix'><span class='badge bg-primary' id='"+ takeValue + "' style='margin:4px;'>"+takeValue+"<button class='btn-close' aria-label='Close' onClick='removeProblemTag()'></button></span></h6>"
-  $("#problem").append(ItemAdd);
-  $('#problemtag').val('');
-  }
-}
-
-function addLastingTags(){
-  var takeValue = $("#lastingtag").val();
-  if (takeValue != null){
-  keywords.push(takeValue);
-  var ItemAdd = "<h6 class='hsix'><span class='badge bg-primary' id='"+ takeValue + "' style='margin:4px;'>"+takeValue+"<button class='btn-close' aria-label='Close' onClick='removeLastingTag()'></button></span></h6>"
-  $("#lasting").append(ItemAdd);
-  $('#lastingtag').val('');
-  }
-}
-
-function addAgeTags(){
-  var takeValue = $("#agetag").val();
-  if (takeValue != null){
-  keywords.push(takeValue);
-  var ItemAdd = "<h6 class='hsix'><span class='badge bg-primary' id='"+ takeValue + "' style='margin:4px;'>"+takeValue+"<button class='btn-close' aria-label='Close' onClick='removeAgeTag()'></button></span></h6>"
-  $("#age").append(ItemAdd);
-  $('#agetag').val('');
-  }
-}
-
-function addCauseTags(){
-  var takeValue = $("#causetag").val();
-  if (takeValue != null){
-  keywords.push(takeValue);
-  var ItemAdd = "<h6 class='hsix'><span class='badge bg-primary' id='"+ takeValue + "' style='margin:4px;'>"+takeValue+"<button class='btn-close' aria-label='Close' onClick='removeCauseTag()'></button></span></h6>"
-  $("#cause").append(ItemAdd);
-  $('#causetag').val('');
-  }
-}
-
-function addWantTags(){
-  var takeValue = $("#wanttag").val();
-  if (takeValue != null){
-  keywords.push(takeValue);
-  var ItemAdd = "<h6 class='hsix'><span class='badge bg-primary' id='"+ takeValue + "' style='margin:4px;'>"+takeValue+"<button class='btn-close' aria-label='Close' onClick='removeWantTag()'></button></span></h6>"
-  $("#want").append(ItemAdd);
-  $('#wanttag').val('');
-  }
-}
-
-function addThoughtTags(){
-  var takeValue = $("#thoughtag").val();
-  if (takeValue != null){
-  keywords.push(takeValue);
-  var ItemAdd = "<h6 class='hsix'><span class='badge bg-primary' id='"+ takeValue + "' style='margin:4px;'>"+takeValue+"<button class='btn-close' aria-label='Close' onClick='removeThoughtTag()'></button></span></h6>"
-  $("#though").append(ItemAdd);
-  $('#thoughttag').val('');
-  }
-}
 
 function addTags(){
   var takeValue = $("#inputtags").val();
@@ -236,16 +177,6 @@ function removeTag(){
   });
 }
 
-function removeWantTag(){
-  $("#want").on("click","span", function(){
-      var key = $( this ).attr("id");
-      $(this).remove();
-      var keyIndex = keywords.indexOf(key);
-      keywords.splice(keyIndex, 1);
-
-  });
-}
-
 
 function removeSymptomTag(){
   $("#symptom").on("click","span", function(){
@@ -257,55 +188,6 @@ function removeSymptomTag(){
   });
 }
 
-function removeProblemTag(){
-  $("#problem").on("click","span", function(){
-    console.log(this);
-      var key = $( this ).attr("id");
-      $(this).remove();
-      var keyIndex = keywords.indexOf(key);
-      keywords.splice(keyIndex, 1);
-
-  });
-}
-
-function removeLastingTag(){
-  $("#lasting").on("click","span", function(){
-      var key = $( this ).attr("id");
-      $(this).remove();
-      var keyIndex = keywords.indexOf(key);
-      keywords.splice(keyIndex, 1);
-
-  });
-}
-
-function removeAgeTag(){
-  $("#agetag").on("click","span", function(){
-      var key = $( this ).attr("id");
-      $(this).remove();
-      var keyIndex = keywords.indexOf(key);
-      keywords.splice(keyIndex, 1);
-
-  });
-}
-
-function removeCauseTag(){
-  $("#cause").on("click","span", function(){
-      var key = $( this ).attr("id");
-      $(this).remove();
-      var keyIndex = keywords.indexOf(key);
-      keywords.splice(keyIndex, 1);
-
-  });
-}
-
-function removeThoughtTag(){
-  $("#thought").on("click","span", function(){
-      var key = $( this ).attr("id");
-      $(this).remove();
-      var keyIndex = keywords.indexOf(key);
-      keywords.splice(keyIndex, 1);
-    });
-}
 
 function submitForm(){
   
@@ -365,7 +247,7 @@ function submitForm(){
               <div class="row align-items-center h-100">
                 <div class="col-12">
                   <div class="card h-100 justify-content-center" style="padding: 15px;">
-                    <h5>Context of Emotion</h5>
+                    <h5>Create Intent For This Case</h5>
                     <br>
                     <div class="form-group mx-sm-3 mb-2">
                       <input type="text" class="form-control" id="inputtags" placeholder="type here...">
@@ -386,7 +268,7 @@ function submitForm(){
               <div class="row align-items-center h-100">
                 <div class="col-12">
                   <div class="card h-100 justify-content-center" style="padding: 15px;">
-                    <h5>Context of symptoms</h5>
+                    <h5>Mention Important Keywords</h5>
                     <br>
                     <div class="form-group mx-sm-3 mb-2">
                       <input type="text" class="form-control" id="symptomtag" placeholder="type here...">
@@ -403,133 +285,6 @@ function submitForm(){
               </div>
             </div>
             <br>
-            <div class="container h-100">
-              <div class="row align-items-center h-100">
-                <div class="col-12">
-                  <div class="card h-100 justify-content-center" style="padding: 15px;">
-                    <h5>Context of Problem</h5>
-                    <br>
-                    <div class="form-group mx-sm-3 mb-2">
-                      <input type="text" class="form-control" id="problemtag" placeholder="type here...">
-                    </div>
-                    <br>
-                    <button class="btn btn-primary mb-2" onclick="addProblemTags()">Add tag</button>
-                    <br>
-                    <div class="d-flex flex-wrap bd-highlight mb-3" id="problem">
-                    </div>
-                    <div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <br>
-            <div class="container h-100">
-              <div class="row align-items-center h-100">
-                <div class="col-12">
-                  <div class="card h-100 justify-content-center" style="padding: 15px;">
-                    <h5>Context of Prolonged</h5>
-                    <br>
-                    <div class="form-group mx-sm-3 mb-2">
-                      <input type="text" class="form-control" id="lastingtag" placeholder="type here...">
-                    </div>
-                    <br>
-                    <button class="btn btn-primary mb-2" onclick="addLastingTags()">Add tag</button>
-                    <br>
-                    <div class="d-flex flex-wrap bd-highlight mb-3" id="lasting">
-                    </div>
-                    <div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <br>
-            <div class="container h-100">
-              <div class="row align-items-center h-100">
-                <div class="col-12">
-                  <div class="card h-100 justify-content-center" style="padding: 15px;">
-                    <h5>Context of Cause</h5>
-                    <br>
-                    <div class="form-group mx-sm-3 mb-2">
-                      <input type="text" class="form-control" id="causetag" placeholder="type here...">
-                    </div>
-                    <br>
-                    <button class="btn btn-primary mb-2" onclick="addCauseTags()">Add tag</button>
-                    <br>
-                    <div class="d-flex flex-wrap bd-highlight mb-3" id="cause">
-                    </div>
-                    <div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <br>
-            <div class="container h-100">
-              <div class="row align-items-center h-100">
-                <div class="col-12">
-                  <div class="card h-100 justify-content-center" style="padding: 15px;">
-                    <h5>Context of Thoughts</h5>
-                    <br>
-                    <div class="form-group mx-sm-3 mb-2">
-                      <input type="text" class="form-control" id="thoughttag" placeholder="type here...">
-                    </div>
-                    <br>
-                    <button class="btn btn-primary mb-2" onclick="addThoughtTags()">Add tag</button>
-                    <br>
-                    <div class="d-flex flex-wrap bd-highlight mb-3" id="thought">
-                    </div>
-                    <div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <br>
-            <div class="container h-100">
-              <div class="row align-items-center h-100">
-                <div class="col-12">
-                  <div class="card h-100 justify-content-center" style="padding: 15px;">
-                    <h5>Context of Patient wants</h5>
-                    <br>
-                    <div class="form-group mx-sm-3 mb-2">
-                      <input type="text" class="form-control" id="wanttag" placeholder="type here...">
-                    </div>
-                    <br>
-                    <button class="btn btn-primary mb-2" onclick="addWantTags()">Add tag</button>
-                    <br>
-                    <div class="d-flex flex-wrap bd-highlight mb-3" id="want">
-                    </div>
-                    <div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <br>
-            <div class="container h-100">
-              <div class="row align-items-center h-100">
-                <div class="col-12">
-                  <div class="card h-100 justify-content-center" style="padding: 15px;">
-                    <h5>Context of Patient suffering from</h5>
-                    <br>
-                    <div class="form-group mx-sm-3 mb-2">
-                      <input type="text" class="form-control" id="agetag" placeholder="type here...">
-                    </div>
-                    <br>
-                    <button class="btn btn-primary mb-2" onclick="addAgeTags()">Add tag</button>
-                    <br>
-                    <div class="d-flex flex-wrap bd-highlight mb-3" id="age">
-                    </div>
-                    <div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <br>
-
             <div class="container h-100">
               <div class="row align-items-center h-100">
                 <div class="col-12">

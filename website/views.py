@@ -15,8 +15,8 @@ class LoginView(TemplateView):
 	template_name = "website/login.html"
 
 class MainView(View):
-
-	template_name = 'website/cases.html'
+	
+	template_name = 'website/new_label.html'
 	
 	def get(self, request, var):
 		meta_data = request.META.get('HTTP_X_FORWARDED_FOR')
@@ -33,12 +33,4 @@ class MainView(View):
 		if status:
 			return render(request, self.template_name, {"context":var, "done_list":done_list})
 		return redirect("login")
-
-
-class LabelView(TemplateView):
-
-	template_name = 'website/new_label.html'
-
-
-
 

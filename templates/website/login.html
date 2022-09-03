@@ -30,7 +30,6 @@
   function getData() {
       var username = $("#username").val();
       var password =  $("#password").val();
-      
 
       $.ajax({
         url: "/apis/login",
@@ -44,8 +43,13 @@
             window.sessionStorage.setItem('xr', data["cookies"]);
             window.location.replace("/main/" + username);
         }
+
         
-        }, 
+        },
+        error: function(xhr, status, error) {
+          var msg = '<div class="alert alert-danger" role="alert">' +  username + ' you are an invalid user</div>';
+          $("#msg").html(msg);
+ } 
           });
 
     };
@@ -56,6 +60,10 @@
 <body>
 <br>
 <br>
+<br>
+<br>
+<div id ="msg">
+</div>
 <br>
 <br>
 <div class="content">

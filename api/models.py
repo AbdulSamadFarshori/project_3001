@@ -80,3 +80,17 @@ class LinkConfig(models.Model):
 
 	def __str__(self):
 		return self.title
+
+
+class IntentData(models.Model):
+	case_id = models.ForeignKey(main_data, on_delete=models.CASCADE)
+	intent = models.CharField(max_length=255)
+
+class EntityData(models.Model):
+	case_id = models.ForeignKey(main_data, on_delete=models.CASCADE)
+	entity = models.CharField(max_length=255)
+
+
+
+	def __str__(self):
+		return self.case_id

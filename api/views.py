@@ -9,7 +9,9 @@ from api.models import (main_data, ReplyData,
 						response, ReplyThread,
 						keywords, 
 						CompletedCase,
-						LinkConfig) 
+						LinkConfig, 
+						EntityData, 
+						IntentData) 
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.contrib.auth import get_user_model
@@ -17,6 +19,7 @@ from rest_framework import status
 from core.factory import authenticated, create_hash_key, make_hash, create_user
 from website.models import Cookies
 import logging
+
 
 class LoginView(APIView):
 	
@@ -84,7 +87,7 @@ class RegisterApiView(APIView):
 class MainDataApiView(APIView):
 
 	def get(self, request):
-		queryset = main_data.objects.filter(title="Anxiety Disorders").all()[0:1000]
+		queryset = main_data.objects.filter(title="Anxiety Disorders").all()
 		serializer = MainData(queryset, many=True)
 		return Response(serializer.data)
 
@@ -107,12 +110,24 @@ class ReplyThreadApiView(APIView):
 class LinkConfigApiView(APIView):
 
 	def get(self, request):
-		queryset = LinkConfig.objects.filter(title="Anxiety Disorders").all()[0:1000]
+		queryset = LinkConfig.objects.filter(title="Anxiety Disorders").all()
 		serializer = LinkConfigSerializer(queryset, many=True)
 		return Response(serializer.data)
 
-
-class ResponseApiView(APIView):
+class LabelApiView(APIView):
 
 	def get(self, request):
 		pass
+
+	def post(self, request):
+		# case_id = request.data.get("case_id")
+		# symptom = request.data.get("symptom")
+		# condition = request.data.get("condition")
+		# problem = request.data.get("problem")
+		# cause = request.data.get("cause")
+
+		# obj = main_data.objects.filter(id=case_id)
+
+		return Response({"msg":"done!!"})
+
+
