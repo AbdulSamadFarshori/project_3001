@@ -50,8 +50,8 @@ INSTALLED_APPS = [
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-        'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
-    )
+    ),
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
 }
 
 AUTH_USER_MODEL = 'accounts.User'
@@ -97,12 +97,11 @@ WSGI_APPLICATION = 'controller.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'sumir40/project_3001',
-        'USER': 'sumir40',
-        'PASSWORD': 'v2_3tLuR_zP7x3qjcXsLXns9vg2yct3F',
-        'HOST': 'db.bit.io',
-        'PORT': '5432',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'abdulsamad$pre_db',
+        'USER': 'abdulsamad',
+        'PASSWORD': 'sumir@9359',
+        'HOST': 'abdulsamad.mysql.pythonanywhere-services.com',
     }
 }
 
