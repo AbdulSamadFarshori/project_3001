@@ -40,9 +40,9 @@ $( document ).ready(function() {
           ContentType: "application/json",
           success: function(data){
             console.log(data["results"]["main_problem"])
-              window.sessionStorage.setItem("text", data["results"]["main_problem"]);
-              window.sessionStorage.setItem("heading", data["results"]["sub_heading"]);
-              window.sessionStorage.setItem("id", data["results"]["id"]);
+              window.sessionStorage.setItem("text", data["results"][0]["main_problem"]);
+              window.sessionStorage.setItem("heading", data["results"][0]["sub_heading"]);
+              window.sessionStorage.setItem("id", data["results"][0]["id"]);
               // sessionStorage.setItem("author", data["results"]["author_name"])
               window.sessionStorage.setItem("data_next" ,data["next"]);
               window.sessionStorage.setItem("data_prev" ,data["previous"]);
@@ -58,7 +58,7 @@ $( document ).ready(function() {
           ContentType: "application/json",
           success: function(data){
             console.log(data)
-              window.sessionStorage.setItem("link",data["results"]["link"])
+              window.sessionStorage.setItem("link",data["results"][0]["link"])
               window.sessionStorage.setItem("link_next", data["next"])
               window.sessionStorage.setItem("link_prev", data["previous"])
           } 
