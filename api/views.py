@@ -116,9 +116,6 @@ class LinkConfigApiView(APIView):
 
 class LabelApiView(APIView):
 
-	def get(self, request):
-		pass
-
 	def post(self, request):
 		# case_id = request.data.get("case_id")
 		# symptom = request.data.get("symptom")

@@ -89,9 +89,15 @@ class IntentData(models.Model):
 	def __str__(self):
 		return self.case_id
 
+	class Meta:
+		verbose_name_plural = "Intent Data"
+
 class EntityData(models.Model):
 	case_id = models.ForeignKey(main_data, on_delete=models.CASCADE)
 	entity = models.CharField(max_length=255)
 
 	def __str__(self):
 		return self.case_id
+
+	class Meta:
+		verbose_name_plural = "Entity Data"
