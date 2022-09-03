@@ -218,6 +218,7 @@ function submitForm(){
     dataType:"json",
     ContentType: "application/json",
     success: function(response){
+      console.log("yes")
       if (response["response"] == true){
         nextData();
       }
