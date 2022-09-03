@@ -91,10 +91,10 @@ class MainDataApiView(generics.ListCreateAPIView):
 	# permission_classes = [IsAdminUser]
 	pagination_class = MyPagination
 
-	def list(self, request):
-		queryset = self.get_queryset()
-		serializer = MainData(queryset, many=True)
-		return Response(serializer.data)
+	# def list(self, request):
+	# 	queryset = self.get_queryset()
+	# 	serializer = MainData(queryset, many=True)
+	# 	return Response(serializer.data)
 
 
 class ReplyDataApiView(APIView):
