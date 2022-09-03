@@ -36,16 +36,16 @@ $( document ).ready(function() {
           url: '/apis/main-data?limit=1&offset=0',
           type: "GET",
           dataType: "json",
-          async: false,
+          async: true,
           ContentType: "application/json",
           success: function(data){
             console.log(data)
-              sessionStorage.setItem("text", data["results"]["main_problem"])
-              sessionStorage.setItem("heading", data["results"]["sub_heading"])
-              sessionStorage.setItem("id", data["results"]["id"])
+              sessionStorage.setItem("text", data["results"]["main_problem"]);
+              sessionStorage.setItem("heading", data["results"]["sub_heading"]);
+              sessionStorage.setItem("id", data["results"]["id"]);
               // sessionStorage.setItem("author", data["results"]["author_name"])
-              sessionStorage.setItem("data_next" ,data["next"])
-              sessionStorage.setItem("data_prev" ,data["previous"])
+              sessionStorage.setItem("data_next" ,data["next"]);
+              sessionStorage.setItem("data_prev" ,data["previous"]);
               console.log(sessionStorage.getItem("text"))
         }
       });
