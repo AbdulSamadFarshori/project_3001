@@ -84,10 +84,13 @@ class RegisterApiView(APIView):
 		return {"msg":"Error"}
 
 
-class MainDataApiView(APIView):
+class MainDataApiView(generics.ListCreateAPIView):
+	queryset = main_data.objects.filter(title="Anxiety Disorders").all()
+	serializer_class = MainData
+	# permission_classes = [IsAdminUser]
 
-	def get(self, request):
-		queryset = main_data.objects.filter(title="Anxiety Disorders").all()
+	def list(self, request):
+		queryset = self.get_queryset()
 		serializer = MainData(queryset, many=True)
 		return Response(serializer.data)
 
