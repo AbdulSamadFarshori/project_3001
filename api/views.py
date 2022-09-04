@@ -50,12 +50,12 @@ class FormSubmitView(APIView):
 		main_object = main_data.objects.filter(id=case_id).first()
 
 		if intent:
-			foo = IntentData(case_id=case_id, intent=intent)
+			foo = IntentData(case_id=main_object, intent=intent)
 			foo.save()
 
 		if entity:
 			for ele in entity:
-				foo1 = EntityData(case_id=case_id, entity=ele)
+				foo1 = EntityData(case_id=main_object, entity=ele)
 				foo1.save()
 		
 		return Response({"response":True})
