@@ -49,10 +49,17 @@ class FormSubmitView(APIView):
 		logging.error(f" --> {entity}, {intent}, {case_id}")
 		main_object = main_data.objects.filter(id=case_id).first()
 
-		if case_id:
-			return Response({"response":True})
+		if intent:
+			foo = IntentData(case_id=case_id, intent)
+			foo.save()
 
-		return Response({"response":False})
+		if entity:
+			for ele in entity:
+				foo1 = EntityData(case_id=case_id, entity=ele)
+				foo1.save()
+		
+		return Response({"response":True})
+
 
 class RegisterApiView(APIView):
 
