@@ -87,7 +87,7 @@ class IntentData(models.Model):
 	intent = models.CharField(max_length=255)
 
 	def __str__(self):
-		return self.case_id
+		return self.case_id.sub_heading
 
 	class Meta:
 		verbose_name_plural = "Intent Data"
@@ -97,7 +97,7 @@ class EntityData(models.Model):
 	entity = models.CharField(max_length=255)
 
 	def __str__(self):
-		return self.case_id
+		return self.case_id.sub_heading
 
 	class Meta:
 		verbose_name_plural = "Entity Data"
