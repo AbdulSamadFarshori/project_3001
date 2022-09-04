@@ -50,7 +50,7 @@ class FormSubmitView(APIView):
 		main_object = main_data.objects.filter(id=case_id).first()
 
 		if intent:
-			foo = IntentData(case_id=case_id, intent)
+			foo = IntentData(case_id=case_id, intent=intent)
 			foo.save()
 
 		if entity:
