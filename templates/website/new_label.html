@@ -33,8 +33,6 @@ $( document ).ready(function() {
     window.location.replace("/login")
   }
 
- 
-
   if (window.sessionStorage.getItem("text") == null){
     $.ajax({
           url: '/apis/main-data?limit=1&offset=0',
@@ -123,6 +121,7 @@ function nextData(){
     $(".links").html("<p> case link - <a href="+ link_add +">"+ link_add +"</a></p>" );
     $("#inputtags").val('');
     $("#symptom").html('');
+    entity = []
   }
 
 
@@ -168,6 +167,7 @@ function prevData(){
     $(".links").html("<p> case link - <a href="+ link_add +">"+ link_add +"</a></p>" );
     $("#symptom").html('');
     $("#inputtags").val('');
+    entity = []
   }
 
 
