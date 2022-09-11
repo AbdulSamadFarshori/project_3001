@@ -182,6 +182,12 @@ function addSymptomTags(){
   }
 }
 
+$("#symptomtag").on('keypress',function(e) {
+    if(e.which == 13) {
+        addSymptomTags()
+    }
+});
+
 function removeSymptomTag(){
   $("#symptom").on("click","span", function(){
       var key = $( this ).attr("id");
