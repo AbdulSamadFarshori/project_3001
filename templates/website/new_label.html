@@ -77,6 +77,13 @@ function datapoint() {
 }
 
 datapoint()
+
+$("#symptomtag").keypress(function(e) {
+    if(e.which == 13) {
+        addSymptomTags()
+    }
+});
+
 });
 
 function nextData(){
@@ -182,11 +189,7 @@ function addSymptomTags(){
   }
 }
 
-$("#symptomtag").on('keypress',function(e) {
-    if(e.which == 13) {
-        addSymptomTags()
-    }
-});
+
 
 function removeSymptomTag(){
   $("#symptom").on("click","span", function(){
