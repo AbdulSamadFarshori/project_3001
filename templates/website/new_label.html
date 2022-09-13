@@ -84,21 +84,22 @@ $("#symptomtag").keypress(function(e) {
     }
 });
 
-$("cause").hide();
+$("#cause").hide();
+
+});
 
 function visibleSigns(){
   $("#signs").show();
-  $("cause").hide();
+  $("#cause").hide();
 
 };
 
 function visibleCause(){
   $("#signs").hide();
-  $("cause").Show();
+  $("#cause").Show();
 
-}
+};
 
-});
 
 function nextData(){
 
@@ -285,8 +286,8 @@ function submitForm(){
           </div>
           <br>
           <button type="button" class="btn btn-outline-danger" onclick="prevData()" style="float:rigth;">Prev Case</button>
-          <button type="button" class="btn btn-outline-warning" onclick="visibleSign()" style="float:rigth;">Symptoms</button>
-          <button type="button" class="btn btn-outline-warning" onclick="visibleCause()" style="float:rigth;">Symptoms</button>
+          <button type="button" class="btn btn-outline-warning" onclick="visibleSigns()" style="float:rigth;">Symptoms</button>
+          <button type="button" class="btn btn-outline-warning" onclick="visibleCause()" style="float:rigth;">Cause</button>
             <button type="button" class="btn btn-outline-primary" onclick="nextData()" style="float:rigth;">Next Case</button>
             <br>
             <br>
