@@ -84,22 +84,7 @@ $("#symptomtag").keypress(function(e) {
     }
 });
 
-$("#cause").hide();
-
 });
-
-function visibleSigns(){
-  $("#signs").show();
-  $("#cause").hide();
-
-};
-
-function visibleCause(){
-  $("#signs").hide();
-  $("#cause").show();
-
-};
-
 
 function nextData(){
 
@@ -253,7 +238,7 @@ function submitForm(){
 </script>
 {% endblock %}
 <body>
- <div class="container h-300" style="margin-top: 5%;", >
+ <div class="container h-300" style="margin-top: 5%;">
     <div class="row align-items-center h-300">
       <div class="col-12 mx-auto">
         <div id="id">
@@ -286,110 +271,55 @@ function submitForm(){
           </div>
           <br>
           <button type="button" class="btn btn-outline-danger" onclick="prevData()" style="float:rigth;">Prev Case</button>
-          <button type="button" class="btn btn-outline-warning" onclick="visibleSigns()" style="float:rigth;">Symptoms</button>
-          <button type="button" class="btn btn-outline-warning" onclick="visibleCause()" style="float:rigth;">Cause</button>
             <button type="button" class="btn btn-outline-primary" onclick="nextData()" style="float:rigth;">Next Case</button>
             <br>
             <br>
-            <div id="signs">
-              <div class="container h-100">
-                <div class="row align-items-center h-100">
-                  <div class="col-12">
-                    <div class="card h-100 justify-content-center" style="padding: 15px;">
-                      <h5>Create Intent For This Case</h5>
-                      <br>
-                      <div class="form-group mx-sm-3 mb-2">
-                        <input type="text" class="form-control" id="inputtags" placeholder="type here...">
-                      </div>
-                      <br>
+            <div class="container h-100">
+              <div class="row align-items-center h-100">
+                <div class="col-12">
+                  <div class="card h-100 justify-content-center" style="padding: 15px;">
+                    <h5>Create Intent For This Case</h5>
+                    <br>
+                    <div class="form-group mx-sm-3 mb-2">
+                      <input type="text" class="form-control" id="inputtags" placeholder="type here...">
                     </div>
+                    <br>
                   </div>
-                </div>
-              </div>
-              <br>
-              <div class="container h-100">
-                <div class="row align-items-center h-100">
-                  <div class="col-12">
-                    <div class="card h-100 justify-content-center" style="padding: 15px;">
-                      <h5>Mention Important Keywords</h5>
-                      <br>
-                      <div class="form-group mx-sm-3 mb-2">
-                        <input type="text" class="form-control" id="symptomtag" placeholder="type here...">
-                      </div>
-                      <br>
-                      <button class="btn btn-primary mb-2" onclick="addSymptomTags()">Add tag</button>
-                      <br>
-                      <div class="d-flex flex-wrap bd-highlight mb-3" id="symptom">
-                      </div>
-                      <div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <br>
-              <div class="container h-100">
-                <div class="row align-items-center h-100">
-                  <div class="col-12">
-                    <div class="card h-100 justify-content-center" style="padding: 10px;">
-                      <br>
-                      <button class="btn btn-success" onclick="submitForm()">submit</button> 
-                    </div>
-                  <div>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-            <div id="cause">
-              <div class="container h-100">
-                <div class="row align-items-center h-100">
-                  <div class="col-12">
-                    <div class="card h-100 justify-content-center" style="padding: 15px;">
-                      <h5>Define Cause</h5>
-                      <br>
-                      <div class="form-group mx-sm-3 mb-2">
-                        <input type="text" class="form-control" id="inputtags" placeholder="type here...">
-                      </div>
-                      <br>
+            <br>
+            <div class="container h-100">
+              <div class="row align-items-center h-100">
+                <div class="col-12">
+                  <div class="card h-100 justify-content-center" style="padding: 15px;">
+                    <h5>Mention Important Keywords</h5>
+                    <br>
+                    <div class="form-group mx-sm-3 mb-2">
+                      <input type="text" class="form-control" id="symptomtag" placeholder="type here...">
+                    </div>
+                    <br>
+                    <button class="btn btn-primary mb-2" onclick="addSymptomTags()">Add tag</button>
+                    <br>
+                    <div class="d-flex flex-wrap bd-highlight mb-3" id="symptom">
+                    </div>
+                    <div>
                     </div>
                   </div>
-                </div>
-              </div>
-              <br>
-              <div class="container h-100">
-                <div class="row align-items-center h-100">
-                  <div class="col-12">
-                    <div class="card h-100 justify-content-center" style="padding: 15px;">
-                      <h5>Mention Important cause related Keywords</h5>
-                      <br>
-                      <div class="form-group mx-sm-3 mb-2">
-                        <input type="text" class="form-control" id="symptomtag" placeholder="type here...">
-                      </div>
-                      <br>
-                      <button class="btn btn-primary mb-2" onclick="addSymptomTags()">Add tag</button>
-                      <br>
-                      <div class="d-flex flex-wrap bd-highlight mb-3" id="symptom">
-                      </div>
-                      <div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <br>
-              <div class="container h-100">
-                <div class="row align-items-center h-100">
-                  <div class="col-12">
-                    <div class="card h-100 justify-content-center" style="padding: 10px;">
-                      <br>
-                      <button class="btn btn-success" onclick="submitForm()">submit</button> 
-                    </div>
-                  <div>
                 </div>
               </div>
             </div>
-
+            <br>
+            <div class="container h-100">
+              <div class="row align-items-center h-100">
+                <div class="col-12">
+                  <div class="card h-100 justify-content-center" style="padding: 10px;">
+                    <br>
+                    <button class="btn btn-success" onclick="submitForm()">submit</button> 
+                  </div>
+                <div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
