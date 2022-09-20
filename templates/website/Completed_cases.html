@@ -36,13 +36,15 @@
             <div class="card h-300 justify-content-center" style="padding: 15px;">
               <div id="title">
               </div>
+              {% for obj in completed_cases %}
                 <div class="text" id="text">
                   <div class="d-flex justify-content-center">
                     <div class="spinner-border text-primary" role="status">
                         <span class="visually-hidden">Loading...</span>
                     </div>
-                    </div>
                   </div>
+                </div>
+              {% endfor %}
                 </div>
               </div>
             </div>
