@@ -96,8 +96,6 @@
       <div class="container h-300" style="margin-top: 2%;">
     <div class="row align-items-center h-300">
       <div class="col-12 mx-auto">
-        <div id="id">
-          </div>
             <div class="card h-300 justify-content-center">
               <div class="text" id="text">
                 <div class="d-flex" style="padding: 10px;">    
@@ -105,25 +103,23 @@
                     {% if data.has_previous %}
                       <a href="?page=1" class="btn btn-primary">&laquo First </a>
                       &nbsp;
-                      <a href="?page={{data.previous_page_number}}" class="btn btn-primary">Previous Page</a>
+                      <a href="?page={{data.previous_page_number}}" class="btn btn-primary">Previous</a>
                     {% endif %}
                     &nbsp;
-                    page {{data.number}} of {{ data.paginator.num_pages }}
+                    page {{data.number}} of {{data.paginator.num_pages}}
                     &nbsp;
                     {% if data.has_next %}
-                      <a href="?page={{data.next_page_number}}" class="btn btn-primary">Next Page</a>
+                      <a href="?page={{data.next_page_number}}" class="btn btn-primary">Next</a>
                       &nbsp;
                       <a href="?page={{data.paginator.num_pages}}" class="btn btn-primary"> Last &raquo</a>
                     {% endif %}
                     <br>
                 </div>
-                </div>
-              </div>
-              
               </div>
             </div>
           </div>
         </div>
+      </div>
 
 </body>
 </html>
