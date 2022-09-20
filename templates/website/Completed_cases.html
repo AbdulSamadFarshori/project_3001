@@ -28,7 +28,7 @@
 </script>
 {% endblock %}
 <body>
-  {% for obj in completed_cases %}
+  {% for obj in data %}
 
   <div class="container h-300" style="margin-top: 2%;">
     <div class="row align-items-center h-300">
@@ -59,13 +59,13 @@
         </div>
       {% endfor %}
       <hr><br/><br/>
-      {% if completed_cases.has_previous %}
+      {% if data.has_previous %}
         <a href="?page=1">&laquo First </a>
         <a href="{{ data.previous_page_number }}">Previous Page</a>
       {% endif %}
       page {{data.number}} of {{ data.paginator.num_pages }}
       
-      {% if completed_cases.has_next %}
+      {% if data.has_next %}
         <a href="?page={{data.next_page_number}}">Next Page</a>
         <a href="{{data.paginator.num_pages}}"> Last &raquo</a>
       {% endif %}

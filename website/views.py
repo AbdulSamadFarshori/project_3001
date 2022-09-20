@@ -48,4 +48,4 @@ class CompletedCasesPageTemplate(View):
 		page = request.GET.get("page")
 		data = my_paginator.get_page(page)
 
-		return render(request, self.template_name, {"Completed_cases":data})	
+		return render(request, self.template_name, {"data":data})	
