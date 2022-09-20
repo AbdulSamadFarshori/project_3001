@@ -38,7 +38,9 @@
                 <div class="d-flex" style="padding: 10px;">    
                   <br>
                     <h1>Completed Cases</h1>
+                    <div class="d-flex">
                     <a href="{% url 'home' %}"> <- back </a>
+                    </div>
                   <br>
                 </div>
                 </div>
@@ -80,16 +82,35 @@
           </div>
         </div>
       {% endfor %}
-      <hr>
-      {% if data.has_previous %}
-        <a href="?page=1">&laquo First </a>
-        <a href="?page={{data.previous_page_number}}">Previous Page</a>
-      {% endif %}
-      page {{data.number}} of {{ data.paginator.num_pages }}
       
-      {% if data.has_next %}
-        <a href="?page={{data.next_page_number}}">Next Page</a>
-        <a href="?page={{data.paginator.num_pages}}"> Last &raquo</a>
-      {% endif %}
+      <div class="container h-300" style="margin-top: 2%;">
+    <div class="row align-items-center h-300">
+      <div class="col-12 mx-auto">
+        <div id="id">
+          </div>
+            <div class="card h-300 justify-content-center">
+              <div class="text" id="text">
+                <div class="d-flex" style="padding: 10px;">    
+                  <br>
+                    {% if data.has_previous %}
+                      <a href="?page=1">&laquo First </a>
+                      <a href="?page={{data.previous_page_number}}">Previous Page</a>
+                    {% endif %}
+                    page {{data.number}} of {{ data.paginator.num_pages }}
+      
+                    {% if data.has_next %}
+                      <a href="?page={{data.next_page_number}}">Next Page</a>
+                      <a href="?page={{data.paginator.num_pages}}"> Last &raquo</a>
+                    {% endif %}
+                    <br>
+                </div>
+                </div>
+              </div>
+              
+              </div>
+            </div>
+          </div>
+        </div>
+
 </body>
 </html>
