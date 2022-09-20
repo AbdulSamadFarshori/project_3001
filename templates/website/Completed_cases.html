@@ -58,16 +58,16 @@
           </div>
         </div>
       {% endfor %}
-      <hr><br/><br/>
+      <hr>
       {% if data.has_previous %}
         <a href="?page=1">&laquo First </a>
-        <a href="{{ data.previous_page_number }}">Previous Page</a>
+        <a href="?page={{data.previous_page_number}}">Previous Page</a>
       {% endif %}
       page {{data.number}} of {{ data.paginator.num_pages }}
       
       {% if data.has_next %}
         <a href="?page={{data.next_page_number}}">Next Page</a>
-        <a href="{{data.paginator.num_pages}}"> Last &raquo</a>
+        <a href="?page={{data.paginator.num_pages}}"> Last &raquo</a>
       {% endif %}
 </body>
 </html>
