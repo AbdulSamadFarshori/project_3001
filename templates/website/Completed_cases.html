@@ -74,6 +74,22 @@
                   <div style="margin: 5px;">
                     <a href="#">Symptoms</a>
                   </div>
+
+                  <div style="margin: 5px;">
+                    <a href="#">Cause</a>
+                  </div>
+
+                  <div style="margin: 5px;">
+                    <a href="#">Patient Ask For</a>
+                  </div>
+
+                  <div style="margin: 5px;">
+                    <a href="#">History</a>
+                  </div>
+
+                  <div style="margin: 5px;">
+                    <a href="#">Effect</a>
+                  </div>
                 </div>
               </div>
               
@@ -94,12 +110,15 @@
                   <br>
                     {% if data.has_previous %}
                       <a href="?page=1">&laquo First </a>
+                      &nbsp;
                       <a href="?page={{data.previous_page_number}}">Previous Page</a>
                     {% endif %}
+                    &nbsp;
                     page {{data.number}} of {{ data.paginator.num_pages }}
-      
+                    &nbsp;
                     {% if data.has_next %}
                       <a href="?page={{data.next_page_number}}">Next Page</a>
+                      &nbsp;
                       <a href="?page={{data.paginator.num_pages}}"> Last &raquo</a>
                     {% endif %}
                     <br>
