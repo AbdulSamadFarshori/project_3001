@@ -30,17 +30,17 @@
 <body>
   {% for obj in completed_cases %}
   <br>
-  <div class="container h-300" style="margin-top: 5%;">
+  <div class="container h-300" style="margin-top: 2%;">
     <div class="row align-items-center h-300">
       <div class="col-12 mx-auto">
         <div id="id">
           </div>
-            <div class="card h-300 justify-content-center" style="padding: 15px;">
+            <div class="card h-300 justify-content-center">
               <div id="title">
               </div>
                 <div class="text" id="text">
                   <div class="d-flex justify-content-center">
-                    <h1> Hello </h1>
+                    <h5> {{obj.case_id.sub_heading}} </h5>
                   </div>
                 </div>
               
