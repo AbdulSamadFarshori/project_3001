@@ -69,7 +69,7 @@ class CompletedCase(models.Model):
 	case_id = models.ForeignKey(main_data, on_delete=models.CASCADE)
 
 	def __str__(self):
-		return self.case_id
+		return self.case_id.sub_heading
 
 class LinkConfig(models.Model):
 	title = models.CharField(max_length=255)
