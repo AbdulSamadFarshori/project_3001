@@ -97,6 +97,6 @@ class TransferDataView(APIView):
 		for data in obj:
 			obj2 = CompletedCase(case_id=data.case_id)
 			obj2.save()
-		return "done"
+		return Response({"response":"Done"})
 
 
