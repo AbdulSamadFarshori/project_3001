@@ -4,6 +4,7 @@ from django.views.generic import TemplateView
 from django.views import View, generic
 from .pagination_config import MyPagination
 from django.contrib.auth import get_user_model
+from django.core.paginator import Paginator 
 from core.factory import user_is_valid, get_client_ip
 from django.shortcuts import redirect
 from .models import FingerPrints
@@ -36,11 +37,15 @@ class MainView(View):
 			return render(request, self.template_name, {"context":var, "done_list":done_list})
 		return redirect("login")
 
-class CompletedCasesPageTemplate(generic.ListView):
-	
-	model = CompletedCase
-	template_name = 'website/Completed_cases.html'
-	context_object_name = "completed_cases"
-	pagination_class = MyPagination
-	queryset = CompletedCase.objects.all()
 
+class CompletedCasesPageTemplate(View):
+	
+	template_name = 'website/Completed_cases.html'
+
+	def get(self, request):
+		objects = CompletedCase.objects.all()
+		my_paginator = Paginator(objects, 10)
+		page = request.GET.get("page")
+		data = my_paginator.get_page(page)
+
+		return render(request, self.template_name, {"Completed_cases":data})	
