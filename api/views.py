@@ -57,6 +57,9 @@ class FormSubmitView(APIView):
 			for ele in entity:
 				foo1 = EntityData(case_id=main_object, entity=ele)
 				foo1.save()
+
+		done_cases = CompletedCase(case_id=main_object)
+		done_cases.save() 
 		
 		return Response({"response":True})
 
@@ -88,15 +91,5 @@ class LinkConfigApiView(generics.ListAPIView):
 	serializer_class = LinkConfigSerializer
 	# permission_classes = [IsAdminUser]
 	pagination_class = MyPagination
-
-
-class TransferDataView(APIView):
-	
-	def get(self, request):
-		obj = IntentData.objects.all()
-		for data in obj:
-			obj2 = CompletedCase(case_id=data.case_id)
-			obj2.save()
-		return Response({"response":"Done"})
 
 
