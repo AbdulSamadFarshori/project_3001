@@ -90,3 +90,13 @@ class LinkConfigApiView(generics.ListAPIView):
 	pagination_class = MyPagination
 
 
+class TransferDataView(APIView):
+	
+	def get(self, request):
+		obj = IntentData.objects.all()
+		for data in obj:
+			obj2 = CompletedCase(case_id=data.case_id)
+			obj2.save()
+		return "done"
+
+
