@@ -5,7 +5,6 @@ from .views import (
 							RegisterApiView, 
 							MainDataApiView, 
 							LinkConfigApiView,
-							TransferDataView,
 							)
 
 from .models import main_data
