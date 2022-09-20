@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from api.models import CompletedCase
 from django.views.generic import TemplateView
-from django.views import View
+from django.views import View, generic
 from .pagination_config import MyPagination
 from django.contrib.auth import get_user_model
 from core.factory import user_is_valid, get_client_ip
