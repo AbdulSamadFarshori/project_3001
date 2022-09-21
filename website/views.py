@@ -57,10 +57,10 @@ class NotCompletedCasesPageTemplate(View):
 	def get(self, request):
 		objects = CompletedCase.objects.all()
 		sec_objects =  main_data.objects.filter(title="Anxiety Disorders").all()
-		headings = [i.case_id.sub_heading for i in objects]
+		headings = [i.case_id.id for i in objects]
 		final = []
 		for not_completed in sec_objects:
-			if not_completed.sub_heading not in headings:
+			if not_completed.id not in headings:
 				final.append(not_completed)
 		my_paginator = Paginator(final, 10)
 		page = request.GET.get("page")
