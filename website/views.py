@@ -52,7 +52,7 @@ class CompletedCasesPageTemplate(View):
 
 class NotCompletedCasesPageTemplate(View):
 	
-	template_name = 'website/Not_Completed_cases.html'
+	template_name = 'website/Not_completed_cases.html'
 
 	def get(self, request):
 		objects = CompletedCase.objects.all()
