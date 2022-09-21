@@ -50,6 +50,22 @@ class CompletedCasesPageTemplate(View):
 		return render(request, self.template_name, {"data":data})
 
 
+class NotCompletedCasesPageTemplate(View):
+	
+	template_name = 'website/Not_Completed_cases.html'
+
+	def get(self, request):
+		objects = CompletedCase.objects.all()
+		sec_objects =  main_data.objects.filter(title="Anxiety Disorders").all()
+		final = set(sec_objects) - set(objects)
+		final = list(final)
+		my_paginator = Paginator(final, 10)
+		page = request.GET.get("page")
+		data = my_paginator.get_page(page)
+
+		return render(request, self.template_name, {"data":data})
+
+
 
 class IntentCasesPageTemplate(View):
 	
