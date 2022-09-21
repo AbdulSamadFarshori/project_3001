@@ -115,7 +115,7 @@ class EntityCasesPageTemplate(View):
 			info = mainobj[0]
 			title = info.sub_heading
 			case = info.main_problem
-			case_ids = info.case_id
+			case_ids = info.id
 		if obj:
 			for key in obj:
 				keyword = key.entity
