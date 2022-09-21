@@ -89,7 +89,7 @@ class UpdateIntentCasesTemplate(View):
 	def get(self, request, pk):
 
 		mainobj = main_data.objects.filter(id=pk).first()
-		obj = CompletedCase.objects.filter(case_id=mainobj).first()
+		obj = CompletedCase.objects.filter(case_id.id=pk).first()
 		intent = None
 		if obj:
 			data = obj
