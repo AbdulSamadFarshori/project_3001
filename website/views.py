@@ -57,13 +57,8 @@ class NotCompletedCasesPageTemplate(View):
 	def get(self, request):
 		objects = CompletedCase.objects.all()
 		sec_objects =  main_data.objects.filter(title="Anxiety Disorders").all()
-		n =len(sec_objects)
-		logging.error(f"no of object --> {n}")
 		headings = [i.case_id.id for i in objects]
-		final = []
-		for not_completed in sec_objects:
-			if not_completed.id not in headings:
-				final.append(not_completed)
+		final = [not_completed for not_completed in sec_objects if not_completed.id not in headings]
 		my_paginator = Paginator(final, 10)
 		page = request.GET.get("page")
 		data = my_paginator.get_page(page)
@@ -71,25 +66,42 @@ class NotCompletedCasesPageTemplate(View):
 		return render(request, self.template_name, {"data":data})
 
 
-
 class IntentCasesPageTemplate(View):
 	
-	template_name = 'website/Intent.html'
+	template_name = 'website/intent.html'
 
 	def get(self, request, pk):
-		mainobj = main_data.objects.filter(id=pk) 
-		obj = IntentData.objects.filter(case_id=mainobj)
-		if obj and mainobj:
-			data, info = obj[0], mainobj[0]
-			title = info.sub_heading
-			case = info.main_problem
-			case_ids = info.case_id
-			intent = data.intent
+		mainobj = main_data.objects.filter(id=pk)  
+		info =  mainobj[0]
+		title = info.sub_heading
+		case = info.main_problem
+		case_ids = info.case_id
+			
+		return render(request, self.template_name, 
+				{"title":title, "case":case, 
+				"case_id":case_ids})
 
+
+class UpdateIntentCasesTemplate(view):
+
+	template_name = 'website/update-intent.html'
+
+	def get(self, request, pk):
+
+		mainobj = main_data.objects.filter(id=pk)
+		obj = CompletedCase.objects.filter(case_id=mainobj)
+		intent = None
+		if obj:
+			data = obj[0]
+			intent = data.intent
+		info =  mainobj[0]
+		title = info.sub_heading
+		case = info.main_problem
+		case_ids = info.case_id
+			
 		return render(request, self.template_name, 
 				{"title":title, "case":case, 
 				"case_id":case_ids, "intent":intent})
-
 
 class EntityCasesPageTemplate(View):
 
