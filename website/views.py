@@ -71,8 +71,8 @@ class IntentCasesPageTemplate(View):
 	template_name = 'website/intent.html'
 
 	def get(self, request, pk):
-		mainobj = main_data.objects.filter(id=pk)  
-		info =  mainobj[0]
+		mainobj = main_data.objects.filter(id=pk).first()  
+		info =  mainobj
 		title = info.sub_heading
 		case = info.main_problem
 		case_ids = info.case_id
@@ -88,13 +88,13 @@ class UpdateIntentCasesTemplate(View):
 
 	def get(self, request, pk):
 
-		mainobj = main_data.objects.filter(id=pk)
-		obj = CompletedCase.objects.filter(case_id=mainobj)
+		mainobj = main_data.objects.filter(id=pk).first()
+		obj = CompletedCase.objects.filter(case_id=mainobj).first()
 		intent = None
 		if obj:
-			data = obj[0]
+			data = obj
 			intent = data.intent
-		info =  mainobj[0]
+		info =  mainobj
 		title = info.sub_heading
 		case = info.main_problem
 		case_ids = info.case_id
