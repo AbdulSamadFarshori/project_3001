@@ -75,7 +75,7 @@ class IntentCasesPageTemplate(View):
 		info =  mainobj
 		title = info.sub_heading
 		case = info.main_problem
-		case_ids = info.case_id
+		case_ids = info.id
 			
 		return render(request, self.template_name, 
 				{"title":title, "case":case, 
