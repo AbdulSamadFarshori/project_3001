@@ -111,14 +111,33 @@ class UpdateIntentCasesTemplate(View):
 
 class EntityCasesPageTemplate(View):
 
-	template_name = 'website/Entity.html'
+	template_name = 'website/symptoms.html'
+
+	def get(self, request, pk):
+		linkobj = LinkConfig.objects.filter(id=pk).first()
+		mainobj = main_data.objects.filter(id=pk).first() 
+		if mainobj:
+			info = mainobj
+			title = info.sub_heading
+			case = info.main_problem
+			case_ids = info.id
+
+		return render(request, self.template_name, 
+				{"title":title, "case":case, 
+				"case_id":case_ids})
+
+
+class UpdateEntityCasesTemplate(View):
+
+	template_name = 'website/upate-entity.html'
 
 	def get(self, request, pk):
 		keywords_list = []
-		mainobj = main_data.objects.filter(id=pk) 
-		obj = IntentData.objects.filter(case_id=mainobj)
+		mainobj = main_data.objects.filter(id=pk).first() 
+		linkobj = LinkConfig.objects.filter(id=pk).first()
+		obj = EntityData.objects.filter(case_id=mainobj).all()
 		if mainobj:
-			info = mainobj[0]
+			info = mainobj
 			title = info.sub_heading
 			case = info.main_problem
 			case_ids = info.id
@@ -130,3 +149,4 @@ class EntityCasesPageTemplate(View):
 		return render(request, self.template_name, 
 				{"title":title, "case":case, 
 				"case_id":case_ids, "keyword":keywords_list})
+

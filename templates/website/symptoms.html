@@ -25,35 +25,60 @@
 {% block jquery %}
 <script type="text/javascript">
 
-function goBack(){
-  window.history.back();
+var entity = [];
+
+$( document ).ready(function() {
+
+$("#symptomtag").keypress(function(e) {
+    if(e.which == 13) {
+        addSymptomTags()
+    }
+});
+
+});
+
+
+function addSymptomTags(){
+  var takeValue = $("#symptomtag").val();
+  if (takeValue != null){
+  entity.push(takeValue);
+  var ItemAdd = "<h6 class='hsix'><span class='badge bg-primary' id='"+ takeValue + "' style='margin:4px;'>"+takeValue+"<button class='btn-close' aria-label='Close' onClick='removeSymptomTag()'></button></span></h6>"
+  $("#symptom").append(ItemAdd);
+  $('#symptomtag').val('');
+  }
 }
+
+function removeSymptomTag(){
+  $("#symptom").on("click","span", function(){
+      var key = $( this ).attr("id");
+      $(this).remove();
+      var keyIndex = entity.indexOf(key);
+      entity.splice(keyIndex, 1);
+
+  });
+}
+
 
 function submitForm(){
 
-  var case_id = {{case_id}};
-
-  var takeValue = $("#inputtags").val();
-  
-  if (takeValue != null){
-    
-    intent = takeValue;
-    
-    }
+  var case_id = xxx;
 
   var data = {
-              "id":case_id,  
-              "intent":intent
+              "id":case_id, 
+              "entity":entity, 
             };
+  console.log(entity)
   
   $.ajax({
-    url: "/apis/updated-intent",
+    url: "/apis/xxx",
     method:"POST",
     data:data,
     dataType:"json",
     ContentType: "application/json",
     success: function(response){
-      console.log("submit")
+      if (response["response"] == true){
+        nextData();
+      }
 
     }
   });
@@ -69,7 +94,7 @@ function submitForm(){
           </div>
             <div class="card h-300 justify-content-center" style="padding: 15px;">
               <div id="title">
-                <h3>Title - {{title}}</h3>
+                <h3> Title - {{title}}</h3>
               </div>
                 <div class="text" id="text">
                   <div class="d-flex justify-content-center">
@@ -85,7 +110,7 @@ function submitForm(){
                   <div class="card h-100 justify-content-center" style="padding: 10px;">
                     <h5>Case Link</h5>
                     <div class="links">
-                    Case link - <a href="{{link}}">{{link}}</a>  
+                      Case link - <a href="{{link}}">{{link}}</a>  
                     </div>
                     </div>
                   <div>
@@ -96,17 +121,22 @@ function submitForm(){
           <br>
           <button type="button" class="btn btn-outline-danger" onclick="goBack()" style="float:rigth;">Back</button>
             <br>
-            <br>
             <div class="container h-100">
               <div class="row align-items-center h-100">
                 <div class="col-12">
                   <div class="card h-100 justify-content-center" style="padding: 15px;">
-                    <h5>Create Intent For This Case</h5>
+                    <h5>Mention Important Keywords</h5>
                     <br>
                     <div class="form-group mx-sm-3 mb-2">
-                      <input type="text" class="form-control" id="inputtags" value="{{intent}}">
+                      <input type="text" class="form-control" id="symptomtag" placeholder="type here...">
                     </div>
                     <br>
+                    <button class="btn btn-primary mb-2" onclick="addSymptomTags()">Add tag</button>
+                    <br>
+                    <div class="d-flex flex-wrap bd-highlight mb-3" id="symptom">
+                    </div>
+                    <div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -117,7 +147,7 @@ function submitForm(){
                 <div class="col-12">
                   <div class="card h-100 justify-content-center" style="padding: 10px;">
                     <br>
-                    <button class="btn btn-success" onclick="submitForm()">update</button> 
+                    <button class="btn btn-success" onclick="submitForm()">submit</button> 
                   </div>
                 <div>
               </div>
