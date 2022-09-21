@@ -81,7 +81,7 @@ class IntentCasesPageTemplate(View):
 			
 		return render(request, self.template_name, 
 				{"title":title, "case":case, 
-				"case_id":case_ids, "link":link"link":link})
+				"case_id":case_ids, "link":link})
 
 
 class UpdateIntentCasesTemplate(View):
@@ -107,7 +107,7 @@ class UpdateIntentCasesTemplate(View):
 				{"title":title, "case":case, 
 				"case_id":case_ids, 
 				"intent":intent, "link":link})
-		
+
 
 class EntityCasesPageTemplate(View):
 
