@@ -57,6 +57,8 @@ class NotCompletedCasesPageTemplate(View):
 	def get(self, request):
 		objects = CompletedCase.objects.all()
 		sec_objects =  main_data.objects.filter(title="Anxiety Disorders").all()
+		n =len(sec_objects)
+		logging.error(f"no of object --> {n}")
 		headings = [i.case_id.id for i in objects]
 		final = []
 		for not_completed in sec_objects:
