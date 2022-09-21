@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from api.models import CompletedCase, main_data, IntentData, EntityData
+from api.models import CompletedCase, main_data, IntentData, EntityData, LinkConfig
 from django.views.generic import TemplateView
 from django.views import View, generic
 from django.contrib.auth import get_user_model
@@ -71,15 +71,17 @@ class IntentCasesPageTemplate(View):
 	template_name = 'website/intent.html'
 
 	def get(self, request, pk):
-		mainobj = main_data.objects.filter(id=pk).first()  
+		mainobj = main_data.objects.filter(id=pk).first()
+		linkobj = LinkConfig.objects.filter(id=pk).first()  
 		info =  mainobj
 		title = info.sub_heading
 		case = info.main_problem
 		case_ids = info.id
+		link = linkobj.link
 			
 		return render(request, self.template_name, 
 				{"title":title, "case":case, 
-				"case_id":case_ids})
+				"case_id":case_ids, "link":link"link":link})
 
 
 class UpdateIntentCasesTemplate(View):
@@ -90,6 +92,7 @@ class UpdateIntentCasesTemplate(View):
 
 		mainobj = main_data.objects.filter(id=pk).first()
 		obj = IntentData.objects.filter(case_id=mainobj).first()
+		linkobj = LinkConfig.objects.filter(id=pk).first()
 		intent = None
 		if obj:
 			data = obj
@@ -98,10 +101,13 @@ class UpdateIntentCasesTemplate(View):
 		title = info.sub_heading
 		case = info.main_problem
 		case_ids = info.id
+		link = linkobj.link
 			
 		return render(request, self.template_name, 
 				{"title":title, "case":case, 
-				"case_id":case_ids, "intent":intent})
+				"case_id":case_ids, 
+				"intent":intent, "link":link})
+		
 
 class EntityCasesPageTemplate(View):
 
