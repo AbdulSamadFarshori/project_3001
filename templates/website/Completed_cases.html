@@ -63,27 +63,27 @@
                 </div>
                 <div class="d-flex">
                   <div style="margin: 5px;">
-                    <a href="#" class="btn btn-primary">Intent</a>
+                    <a href="#" class="btn btn-outline-primary">Intent</a>
                   </div>
 
                   <div style="margin: 5px;">
-                    <a href="#" class="btn btn-primary">Symptoms</a>
+                    <a href="#" class="btn btn-outline-primary">Symptoms</a>
                   </div>
 
                   <div style="margin: 5px;">
-                    <a href="#" class="btn btn-primary">Cause</a>
+                    <a href="#" class="btn btn-outline-primary">Cause</a>
                   </div>
 
                   <div style="margin: 5px;">
-                    <a href="#" class="btn btn-primary">Patient Ask For</a>
+                    <a href="#" class="btn btn-outline-primary">Patient Ask For</a>
                   </div>
 
                   <div style="margin: 5px;">
-                    <a href="#" class="btn btn-primary">History</a>
+                    <a href="#" class="btn btn-outline-primary">History</a>
                   </div>
 
                   <div style="margin: 5px;">
-                    <a href="#" class="btn btn-primary">Effect</a>
+                    <a href="#" class="btn btn-outline-primary">Effect</a>
                   </div>
                 </div>
               </div>
@@ -91,35 +91,32 @@
             </div>
           </div>
         </div>
-      {% endfor %}
+    {% endfor %}
       
-      <div class="container h-300" style="margin-top: 2%;">
+  <div class="container h-300" style="margin-top: 2%;">
     <div class="row align-items-center h-300">
       <div class="col-12 mx-auto">
-            <div class="card h-300 justify-content-center">
-              <div class="text" id="text">
-                <div class="d-flex" style="padding: 10px;">    
-                  <br>
-                    {% if data.has_previous %}
-                      <a href="?page=1" class="btn btn-primary">&laquo First </a>
-                      &nbsp;
-                      <a href="?page={{data.previous_page_number}}" class="btn btn-primary">Previous</a>
-                    {% endif %}
-                    &nbsp;
-                    page {{data.number}} of {{data.paginator.num_pages}}
-                    &nbsp;
-                    {% if data.has_next %}
-                      <a href="?page={{data.next_page_number}}" class="btn btn-primary">Next</a>
-                      &nbsp;
-                      <a href="?page={{data.paginator.num_pages}}" class="btn btn-primary"> Last &raquo</a>
-                    {% endif %}
-                    <br>
-                </div>
+        <div class="card h-300 justify-content-center">
+          <div class="text" id="text">
+            <div class="d-flex" style="padding: 10px;">    
+              {% if data.has_previous %}
+                <a href="?page=1" class="btn btn-primary">&laquo First </a>
+                &nbsp;
+                <a href="?page={{data.previous_page_number}}" class="btn btn-primary">Previous</a>
+              {% endif %}
+                &nbsp;
+                page {{data.number}} of {{data.paginator.num_pages}}
+                &nbsp;
+              {% if data.has_next %}
+                <a href="?page={{data.next_page_number}}" class="btn btn-primary">Next</a>
+                &nbsp;
+                <a href="?page={{data.paginator.num_pages}}" class="btn btn-primary">Last &raquo</a>
+              {% endif %}
               </div>
             </div>
           </div>
         </div>
       </div>
-
+    </div>
 </body>
 </html>
