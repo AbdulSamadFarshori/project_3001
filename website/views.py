@@ -82,7 +82,7 @@ class IntentCasesPageTemplate(View):
 				"case_id":case_ids})
 
 
-class UpdateIntentCasesTemplate(view):
+class UpdateIntentCasesTemplate(View):
 
 	template_name = 'website/update-intent.html'
 
