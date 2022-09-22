@@ -129,7 +129,7 @@ class EntityCasesPageTemplate(View):
 
 class UpdateEntityCasesTemplate(View):
 
-	template_name = 'website/upate-symptoms.html'
+	template_name = 'website/update-symptoms.html'
 
 	def get(self, request, pk):
 		keywords_list = []
