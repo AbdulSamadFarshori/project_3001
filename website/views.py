@@ -113,9 +113,9 @@ class EntityCasesPageTemplate(View):
 
 	template_name = 'website/symptoms.html'
 
-	def get(self, request, pk):
-		linkobj = LinkConfig.objects.filter(id=pk).first()
-		mainobj = main_data.objects.filter(id=pk).first() 
+	def get(self, request, num):
+		linkobj = LinkConfig.objects.filter(id=num).first()
+		mainobj = main_data.objects.filter(id=num).first() 
 		if mainobj:
 			info = mainobj
 			title = info.sub_heading
@@ -131,10 +131,10 @@ class UpdateEntityCasesTemplate(View):
 
 	template_name = 'website/upate-entity.html'
 
-	def get(self, request, pk):
+	def get(self, request, num):
 		keywords_list = []
-		mainobj = main_data.objects.filter(id=pk).first() 
-		linkobj = LinkConfig.objects.filter(id=pk).first()
+		mainobj = main_data.objects.filter(id=num).first() 
+		linkobj = LinkConfig.objects.filter(id=num).first()
 		obj = EntityData.objects.filter(case_id=mainobj).all()
 		if mainobj:
 			info = mainobj
