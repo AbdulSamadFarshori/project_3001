@@ -25,6 +25,10 @@
 {% block jquery %}
 <script type="text/javascript">
 
+function goBack(){
+  window.history.back();
+}
+
 var entity = [];
 
 $( document ).ready(function() {
@@ -120,7 +124,8 @@ function submitForm(){
           </div>
           <br>
           <button type="button" class="btn btn-outline-danger" onclick="goBack()" style="float:rigth;">Back</button>
-            <br>
+          <br>
+          <br>
             <div class="container h-100">
               <div class="row align-items-center h-100">
                 <div class="col-12">
