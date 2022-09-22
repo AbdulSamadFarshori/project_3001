@@ -29,9 +29,9 @@ function goBack(){
   window.history.back();
 }
 
-var entity = {{keyword}};
+var entity = {{keyword|escapejs}};
 
-console.log(JSON.parser(entity));
+console.log(entity);
 
 $( document ).ready(function() {
 
