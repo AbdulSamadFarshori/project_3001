@@ -101,3 +101,13 @@ class EntityData(models.Model):
 
 	class Meta:
 		verbose_name_plural = "Entity Data"
+
+
+class Cause(model.Model):
+	case_id = models.ForeignKey(main_data, on_delete=models.CASCADE)
+	cause = models.CharField(max_length=255)
+
+
+class CauseKeyword(model.Model):
+	case_id = models.ForeignKey(Cause, on_delete=models.CASCADE)
+	keyword = models.CharField(max_length=255)

@@ -49,6 +49,18 @@ def unknown_words(text):
 	unknown_spelling = spell.unknown(text)
 	return unknown_spelling
 
+def temp_context_data(obj, obj2):
+	if obj:
+		info = obj
+		title = info.sub_heading
+		case = info.main_problem
+		case_ids = info.id
+		link = obj2.link
+
+	return {"title":title, "case":case, 
+				"case_id":case_ids, "link":link} 
+
+
 
 def clean_text(text):
 	text = text.lower()

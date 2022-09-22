@@ -8,7 +8,9 @@ from .views import (
                     IntentCasesPageTemplate,
                     UpdateIntentCasesTemplate,
                     EntityCasesPageTemplate,
-                    UpdateEntityCasesTemplate
+                    UpdateEntityCasesTemplate, 
+                    CauseCasesPageTemplate,
+                    UpdatdeCauseTempalte
                     )
 
 urlpatterns = [
@@ -21,4 +23,6 @@ urlpatterns = [
     path('update-intent/<pk>', UpdateIntentCasesTemplate.as_view(), name="update-intent"),
     path('add-symptoms/<pk>', EntityCasesPageTemplate.as_view(), name="symptoms"),
     path('update-symptoms/<pk>', UpdateEntityCasesTemplate.as_view(), name="update-symptoms"),
+    path('add-cause/<pk>', CauseCasesPageTemplate.as_view(), name="add-cause"),
+    path('update-cause/<pk>', UpdatdeCauseTempalte.as_view(), name="update-cause")
     ]

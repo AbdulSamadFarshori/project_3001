@@ -1,0 +1,201 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Case Study</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="{% static 'img/favicon.png' %}" rel="icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  
+  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  
+</head>
+
+{% block jquery %}
+<script type="text/javascript">
+
+function goBack(){
+  window.history.back();
+}
+
+var entity = {{keyword|safe}};
+
+$( document ).ready(function() {
+
+  for(i in entity){
+    var ItemAdd = "<h6 class='hsix'><span class='badge bg-primary' id='"+ entity[i] + "' style='margin:4px;'>"+entity[i]+"<button class='btn-close' aria-label='Close' onClick='removeSymptomTag()'></button></span></h6>"
+    $("#symptom").append(ItemAdd);
+
+  }
+  
+
+$("#symptomtag").keypress(function(e) {
+    if(e.which == 13) {
+        addSymptomTags()
+    }
+});
+
+});
+
+
+function addSymptomTags(){
+  var takeValue = $("#symptomtag").val();
+  if (takeValue != null){
+  entity.push(takeValue);
+  var ItemAdd = "<h6 class='hsix'><span class='badge bg-primary' id='"+ takeValue + "' style='margin:4px;'>"+takeValue+"<button class='btn-close' aria-label='Close' onClick='removeSymptomTag()'></button></span></h6>"
+  $("#symptom").append(ItemAdd);
+  $('#symptomtag').val('');
+  }
+}
+
+
+
+function removeSymptomTag(){
+  $("#symptom").on("click","span", function(){
+      var key = $( this ).attr("id");
+      $(this).remove();
+      var keyIndex = entity.indexOf(key);
+      entity.splice(keyIndex, 1);
+
+  });
+}
+
+
+function submitForm(){
+
+  var case_id = xxx;
+
+  var takeValue = $("#inputtags").val();
+  
+  if (takeValue != null){
+    
+    intent = takeValue;
+    
+    }
+
+  var data = {
+              "id":case_id, 
+              "entity":entity, 
+              "intent":intent
+            };
+  console.log(entity)
+  
+  $.ajax({
+    url: "/apis/submit",
+    method:"POST",
+    data:data,
+    dataType:"json",
+    ContentType: "application/json",
+    success: function(response){
+      if (response["response"] == true){
+        nextData();
+      }
+
+    }
+  });
+        }
+</script>
+{% endblock %}
+<body>
+ <div class="container h-300" style="margin-top: 5%;">
+    <div class="row align-items-center h-300">
+      <div class="col-12 mx-auto">
+        <div id="id">
+          <h3>Case No - {{case_id}}</h3>
+          </div>
+            <div class="card h-300 justify-content-center" style="padding: 15px;">
+              <div id="title">
+                <h3> Title - {{title}}</h3>
+              </div>
+                <div class="text" id="text">
+                  <div class="d-flex justify-content-center">
+                    {{case}}
+                  </div>
+                </div>
+                <br>
+            </div>
+            <br>
+            <div class="container h-100">
+              <div class="row align-items-center h-100">
+                <div class="col-12">
+                  <div class="card h-100 justify-content-center" style="padding: 10px;">
+                    <h5>Case Link</h5>
+                    <div class="links">
+                      Case link - <a href="{{link}}">{{link}}</a>  
+                    </div>
+                    </div>
+                  <div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br>
+          <button type="button" class="btn btn-outline-danger" onclick="goBack()" style="float:rigth;">Back</button>           
+          <br>
+            <br>
+            <div class="container h-100">
+              <div class="row align-items-center h-100">
+                <div class="col-12">
+                  <div class="card h-100 justify-content-center" style="padding: 15px;">
+                    <h5>Mention Cause Here</h5>
+                    <br>
+                    <div class="form-group mx-sm-3 mb-2">
+                      <input type="text" class="form-control" id="inputtags" value="{{cause}}">
+                    </div>
+                    <br>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <br>
+            <div class="container h-100">
+              <div class="row align-items-center h-100">
+                <div class="col-12">
+                  <div class="card h-100 justify-content-center" style="padding: 15px;">
+                    <h5>Mention Important Keywords Related To Cause</h5>
+                    <br>
+                    <div class="form-group mx-sm-3 mb-2">
+                      <input type="text" class="form-control" id="symptomtag" placeholder="type here...">
+                    </div>
+                    <br>
+                    <button class="btn btn-primary mb-2" onclick="addSymptomTags()">Add tag</button>
+                    <br>
+                    <div class="d-flex flex-wrap bd-highlight mb-3" id="symptom">
+                    </div>
+                    <div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <br>
+            <div class="container h-100">
+              <div class="row align-items-center h-100">
+                <div class="col-12">
+                  <div class="card h-100 justify-content-center" style="padding: 10px;">
+                    <br>
+                    <button class="btn btn-success" onclick="submitForm()">update</button> 
+                  </div>
+                <div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
