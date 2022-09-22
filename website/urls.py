@@ -19,6 +19,6 @@ urlpatterns = [
     path('not-completed-cases', NotCompletedCasesPageTemplate.as_view(), name="not-completed"),
     path('add-intent/<pk>', IntentCasesPageTemplate.as_view(), name="add-intent"),
     path('update-intent/<pk>', UpdateIntentCasesTemplate.as_view(), name="update-intent"),
-    path('add-symptoms/<num>', EntityCasesPageTemplate.as_view(), name="add-symptoms"),
-    path('update-symptoms/<num>', UpdateEntityCasesTemplate.as_view(), name="update-symptoms"),
+    path('add-symptoms/<pk>', EntityCasesPageTemplate.as_view(), name="symptoms"),
+    path('update-symptoms/<pk>', UpdateEntityCasesTemplate.as_view(), name="update-symptoms"),
     ]
