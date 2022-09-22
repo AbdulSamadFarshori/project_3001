@@ -29,7 +29,7 @@ function goBack(){
   window.history.back();
 }
 
-var entity = {{keyword | tojson}};
+var entity = {{keyword|safe}};
 
 console.log(entity);
 
