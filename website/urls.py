@@ -10,7 +10,13 @@ from .views import (
                     EntityCasesPageTemplate,
                     UpdateEntityCasesTemplate, 
                     CauseCasesPageTemplate,
-                    UpdatdeCauseTempalte
+                    UpdatdeCauseTempalte,
+                    PatientAskingForPageTemplate,
+                    UpdatePatientAskingForTemplate,
+                    HistoryPageTemplate,
+                    UpdateHistoryTemplate,
+                    EffectPageTemplate,
+                    UpdateEffectTemplate
                     )
 
 urlpatterns = [
@@ -24,5 +30,12 @@ urlpatterns = [
     path('add-symptoms/<pk>', EntityCasesPageTemplate.as_view(), name="symptoms"),
     path('update-symptoms/<pk>', UpdateEntityCasesTemplate.as_view(), name="update-symptoms"),
     path('add-cause/<pk>', CauseCasesPageTemplate.as_view(), name="add-cause"),
-    path('update-cause/<pk>', UpdatdeCauseTempalte.as_view(), name="update-cause")
+    path('update-cause/<pk>', UpdatdeCauseTempalte.as_view(), name="update-cause"),
+    path('add-patient-asking-for/<pk>', PatientAskingForPageTemplate.as_view(), name="add-patient-asking-for"),
+    path('update-patient-asking-for/<pk>', UpdatePatientAskingForTemplate.as_view(), name="update-patient-asking-for"),
+    path('add-history/<pk>', PatientAskingForPageTemplate.as_view(), name="add-history"),
+    path('update-history/<pk>', UpdatePatientAskingForTemplate.as_view(), name="update-history"),
+    path('add-effect/<pk>', EffectPageTemplate.as_view(), name="add-effect"),
+    path('update-effect/<pk>', UpdateEffectTemplate.as_view(), name="update-effect"),
+
     ]

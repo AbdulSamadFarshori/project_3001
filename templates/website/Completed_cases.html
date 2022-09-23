@@ -96,15 +96,15 @@
                   </div>
 
                   <div style="margin: 5px;">
-                    <a href="#" class="btn btn-outline-primary">Patient Ask For</a>
+                    <a href="{% url 'update-patient-asking-for' pk=obj.case_id.id %}" class="btn btn-outline-primary">Patient Ask For</a>
                   </div>
 
                   <div style="margin: 5px;">
-                    <a href="#" class="btn btn-outline-primary">History</a>
+                    <a href="{% url 'update-history' pk=obj.case_id.id %}" class="btn btn-outline-primary">History</a>
                   </div>
 
                   <div style="margin: 5px;">
-                    <a href="#" class="btn btn-outline-primary">Effect</a>
+                    <a href="{% url 'update-effect' pk=obj.case_id.id %}" class="btn btn-outline-primary">Effect</a>
                   </div>
                 </div>
               </div>

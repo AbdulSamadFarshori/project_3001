@@ -6,7 +6,11 @@ from api.models import (
 						EntityData, 
 						LinkConfig,
 						Cause, 
-						CauseKeyword)
+						CauseKeyword,
+						PatientAskingFor,
+						History,
+						Effect,
+						PatientAskingForKeyword)
 from django.views.generic import TemplateView
 from django.views import View, generic
 from django.contrib.auth import get_user_model
@@ -127,7 +131,6 @@ class UpdateEntityCasesTemplate(View):
 
 		return render(request, self.template_name, context)
 
-
 class CauseCasesPageTemplate(View):
 
 	template_name = 'website/cause.html'
@@ -155,17 +158,90 @@ class UpdatdeCauseTempalte(View):
 		keyword = [key.keyword for key in keywordobj]
 		context["keyword"] = keyword
 
-		return render(request, self.template_name, context) 
+		return render(request, self.template_name, context)
 
 
+class PatientAskingForPageTemplate(View):
+	
+	template_name = 'website/patient_asking_for.html'
+
+	def get(self, request, pk):
+
+		linkobj = LinkConfig.objects.filter(id=pk).first()
+		mainobj = main_data.objects.filter(id=pk).first() 
+		context = temp_context_data(mainobj, linkobj)
+
+		return render(request, self.template_name, context)
+
+class UpdatePatientAskingForTemplate(View):
+
+	template_name = 'website/update_patient_asking_for.html'
+
+	def get(self, request, pk):
+
+		mainobj = main_data.objects.filter(id=pk).first() 
+		linkobj = LinkConfig.objects.filter(id=pk).first()
+		pafobj = PatientAskingFor.objects.filter(case_id=mainobj).first()
+		keywordobj = PatientAskingForKeyword.objects.filter(case_id=pafobj).all()
+		context = temp_context_data(mainobj, linkobj)
+		context["need"] = pafeobj.cause
+		keyword = [key.keyword for key in keywordobj]
+		context["keyword"] = keyword
+
+		return render(request, self.template_name, context)
 
 
+class HistoryPageTemplate(View):
+
+	template_name = 'website/history.html'
+
+	def get(self, request, pk):
+
+		linkobj = LinkConfig.objects.filter(id=pk).first()
+		mainobj = main_data.objects.filter(id=pk).first() 
+		context = temp_context_data(mainobj, linkobj)
+
+		return render(request, self.template_name, context)
 
 
+class UpdateHistoryTemplate(View):
+
+	template_name = 'website/update-history.html'
+
+	def get(self, request, pk):
+
+		mainobj = main_data.objects.filter(id=pk).first()
+		obj = History.objects.filter(case_id=mainobj).first()
+		linkobj = LinkConfig.objects.filter(id=pk).first()
+		context = temp_context_data(mainobj, linkobj)
+		keyword = [key.keyword for key in obj]
+		context["keyword"] = keyword	
+		return render(request, self.template_name, context)
 
 
+class EffectPageTemplate(View):
+
+	template_name = 'website/effect.html'
+
+	def get(self, request, pk):
+
+		linkobj = LinkConfig.objects.filter(id=pk).first()
+		mainobj = main_data.objects.filter(id=pk).first() 
+		context = temp_context_data(mainobj, linkobj)
+
+		return render(request, self.template_name, context)
 
 
+class UpdateEffectTemplate(View):
 
+	template_name = 'website/update-effect.html'
 
+	def get(self, request, pk):
 
+		mainobj = main_data.objects.filter(id=pk).first()
+		obj = Effect.objects.filter(case_id=mainobj).first()
+		linkobj = LinkConfig.objects.filter(id=pk).first()
+		context = temp_context_data(mainobj, linkobj)
+		keyword = [key.keyword for key in obj]
+		context["keyword"] = keyword	
+		return render(request, self.template_name, context)

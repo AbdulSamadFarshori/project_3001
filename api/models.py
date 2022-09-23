@@ -107,7 +107,63 @@ class Cause(models.Model):
 	case_id = models.ForeignKey(main_data, on_delete=models.CASCADE)
 	cause = models.CharField(max_length=255)
 
+	def __str__(self):
+		return self.case_id.sub_heading
+
+	class Meta:
+		verbose_name_plural = "Cause"
+
 
 class CauseKeyword(models.Model):
 	case_id = models.ForeignKey(Cause, on_delete=models.CASCADE)
 	keyword = models.CharField(max_length=255)
+
+	def __str__(self):
+		return self.case_id.cause
+
+	class Meta:
+		verbose_name_plural = "Cause Keyword"
+
+
+class PatientAskingFor(models.Model):
+	case_id = models.ForeignKey(main_data, on_delete=models.CASCADE)
+	asking = models.CharField(max_length=255)
+
+	def __str__(self):
+		return self.case_id.sub_heading
+
+	class Meta:
+		verbose_name_plural = "Patient Askig For"
+
+
+class PatientAskingForKeyword(models.Model):
+	case_id = models.ForeignKey(PatientAskingFor, on_delete=models.CASCADE)
+	keyword = models.CharField(max_length=255)
+
+	def __str__(self):
+		return self.case_id.asking
+
+	class Meta:
+		verbose_name_plural = "Keyword Patient Asking"
+
+
+class History(models.Model):
+	case_id = models.ForeignKey(main_data, on_delete=models.CASCADE)
+	keyword = models.CharField(max_length=255)
+
+	def __str__(self):
+		return self.case_id.sub_heading
+
+	class Meta:
+		verbose_name_plural = "History"
+
+
+class Effect(models.Model):
+	case_id = models.ForeignKey(main_data, on_delete=models.CASCADE)
+	keyword = models.CharField(max_length=255)
+
+	def __str__(self):
+		return self.case_id.sub_heading
+
+	class Meta:
+		verbose_name_plural = "Effect"

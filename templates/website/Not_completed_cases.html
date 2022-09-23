@@ -69,7 +69,6 @@
 </nav>
   
   {% for obj in data %}
-
   <div class="container h-300" style="margin-top: 2%;">
     <div class="row align-items-center h-300">
       <div class="col-12 mx-auto">
@@ -96,15 +95,15 @@
                   </div>
 
                   <div style="margin: 5px;">
-                    <a href="#" class="btn btn-outline-primary">Patient Ask For</a>
+                    <a href="{% url 'add-patient-asking-for' pk=obj.id %}" class="btn btn-outline-primary">Patient Ask For</a>
                   </div>
 
                   <div style="margin: 5px;">
-                    <a href="#" class="btn btn-outline-primary">History</a>
+                    <a href="{% url 'add-history' pk=obj.id %}" class="btn btn-outline-primary">History</a>
                   </div>
 
                   <div style="margin: 5px;">
-                    <a href="#" class="btn btn-outline-primary">Effect</a>
+                    <a href="{% url 'add-effect' pk=obj.id %}" class="btn btn-outline-primary">Effect</a>
                   </div>
                 </div>
               </div>
@@ -112,7 +111,7 @@
             </div>
           </div>
         </div>
-    {% endfor %}
+  {% endfor %}
       
   <div class="container h-300" style="margin-top: 2%;">
     <div class="row align-items-center h-300">
