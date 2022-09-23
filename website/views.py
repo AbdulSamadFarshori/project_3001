@@ -23,8 +23,7 @@ class HomeView(TemplateView):
 
 
 class MainView(View):
-	
-	
+	template_name = 'website/main.html'
 	def get(self, request):
 		current_user = request.user.username
 		meta_data = request.META.get('HTTP_X_FORWARDED_FOR')
@@ -33,11 +32,10 @@ class MainView(View):
 			ip = meta_data.split(',')[0]
 		else:
 			ip = request.META.get('REMOTE_ADDR')
-		done_list = [i.case_id.id for i in CompletedCase.objects.all()]
 		if current_user != "sumir":
 			steps = FingerPrints(ip=ip, user=current_user)
 			steps.save()
-		return render()
+		return render(request, self.template_name)
 
 
 class CompletedCasesPageTemplate(View):
