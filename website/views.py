@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.contrib.auth.mixins import LoginRequiredMixin
 from api.models import (
 						CompletedCase, main_data, 
 						IntentData, EntityData, LinkConfig,
@@ -18,11 +19,7 @@ import logging
 class HomeView(TemplateView):
 	template_name = "website/index.html"
 
-# class LoginView(TemplateView):
-# 	template_name = "website/login.html"
-
-
-class MainView(View):
+class MainView(LoginRequiredMixin, View):
 	template_name = 'website/main.html'
 	def get(self, request):
 		current_user = request.user.username
