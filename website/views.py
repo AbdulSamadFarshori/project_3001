@@ -21,8 +21,8 @@ class HomeView(TemplateView):
 
 class MainView(LoginRequiredMixin, View):
 	template_name = 'website/main.html'
-	login_url = '/login/'
-	
+	login_url = '/login'
+
 	def get(self, request):
 		current_user = request.user.username
 		meta_data = request.META.get('HTTP_X_FORWARDED_FOR')
