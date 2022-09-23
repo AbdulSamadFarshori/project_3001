@@ -25,6 +25,7 @@ class MainView(LoginRequiredMixin, View):
 
 	def get(self, request):
 		current_user = request.user.username
+		logging.error(f"logged User --> {current_user}")
 		meta_data = request.META.get('HTTP_X_FORWARDED_FOR')
 		ip= ""
 		if meta_data:
@@ -37,7 +38,7 @@ class MainView(LoginRequiredMixin, View):
 		return render(request, self.template_name)
 
 
-class CompletedCasesPageTemplate(View):
+class CompletedCasesPageTemplate(LoginRequiredMixin, View):
 	
 	template_name = 'website/Completed_cases.html'
 
@@ -50,7 +51,7 @@ class CompletedCasesPageTemplate(View):
 		return render(request, self.template_name, {"data":data})
 
 
-class NotCompletedCasesPageTemplate(View):
+class NotCompletedCasesPageTemplate(LoginRequiredMixin, View):
 	
 	template_name = 'website/Not_completed_cases.html'
 
@@ -66,7 +67,7 @@ class NotCompletedCasesPageTemplate(View):
 		return render(request, self.template_name, {"data":data})
 
 
-class IntentCasesPageTemplate(View):
+class IntentCasesPageTemplate(LoginRequiredMixin, View):
 	
 	template_name = 'website/intent.html'
 
@@ -78,7 +79,7 @@ class IntentCasesPageTemplate(View):
 		return render(request, self.template_name, context)
 
 
-class UpdateIntentCasesTemplate(View):
+class UpdateIntentCasesTemplate(LoginRequiredMixin, View):
 
 	template_name = 'website/update-intent.html'
 
@@ -92,7 +93,7 @@ class UpdateIntentCasesTemplate(View):
 		return render(request, self.template_name, context)
 
 
-class EntityCasesPageTemplate(View):
+class EntityCasesPageTemplate(LoginRequiredMixin, View):
 
 	template_name = 'website/symptoms.html'
 
@@ -104,7 +105,7 @@ class EntityCasesPageTemplate(View):
 		return render(request, self.template_name, context)
 
 
-class UpdateEntityCasesTemplate(View):
+class UpdateEntityCasesTemplate(LoginRequiredMixin, View):
 
 	template_name = 'website/update-symptoms.html'
 
@@ -119,7 +120,7 @@ class UpdateEntityCasesTemplate(View):
 
 		return render(request, self.template_name, context)
 
-class CauseCasesPageTemplate(View):
+class CauseCasesPageTemplate(LoginRequiredMixin, View):
 
 	template_name = 'website/cause.html'
 
@@ -131,7 +132,7 @@ class CauseCasesPageTemplate(View):
 
 		return render(request, self.template_name, context)
 
-class UpdatdeCauseTempalte(View):
+class UpdatdeCauseTempalte(LoginRequiredMixin, View):
 
 	template_name = 'website/update-cause.html'
 
@@ -149,7 +150,7 @@ class UpdatdeCauseTempalte(View):
 		return render(request, self.template_name, context)
 
 
-class PatientAskingForPageTemplate(View):
+class PatientAskingForPageTemplate(LoginRequiredMixin, View):
 	
 	template_name = 'website/patient_asking_for.html'
 
@@ -161,7 +162,7 @@ class PatientAskingForPageTemplate(View):
 
 		return render(request, self.template_name, context)
 
-class UpdatePatientAskingForTemplate(View):
+class UpdatePatientAskingForTemplate(LoginRequiredMixin, View):
 
 	template_name = 'website/update_patient_asking_for.html'
 
@@ -179,7 +180,7 @@ class UpdatePatientAskingForTemplate(View):
 		return render(request, self.template_name, context)
 
 
-class HistoryPageTemplate(View):
+class HistoryPageTemplate(LoginRequiredMixin, View):
 
 	template_name = 'website/history.html'
 
@@ -192,7 +193,7 @@ class HistoryPageTemplate(View):
 		return render(request, self.template_name, context)
 
 
-class UpdateHistoryTemplate(View):
+class UpdateHistoryTemplate(LoginRequiredMixin, View):
 
 	template_name = 'website/update-history.html'
 
@@ -207,7 +208,7 @@ class UpdateHistoryTemplate(View):
 		return render(request, self.template_name, context)
 
 
-class EffectPageTemplate(View):
+class EffectPageTemplate(LoginRequiredMixin, View):
 
 	template_name = 'website/effect.html'
 
@@ -220,7 +221,7 @@ class EffectPageTemplate(View):
 		return render(request, self.template_name, context)
 
 
-class UpdateEffectTemplate(View):
+class UpdateEffectTemplate(LoginRequiredMixin, View):
 
 	template_name = 'website/update-effect.html'
 
