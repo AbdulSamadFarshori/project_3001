@@ -1,16 +1,10 @@
 from django.shortcuts import render
 from api.models import (
-						CompletedCase, 
-						main_data, 
-						IntentData, 
-						EntityData, 
-						LinkConfig,
-						Cause, 
-						CauseKeyword,
-						PatientAskingFor,
-						History,
-						Effect,
-						PatientAskingForKeyword)
+						CompletedCase, main_data, 
+						IntentData, EntityData, LinkConfig,
+						Cause, CauseKeyword,PatientAskingFor,
+						History,Effect,PatientAskingForKeyword
+						)
 from django.views.generic import TemplateView
 from django.views import View, generic
 from django.contrib.auth import get_user_model
@@ -24,15 +18,15 @@ import logging
 class HomeView(TemplateView):
 	template_name = "website/index.html"
 
-
-class LoginView(TemplateView):
-	template_name = "website/login.html"
+# class LoginView(TemplateView):
+# 	template_name = "website/login.html"
 
 
 class MainView(View):
-	template_name = 'website/new_label.html'
 	
-	def get(self, request, var):
+	
+	def get(self, request):
+		current_user = request.user.username
 		meta_data = request.META.get('HTTP_X_FORWARDED_FOR')
 		ip= ""
 		if meta_data:
@@ -40,13 +34,10 @@ class MainView(View):
 		else:
 			ip = request.META.get('REMOTE_ADDR')
 		done_list = [i.case_id.id for i in CompletedCase.objects.all()]
-		status = user_is_valid(var)
-		if var != "sumir":
-			steps = FingerPrints(ip=ip, user=var)
+		if current_user != "sumir":
+			steps = FingerPrints(ip=ip, user=current_user)
 			steps.save()
-		if status:
-			return render(request, self.template_name, {"context":var, "done_list":done_list})
-		return redirect("login")
+		return render()
 
 
 class CompletedCasesPageTemplate(View):

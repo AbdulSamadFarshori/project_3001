@@ -1,0 +1,159 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Case Study</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="{% static 'img/favicon.png' %}" rel="icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  
+  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  
+</head>
+
+{% block jquery %}
+<script type="text/javascript">
+
+</script>
+{% endblock %}
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Project-3001</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" href="{% url 'main' %}">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{% url 'completed' %}">Completed Cases</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'not-completed' %}">Not Completed Cases</a>
+        </li>
+        <!-- <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Dropdown
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="#">Action</a></li>
+            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li>
+          </ul>
+        </li> -->
+       <!--  <li class="nav-item">
+          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+        </li> -->
+      </ul>
+      <form class="d-flex">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-danger" type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+</nav>
+  
+
+  <div class="container h-300" style="margin-top: 2%;">
+    <div class="row align-items-center h-300">
+      <div class="col-12 mx-auto">
+        <div id="id">
+          </div>
+            <div class="card h-300 justify-content-center">
+              <div class="text" id="text">
+                <div class="d-flex" style="padding: 10px;">    
+                  <br>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
+                    molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
+                    numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
+                    optio, eaque rerum! Provident similique accusantium nemo autem. Veritatis
+                    obcaecati tenetur iure eius earum ut molestias architecto voluptate aliquam
+                    nihil, eveniet aliquid culpa officia aut! Impedit sit sunt quaerat, odit,
+                    tenetur error, harum nesciunt ipsum debitis quas aliquid. Reprehenderit,
+                    quia. Quo neque error repudiandae fuga? Ipsa laudantium molestias eos 
+                    sapiente officiis modi at sunt excepturi expedita sint? Sed quibusdam
+                    recusandae alias error harum maxime adipisci amet laborum. Perspiciatis 
+                    minima nesciunt dolorem! Officiis iure rerum voluptates a cumque velit 
+                    quibusdam sed amet tempora. Sit laborum ab, eius fugit doloribus tenetur 
+                    fugiat, temporibus enim commodi iusto libero magni deleniti quod quam 
+                    consequuntur! Commodi minima excepturi repudiandae velit hic maxime
+                    doloremque. Quaerat provident commodi consectetur veniam similique ad 
+                    earum omnis ipsum saepe, voluptas, hic voluptates pariatur est explicabo 
+                    fugiat, dolorum eligendi quam cupiditate excepturi mollitia maiores labore 
+                    suscipit quas? Nulla, placeat. Voluptatem quaerat non architecto ab laudantium
+                    modi minima sunt esse temporibus sint culpa, recusandae aliquam numquam 
+                    totam ratione voluptas quod exercitationem fuga. Possimus quis earum veniam 
+                    quasi aliquam eligendi, placeat qui corporis!
+                    1466
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
+                    molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
+                    numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
+                    optio, eaque rerum! Provident similique accusantium nemo autem. Veritatis
+                    obcaecati tenetur iure eius earum ut molestias architecto voluptate aliquam
+                    nihil, eveniet aliquid culpa officia aut! Impedit sit sunt quaerat, odit,
+                    tenetur error, harum nesciunt ipsum debitis quas aliquid. Reprehenderit,
+                    quia. Quo neque error repudiandae fuga? Ipsa laudantium molestias eos 
+                    sapiente officiis modi at sunt excepturi expedita sint? Sed quibusdam
+                    recusandae alias error harum maxime adipisci amet laborum. Perspiciatis 
+                    minima nesciunt dolorem! Officiis iure rerum voluptates a cumque velit 
+                    quibusdam sed amet tempora. Sit laborum ab, eius fugit doloribus tenetur 
+                    fugiat, temporibus enim commodi iusto libero magni deleniti quod quam 
+                    consequuntur! Commodi minima excepturi repudiandae velit hic maxime
+                    doloremque. Quaerat provident commodi consectetur veniam similique ad 
+                    earum omnis ipsum saepe, voluptas, hic voluptates pariatur est explicabo 
+                    fugiat, dolorum eligendi quam cupiditate excepturi mollitia maiores labore 
+                    suscipit quas? Nulla, placeat. Voluptatem quaerat non architecto ab laudantium
+                    modi minima sunt esse temporibus sint culpa, recusandae aliquam numquam 
+                    totam ratione voluptas quod exercitationem fuga. Possimus quis earum veniam 
+                    quasi aliquam eligendi, placeat qui corporis!
+                    1466
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
+                    molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
+                    numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
+                    optio, eaque rerum! Provident similique accusantium nemo autem. Veritatis
+                    obcaecati tenetur iure eius earum ut molestias architecto voluptate aliquam
+                    nihil, eveniet aliquid culpa officia aut! Impedit sit sunt quaerat, odit,
+                    tenetur error, harum nesciunt ipsum debitis quas aliquid. Reprehenderit,
+                    quia. Quo neque error repudiandae fuga? Ipsa laudantium molestias eos 
+                    sapiente officiis modi at sunt excepturi expedita sint? Sed quibusdam
+                    recusandae alias error harum maxime adipisci amet laborum. Perspiciatis 
+                    minima nesciunt dolorem! Officiis iure rerum voluptates a cumque velit 
+                    quibusdam sed amet tempora. Sit laborum ab, eius fugit doloribus tenetur 
+                    fugiat, temporibus enim commodi iusto libero magni deleniti quod quam 
+                    consequuntur! Commodi minima excepturi repudiandae velit hic maxime
+                    doloremque. Quaerat provident commodi consectetur veniam similique ad 
+                    earum omnis ipsum saepe, voluptas, hic voluptates pariatur est explicabo 
+                    fugiat, dolorum eligendi quam cupiditate excepturi mollitia maiores labore 
+                    suscipit quas? Nulla, placeat. Voluptatem quaerat non architecto ab laudantium
+                    modi minima sunt esse temporibus sint culpa, recusandae aliquam numquam 
+                    totam ratione voluptas quod exercitationem fuga. Possimus quis earum veniam 
+                    quasi aliquam eligendi, placeat qui corporis!
+1466
+
+<p>
+                  <br>
+                </div>
+                
+              </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+</body>
+</html>
