@@ -41,6 +41,7 @@ class MainView(LoginRequiredMixin, View):
 class CompletedCasesPageTemplate(LoginRequiredMixin, View):
 	
 	template_name = 'website/Completed_cases.html'
+	login_url = '/login'
 
 	def get(self, request):
 		objects = CompletedCase.objects.all()
@@ -54,6 +55,7 @@ class CompletedCasesPageTemplate(LoginRequiredMixin, View):
 class NotCompletedCasesPageTemplate(LoginRequiredMixin, View):
 	
 	template_name = 'website/Not_completed_cases.html'
+	login_url = '/login'
 
 	def get(self, request):
 		objects = CompletedCase.objects.all()
@@ -70,6 +72,7 @@ class NotCompletedCasesPageTemplate(LoginRequiredMixin, View):
 class IntentCasesPageTemplate(LoginRequiredMixin, View):
 	
 	template_name = 'website/intent.html'
+	login_url = '/login'
 
 	def get(self, request, pk):
 		mainobj = main_data.objects.filter(id=pk).first()
@@ -82,6 +85,7 @@ class IntentCasesPageTemplate(LoginRequiredMixin, View):
 class UpdateIntentCasesTemplate(LoginRequiredMixin, View):
 
 	template_name = 'website/update-intent.html'
+	login_url = '/login'
 
 	def get(self, request, pk):
 
@@ -96,6 +100,7 @@ class UpdateIntentCasesTemplate(LoginRequiredMixin, View):
 class EntityCasesPageTemplate(LoginRequiredMixin, View):
 
 	template_name = 'website/symptoms.html'
+	login_url = '/login'
 
 	def get(self, request, pk):
 		linkobj = LinkConfig.objects.filter(id=pk).first()
@@ -108,6 +113,7 @@ class EntityCasesPageTemplate(LoginRequiredMixin, View):
 class UpdateEntityCasesTemplate(LoginRequiredMixin, View):
 
 	template_name = 'website/update-symptoms.html'
+	login_url = '/login'
 
 	def get(self, request, pk):
 		keywords_list = []
@@ -123,6 +129,7 @@ class UpdateEntityCasesTemplate(LoginRequiredMixin, View):
 class CauseCasesPageTemplate(LoginRequiredMixin, View):
 
 	template_name = 'website/cause.html'
+	login_url = '/login'
 
 	def get(self, request, pk):
 		
@@ -135,6 +142,7 @@ class CauseCasesPageTemplate(LoginRequiredMixin, View):
 class UpdatdeCauseTempalte(LoginRequiredMixin, View):
 
 	template_name = 'website/update-cause.html'
+	login_url = '/login'
 
 	def get(self, request, pk):
 		
@@ -153,6 +161,7 @@ class UpdatdeCauseTempalte(LoginRequiredMixin, View):
 class PatientAskingForPageTemplate(LoginRequiredMixin, View):
 	
 	template_name = 'website/patient_asking_for.html'
+	login_url = '/login'
 
 	def get(self, request, pk):
 
@@ -165,6 +174,7 @@ class PatientAskingForPageTemplate(LoginRequiredMixin, View):
 class UpdatePatientAskingForTemplate(LoginRequiredMixin, View):
 
 	template_name = 'website/update_patient_asking_for.html'
+	login_url = '/login'
 
 	def get(self, request, pk):
 
@@ -183,6 +193,7 @@ class UpdatePatientAskingForTemplate(LoginRequiredMixin, View):
 class HistoryPageTemplate(LoginRequiredMixin, View):
 
 	template_name = 'website/history.html'
+	login_url = '/login'
 
 	def get(self, request, pk):
 
@@ -196,6 +207,7 @@ class HistoryPageTemplate(LoginRequiredMixin, View):
 class UpdateHistoryTemplate(LoginRequiredMixin, View):
 
 	template_name = 'website/update-history.html'
+	login_url = '/login'
 
 	def get(self, request, pk):
 
@@ -211,6 +223,7 @@ class UpdateHistoryTemplate(LoginRequiredMixin, View):
 class EffectPageTemplate(LoginRequiredMixin, View):
 
 	template_name = 'website/effect.html'
+	login_url = '/login'
 
 	def get(self, request, pk):
 
@@ -224,6 +237,7 @@ class EffectPageTemplate(LoginRequiredMixin, View):
 class UpdateEffectTemplate(LoginRequiredMixin, View):
 
 	template_name = 'website/update-effect.html'
+	login_url = '/login'
 
 	def get(self, request, pk):
 
