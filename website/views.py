@@ -13,7 +13,7 @@ from django.core.paginator import Paginator
 from core.factory import user_is_valid, get_client_ip
 from django.shortcuts import redirect
 from .models import FingerPrints
-from core.factory import temp_context_data 
+from core.factory import temp_context_data, get_client_ip 
 import logging
 
 class HomeView(TemplateView):
@@ -26,17 +26,12 @@ class MainView(LoginRequiredMixin, View):
 	def get(self, request):
 		current_user = request.user.username
 		logging.error(f"logged User --> {current_user}")
-		meta_data = request.META.get('HTTP_X_FORWARDED_FOR')
-		ip= ""
-		if meta_data:
-			ip = meta_data.split(',')[0]
-		else:
-			ip = request.META.get('REMOTE_ADDR')
+		meta = request.META
+		ip = get_client_ip(meta)
 		if current_user != "sumir":
 			steps = FingerPrints(ip=ip, user=current_user)
 			steps.save()
 		return render(request, self.template_name)
-
 
 class CompletedCasesPageTemplate(LoginRequiredMixin, View):
 	

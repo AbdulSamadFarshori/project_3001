@@ -35,13 +35,13 @@ def create_user(username, email, password):
 	user_obj.save()
 	return True
 
-def get_client_ip(meta_data):
+def get_client_ip(meta):
+	meta_data = meta.get('HTTP_X_FORWARDED_FOR')
 	ip= ""
-	httpx = meta_data.get('HTTP_X_FORWARDED_FOR')
-	if httpx:
-		ip = httpx.split(',')[0]
+	if meta_data:
+		ip = meta_data.split(',')[0]
 	else:
-		ip = meta_data.get('REMOTE_ADDR')
+		ip = meta.get('REMOTE_ADDR')
 	return ip
 
 def unknown_words(text):
