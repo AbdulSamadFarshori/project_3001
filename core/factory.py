@@ -63,7 +63,7 @@ def get_new_list_asking(old_list, new_list, obj, obj2):
 				temp.append(obj[pos])
 
 		for foo in range(len(adds)):
-			if len(temp) >= foo:
+			if len(temp)-1 >= foo:
 				temp[foo].entity = adds[foo]
 				temp[foo].save()
 			else:
