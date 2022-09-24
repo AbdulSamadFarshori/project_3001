@@ -51,6 +51,7 @@ $("#symptomtag").keypress(function(e) {
 
 
 function addSymptomTags(){
+  console.log(entity);
   var takeValue = $("#symptomtag").val();
   if (takeValue != null){
   entity.push(takeValue);
@@ -87,9 +88,7 @@ function submitForm(){
     dataType:"json",
     ContentType: "application/json",
     success: function(response){
-      if (response["response"] == true){
         window.history.back();
-      }
 
     }
   });
