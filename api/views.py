@@ -117,7 +117,7 @@ class CauseApiView(APIView):
 				new_obj.save()
 			entobjs = CauseKeyword.objects.filter(case_id=new_obj).all()
 			old_asking = [ent.keyword for ent in entobjs]
-			check = get_new_list_cause(old_asking, entity, entobjs, main_object)
+			check = get_new_list_cause(old_asking, entity, entobjs, new_obj)
 			if check:
 				return Response({"response":"patient asking has been added!"})
 		return Response({"response": "Bad Request"}) 
@@ -157,7 +157,7 @@ class PatientAskingApiView(APIView):
 				new_obj.save()
 			entobjs = PatientAskingForKeyword.objects.filter(case_id=new_obj).all()
 			old_asking = [ent.keyword for ent in entobjs]
-			check = get_new_list_asking(old_asking, entity, entobjs, main_object)
+			check = get_new_list_asking(old_asking, entity, entobjs, new_obj)
 			if check:
 				return Response({"response":"patient asking has been added!"})
 		return Response({"response": "Bad Request"})
