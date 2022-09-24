@@ -71,9 +71,8 @@ class SymptomsApiView(APIView):
 	def put(self, request):
 
 		permission_classes = (IsAuthenticated,)
-		
-		new_symptoms = request.PUT.getlist("entity[]")
 		logging.error(f" request element --> {dir(request)}")
+		new_symptoms = request.PUT.getlist("entity[]")
 		case_id = request.PUT.get("id")
 		main_object = main_data.objects.filter(id=case_id).first()
 		entobjs = EntityData.objects.filter(case_id=main_object).all()
