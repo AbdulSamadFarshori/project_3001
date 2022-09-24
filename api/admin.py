@@ -5,8 +5,8 @@ from .models import (main_data,
                     CompletedCase, JWTToken, 
                     ReplyData, Effect, Cause,
                     ReplyThread, History,
-                    LinkConfig, PatientAskingForKeyword
-                    IntentData, PatientAskingFor
+                    LinkConfig, PatientAskingForKeyword,
+                    IntentData, PatientAskingFor,
                     EntityData, CauseKeyword)
  
 @admin.register(main_data)
