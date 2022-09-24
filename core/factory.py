@@ -63,11 +63,11 @@ def get_new_list_asking(old_list, new_list, obj, obj2):
 				temp.append(obj[pos])
 
 		for foo in range(len(adds)):
-			if len(temp) >= foo:
+			if len(temp)-1 >= foo:
 				temp[foo].entity = adds[foo]
 				temp[foo].save()
 			else:
-				obj_case = PatientAskingForKeyword(case_id=obj2, keyword=adds[pos])
+				obj_case = PatientAskingForKeyword(case_id=obj2, keyword=adds[foo])
 				obj_case.save()
 		
 		return True
@@ -97,11 +97,11 @@ def get_new_list_history(old_list, new_list, obj, obj2):
 				temp.append(obj[pos])
 
 		for foo in range(len(adds)):
-			if len(temp) >= foo:
+			if len(temp)-1 >= foo:
 				temp[foo].entity = adds[foo]
 				temp[foo].save()
 			else:
-				obj_case = History(case_id=obj2, keyword=adds[pos])
+				obj_case = History(case_id=obj2, keyword=adds[foo])
 				obj_case.save()
 		
 		return True
@@ -130,11 +130,11 @@ def get_new_list_effect(old_list, new_list, obj, obj2):
 				temp.append(obj[pos])
 
 		for foo in range(len(adds)):
-			if len(temp) >= foo:
+			if len(temp)-1 >= foo:
 				temp[foo].entity = adds[foo]
 				temp[foo].save()
 			else:
-				obj_case = Effect(case_id=obj2, keyword=adds[pos])
+				obj_case = Effect(case_id=obj2, keyword=adds[foo])
 				obj_case.save()
 		
 		return True
@@ -163,11 +163,11 @@ def get_new_list_cause(old_list, new_list, obj, obj2):
 				temp.append(obj[pos])
 
 		for foo in range(len(adds)):
-			if len(temp) >= foo:
+			if len(temp)-1 >= foo:
 				temp[foo].entity = adds[foo]
 				temp[foo].save()
 			else:
-				obj_case = CauseKeyword(case_id=obj2, keyword=adds[pos])
+				obj_case = CauseKeyword(case_id=obj2, keyword=adds[foo])
 				obj_case.save()
 		
 		return True
