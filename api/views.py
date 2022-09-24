@@ -7,7 +7,7 @@ from api.serializers import (MainData,
 							) 
 from api.models import (main_data, ReplyData, 
 						response, ReplyThread,
-						keywords, 
+						keywords, Cause, CauseKeyword, 
 						CompletedCase,
 						LinkConfig, 
 						EntityData,Effect, 
@@ -21,7 +21,7 @@ from rest_framework import status
 from core.factory import( authenticated, create_hash_key, make_hash, 
 						create_user, get_new_list_entity, 
 						get_new_list_asking, get_new_list_history, 
-						get_new_list_effect
+						get_new_list_effect, get_new_list_cause
 						)
 from rest_framework.permissions import IsAuthenticated
 from website.models import Cookies
@@ -80,6 +80,43 @@ class SymptomsApiView(APIView):
 		check = get_new_list_entity(old_symptoms, new_symptoms, entobjs, main_object)
 		if check:
 			return Response({"response":"symptoms has been updated!"})
+		return Response({"response": "Bad Request"})
+
+
+class CauseApiView(APIView):
+
+	permission_classes = (IsAuthenticated,)
+
+	def post(self, request):
+		
+		new_value = request.POST.get("intent")
+		case_id = request.POST.get("id")
+		entity = request.POST.getlist("entity[]")
+		if entity and new_value:
+			main_object = main_data.objects.filter(id=case_id).first()
+			new_obj = Cause(case_id=main_object, cause=new_value)
+			new_obj.save()
+			
+			for ele in entity:
+				key_obj = CauseKeyword(case_id=new_obj, keyword=keyword)
+				key_obj.save()
+			return Response({"response":"patient asking has been added!"})
+		return Response({"response": "Bad Request"})
+
+	def put(self, request):
+		new_value = request.PUT.get("intent")
+		case_id = request.PUT.get("id")
+		entity = request.PUT.getlist("entity[]")
+		if entity and new_value:
+			main_object = main_data.objects.filter(id=case_id).first()
+			new_obj = Cause.objects.filter(case_id=main_object).first()
+			new_obj.asking = new_value
+			new_obj.save()
+			entobjs = CauseKeyword.objects.filter(case_id=new_obj).all()
+			old_asking = [ent.keyword for ent in entobjs]
+			check = get_new_list_cause(old_asking, entity, entobjs, main_object)
+			if check:
+				return Response({"response":"patient asking has been added!"})
 		return Response({"response": "Bad Request"}) 
 
 class PatientAskingApiView(APIView):

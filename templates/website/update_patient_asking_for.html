@@ -92,15 +92,15 @@ function submitForm(){
   console.log(entity)
   
   $.ajax({
-    url: "/apis/submit",
-    method:"POST",
+    headers: {
+    Authorization: 'Bearer '+ '{{token}}'}
+    url: "/apis/patient-asking",
+    method:"PUT",
     data:data,
     dataType:"json",
     ContentType: "application/json",
     success: function(response){
-      if (response["response"] == true){
-        nextData();
-      }
+      window.history.back();
 
     }
   });

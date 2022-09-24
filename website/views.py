@@ -13,7 +13,8 @@ from django.core.paginator import Paginator
 from core.factory import user_is_valid, get_client_ip
 from django.shortcuts import redirect
 from .models import FingerPrints
-from core.factory import temp_context_data, get_client_ip 
+from core.factory import temp_context_data, get_client_ip
+from core.jwt_token import get_access_token 
 import logging
 
 class HomeView(TemplateView):
@@ -50,7 +51,7 @@ class CompletedCasesPageTemplate(LoginRequiredMixin, View):
 class NotCompletedCasesPageTemplate(LoginRequiredMixin, View):
 	
 	template_name = 'website/Not_completed_cases.html'
-	# login_url = '/login'
+	login_url = '/login'
 
 	def get(self, request):
 		objects = CompletedCase.objects.all()
@@ -70,10 +71,11 @@ class IntentCasesPageTemplate(LoginRequiredMixin, View):
 	login_url = '/login'
 
 	def get(self, request, pk):
+		access_token = get_access_token()
 		mainobj = main_data.objects.filter(id=pk).first()
 		linkobj = LinkConfig.objects.filter(id=pk).first()  
 		context = temp_context_data(mainobj, linkobj)
-			
+		context['token'] = access_token	
 		return render(request, self.template_name, context)
 
 
@@ -83,12 +85,13 @@ class UpdateIntentCasesTemplate(LoginRequiredMixin, View):
 	login_url = '/login'
 
 	def get(self, request, pk):
-
+		access_token = get_access_token()
 		mainobj = main_data.objects.filter(id=pk).first()
 		obj = IntentData.objects.filter(case_id=mainobj).first()
 		linkobj = LinkConfig.objects.filter(id=pk).first()
 		context = temp_context_data(mainobj, linkobj)
-		context["intent"] = obj.intent	
+		context["intent"] = obj.intent
+		context['token'] = access_token		
 		return render(request, self.template_name, context)
 
 
@@ -98,10 +101,11 @@ class EntityCasesPageTemplate(LoginRequiredMixin, View):
 	login_url = '/login'
 
 	def get(self, request, pk):
+		access_token = get_access_token()
 		linkobj = LinkConfig.objects.filter(id=pk).first()
 		mainobj = main_data.objects.filter(id=pk).first() 
 		context = temp_context_data(mainobj, linkobj)
-
+		context['token'] = access_token
 		return render(request, self.template_name, context)
 
 
@@ -111,6 +115,7 @@ class UpdateEntityCasesTemplate(LoginRequiredMixin, View):
 	login_url = '/login'
 
 	def get(self, request, pk):
+		access_token = get_access_token()
 		keywords_list = []
 		mainobj = main_data.objects.filter(id=pk).first() 
 		linkobj = LinkConfig.objects.filter(id=pk).first()
@@ -118,6 +123,7 @@ class UpdateEntityCasesTemplate(LoginRequiredMixin, View):
 		context = temp_context_data(mainobj, linkobj)
 		keywords_list = [key.entity for key in obj]
 		context["keyword"] = keywords_list
+		context['token'] = access_token
 
 		return render(request, self.template_name, context)
 
@@ -127,10 +133,11 @@ class CauseCasesPageTemplate(LoginRequiredMixin, View):
 	login_url = '/login'
 
 	def get(self, request, pk):
-		
+		access_token = get_access_token()
 		linkobj = LinkConfig.objects.filter(id=pk).first()
 		mainobj = main_data.objects.filter(id=pk).first() 
 		context = temp_context_data(mainobj, linkobj)
+		context['token'] = access_token
 
 		return render(request, self.template_name, context)
 
@@ -140,7 +147,7 @@ class UpdatdeCauseTempalte(LoginRequiredMixin, View):
 	login_url = '/login'
 
 	def get(self, request, pk):
-		
+		access_token = get_access_token()
 		mainobj = main_data.objects.filter(id=pk).first() 
 		linkobj = LinkConfig.objects.filter(id=pk).first()
 		causeobj = Cause.objects.filter(case_id=mainobj).first()
@@ -149,6 +156,7 @@ class UpdatdeCauseTempalte(LoginRequiredMixin, View):
 		context["cause"] = causeobj.cause
 		keyword = [key.keyword for key in keywordobj]
 		context["keyword"] = keyword
+		context['token'] = access_token
 
 		return render(request, self.template_name, context)
 
@@ -159,11 +167,11 @@ class PatientAskingForPageTemplate(LoginRequiredMixin, View):
 	login_url = '/login'
 
 	def get(self, request, pk):
-
+		access_token = get_access_token()
 		linkobj = LinkConfig.objects.filter(id=pk).first()
 		mainobj = main_data.objects.filter(id=pk).first() 
 		context = temp_context_data(mainobj, linkobj)
-
+		context['token'] = access_token
 		return render(request, self.template_name, context)
 
 class UpdatePatientAskingForTemplate(LoginRequiredMixin, View):
@@ -172,7 +180,7 @@ class UpdatePatientAskingForTemplate(LoginRequiredMixin, View):
 	login_url = '/login'
 
 	def get(self, request, pk):
-
+		access_token = get_access_token()
 		mainobj = main_data.objects.filter(id=pk).first() 
 		linkobj = LinkConfig.objects.filter(id=pk).first()
 		pafobj = PatientAskingFor.objects.filter(case_id=mainobj).first()
@@ -181,7 +189,7 @@ class UpdatePatientAskingForTemplate(LoginRequiredMixin, View):
 		context["need"] = pafeobj.cause
 		keyword = [key.keyword for key in keywordobj]
 		context["keyword"] = keyword
-
+		context['token'] = access_token
 		return render(request, self.template_name, context)
 
 
@@ -191,11 +199,11 @@ class HistoryPageTemplate(LoginRequiredMixin, View):
 	login_url = '/login'
 
 	def get(self, request, pk):
-
+		access_token = get_access_token()
 		linkobj = LinkConfig.objects.filter(id=pk).first()
 		mainobj = main_data.objects.filter(id=pk).first() 
 		context = temp_context_data(mainobj, linkobj)
-
+		context['token'] = access_token
 		return render(request, self.template_name, context)
 
 
@@ -205,13 +213,14 @@ class UpdateHistoryTemplate(LoginRequiredMixin, View):
 	login_url = '/login'
 
 	def get(self, request, pk):
-
+		access_token = get_access_token()
 		mainobj = main_data.objects.filter(id=pk).first()
 		obj = History.objects.filter(case_id=mainobj).first()
 		linkobj = LinkConfig.objects.filter(id=pk).first()
 		context = temp_context_data(mainobj, linkobj)
 		keyword = [key.keyword for key in obj]
-		context["keyword"] = keyword	
+		context["keyword"] = keyword
+		context['token'] = access_token	
 		return render(request, self.template_name, context)
 
 
@@ -221,11 +230,12 @@ class EffectPageTemplate(LoginRequiredMixin, View):
 	login_url = '/login'
 
 	def get(self, request, pk):
+		access_token = get_access_token()
 
 		linkobj = LinkConfig.objects.filter(id=pk).first()
 		mainobj = main_data.objects.filter(id=pk).first() 
 		context = temp_context_data(mainobj, linkobj)
-
+		context['token'] = access_token
 		return render(request, self.template_name, context)
 
 
@@ -235,11 +245,12 @@ class UpdateEffectTemplate(LoginRequiredMixin, View):
 	login_url = '/login'
 
 	def get(self, request, pk):
-
+		access_token = get_access_token()
 		mainobj = main_data.objects.filter(id=pk).first()
 		obj = Effect.objects.filter(case_id=mainobj).first()
 		linkobj = LinkConfig.objects.filter(id=pk).first()
 		context = temp_context_data(mainobj, linkobj)
 		keyword = [key.keyword for key in obj]
-		context["keyword"] = keyword	
+		context["keyword"] = keyword
+		context['token'] = access_token	
 		return render(request, self.template_name, context)

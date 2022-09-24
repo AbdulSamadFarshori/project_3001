@@ -62,7 +62,6 @@ function removeSymptomTag(){
   });
 }
 
-
 function submitForm(){
 
   var case_id = xxx;
@@ -74,15 +73,15 @@ function submitForm(){
   console.log(entity)
   
   $.ajax({
-    url: "/apis/xxx",
+    headers: {
+    Authorization: 'Bearer '+ '{{token}}'},
+    url: "/apis/effect",
     method:"POST",
     data:data,
     dataType:"json",
     ContentType: "application/json",
     success: function(response){
-      if (response["response"] == true){
-        nextData();
-      }
+      window.history.back();
 
     }
   });

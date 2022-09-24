@@ -30,23 +30,19 @@ function goBack(){
 }
 
 function submitForm(){
-
   var case_id = {{case_id}};
-
   var takeValue = $("#inputtags").val();
-  
   if (takeValue != null){
-    
     intent = takeValue;
-    
     }
-
   var data = {
               "id":case_id,  
               "intent":intent
             };
   
   $.ajax({
+    headers: {
+    Authorization: 'Bearer '+ '{{token}}'}
     url: "/apis/intent",
     method:"POST",
     data:data,

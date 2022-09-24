@@ -74,16 +74,15 @@ function submitForm(){
   console.log(entity)
   
   $.ajax({
-    url: "/apis/xxx",
+    headers: {
+    Authorization: 'Bearer '+ '{{token}}'},
+    url: "/apis/history",
     method:"POST",
     data:data,
     dataType:"json",
     ContentType: "application/json",
     success: function(response){
-      if (response["response"] == true){
-        nextData();
-      }
-
+      window.history.back();
     }
   });
         }

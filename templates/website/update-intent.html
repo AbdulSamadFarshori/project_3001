@@ -47,6 +47,8 @@ function submitForm(){
             };
   
   $.ajax({
+    headers: {
+    Authorization: 'Bearer '+ '{{token}}'}
     url: "/apis/intent",
     method:"PUT",
     data:data,

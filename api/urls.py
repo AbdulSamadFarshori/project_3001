@@ -7,7 +7,8 @@ from .views import (
 							PatientAskingApiView,
 							HistoryApiView,
 							EffectApiView,
-							MarkAsCompletedApiView
+							MarkAsCompletedApiView,
+							CauseApiView
 							)
 
 from .models import main_data
@@ -27,4 +28,6 @@ urlpatterns = [
     	path("history", HistoryApiView.as_view(), name="history"),
     	path("effect", EffectApiView.as_view(), name="effect"),
     	path("mark-completed", MarkAsCompletedApiView.as_view(), name="mark-completed"),
+    	path("cause", CauseApiView.as_view(), name="cause"),
+
 		]

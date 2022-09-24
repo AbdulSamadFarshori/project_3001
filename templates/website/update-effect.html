@@ -82,15 +82,15 @@ function submitForm(){
   console.log(entity)
   
   $.ajax({
-    url: "/apis/xxx",
-    method:"POST",
+    headers: {
+    Authorization: 'Bearer '+ '{{token}}'},
+    url: "/apis/effect",
+    method:"PUT",
     data:data,
     dataType:"json",
     ContentType: "application/json",
     success: function(response){
-      if (response["response"] == true){
-        nextData();
-      }
+      window.history.back();
 
     }
   });

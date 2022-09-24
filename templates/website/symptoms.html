@@ -65,8 +65,7 @@ function removeSymptomTag(){
 
 function submitForm(){
 
-  var case_id = xxx;
-
+  var case_id = {{case_id}};
   var data = {
               "id":case_id, 
               "entity":entity, 
@@ -74,15 +73,15 @@ function submitForm(){
   console.log(entity)
   
   $.ajax({
-    url: "/apis/xxx",
+    headers: {
+    Authorization: 'Bearer '+ '{{token}}'}
+    url: "/apis/symptoms",
     method:"POST",
     data:data,
     dataType:"json",
     ContentType: "application/json",
     success: function(response){
-      if (response["response"] == true){
-        nextData();
-      }
+      window.history.back();
 
     }
   });
