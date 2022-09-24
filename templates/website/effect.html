@@ -53,7 +53,7 @@ function addSymptomTags(){
 }
 
 function removeSymptomTag(){
-  $("#symptom").on("click","span", function(){
+  $("#symptom").one("click","span", function(){
       var key = $( this ).attr("id");
       $(this).remove();
       var keyIndex = entity.indexOf(key);

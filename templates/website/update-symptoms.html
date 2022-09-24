@@ -46,14 +46,9 @@ all_items = [];
 
 $("#symptomtag").keypress(function(e) {
     if(e.which == 13) {
-      var takeValue = $("#symptomtag").val();
-      if (takeValue != null){
-      entity.push(takeValue);
-      var ItemAdd = "<h6 class='hsix'><span class='badge bg-primary' id='"+ takeValue + "' style='margin:4px;'>"+takeValue+"<button class='btn-close' aria-label='Close' onClick='removeSymptomTag()'></button></span></h6>"
-      $("#symptom").append(ItemAdd);
-      $('#symptomtag').val('');
+      addSymptomTags()
+      
   }
-    }
 });
 
 });
