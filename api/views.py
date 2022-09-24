@@ -23,11 +23,14 @@ from core.factory import( authenticated, create_hash_key, make_hash,
 						get_new_list_asking, get_new_list_history, 
 						get_new_list_effect
 						)
+from rest_framework.permissions import IsAuthenticated
 from website.models import Cookies
 import logging
 
 
 class IntentApiView(APIView):
+
+	permission_classes = (IsAuthenticated,)
 
 	def post(self, request):
 		intent = request.POST.get("intent")
@@ -52,6 +55,8 @@ class IntentApiView(APIView):
 
 class SymptomsApiView(APIView):
 
+	permission_classes = (IsAuthenticated,)
+
 	def post(self, request):
 		entity = request.POST.getlist("entity[]")
 		case_id = request.POST.get("id")
@@ -64,6 +69,8 @@ class SymptomsApiView(APIView):
 		return Response({"response": "Bad Request"})
 
 	def put(self, request):
+
+		permission_classes = (IsAuthenticated,)
 		
 		new_symptoms = request.PUT.getlist("entity[]")
 		case_id = request.PUT.get("id")
@@ -76,6 +83,8 @@ class SymptomsApiView(APIView):
 		return Response({"response": "Bad Request"}) 
 
 class PatientAskingApiView(APIView):
+
+	permission_classes = (IsAuthenticated,)
 
 	def post(self, request):
 		
@@ -111,6 +120,8 @@ class PatientAskingApiView(APIView):
 
 class HistoryApiView(APIView):
 
+	permission_classes = (IsAuthenticated,)
+
 	def post(self, request):
 		entity = request.POST.getlist("entity[]")
 		case_id = request.POST.get("id")
@@ -134,6 +145,8 @@ class HistoryApiView(APIView):
 		return Response({"response": "Bad Request"})
 
 class EffectApiView(APIView):
+
+	permission_classes = (IsAuthenticated,)
 
 	def post(self, request):
 		entity = request.POST.getlist("entity[]")
@@ -159,6 +172,8 @@ class EffectApiView(APIView):
 
 class MarkAsCompletedApiView(APIView):
 
+	permission_classes = (IsAuthenticated,)
+
 	def get(self, request):
 		case_id = request.GET.get("id")
 		main_object = main_data.objects.filter(id=case_id).first()
@@ -167,6 +182,8 @@ class MarkAsCompletedApiView(APIView):
 		return Response({"response":"case has been marked as completed!"})
 
 class RegisterApiView(APIView):
+
+	permission_classes = (IsAuthenticated,)
 
 	def post(self, request):
 		username = request.data.get("username")

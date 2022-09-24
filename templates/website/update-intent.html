@@ -47,13 +47,14 @@ function submitForm(){
             };
   
   $.ajax({
-    url: "/apis/updated-intent",
-    method:"POST",
+    url: "/apis/intent",
+    method:"PUT",
     data:data,
     dataType:"json",
     ContentType: "application/json",
     success: function(response){
       console.log("submit")
+      window.history.back();
 
     }
   });
