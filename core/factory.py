@@ -18,26 +18,26 @@ def get_new_list_entity(old_list, new_list, obj, obj2):
 				temp.append(pos)
 		for pos in temp:
 			foo = obj[pos]
+			logging.error(f"foo --> {foo}")
 			foo.delete()
-		else:
-			temp = []
-			adds = list(set(new_list) - set(old_list))
-			less = list(set(old_list) - set(new_list))
-			if less:
-				for ele in less:
-					pos = old_list.index(ele)
-					temp.append(obj[pos])
+	else:
+		temp = []
+		adds = list(set(new_list) - set(old_list))
+		less = list(set(old_list) - set(new_list))
+		if less:
+			for ele in less:
+				pos = old_list.index(ele)
+				temp.append(obj[pos])
 
-			for foo in range(len(adds)):
-				if len(temp) >= foo:
-					temp[foo].entity = adds[foo]
-					temp[foo].save()
-				else:
-					obj_case = EntityData(case_id=obj2, entity=adds[pos])
-					obj_case.save()
+		for foo in range(len(adds)):
+			if len(temp) >= foo:
+				temp[foo].entity = adds[foo]
+				temp[foo].save()
+			else:
+				obj_case = EntityData(case_id=obj2, entity=adds[pos])
+				obj_case.save()
 			
-			return True
-	return False
+	return True
 
 def get_new_list_asking(old_list, new_list, obj, obj2):
 	adds = []
@@ -53,25 +53,24 @@ def get_new_list_asking(old_list, new_list, obj, obj2):
 		for pos in temp:
 			foo = obj[pos]
 			foo.delete()
-		else:
-			temp = []
-			adds = list(set(new_list) - set(old_list))
-			less = list(set(old_list) - set(new_list))
-			if less:
-				for ele in less:
-					pos = old_list.index(ele)
-					temp.append(obj[pos])
+	else:
+		temp = []
+		adds = list(set(new_list) - set(old_list))
+		less = list(set(old_list) - set(new_list))
+		if less:
+			for ele in less:
+				pos = old_list.index(ele)
+				temp.append(obj[pos])
 
-			for foo in range(len(adds)):
-				if len(temp) >= foo:
-					temp[foo].entity = adds[foo]
-					temp[foo].save()
-				else:
-					obj_case = PatientAskingForKeyword(case_id=obj2, keyword=adds[pos])
-					obj_case.save()
-			
-			return True
-	return False
+		for foo in range(len(adds)):
+			if len(temp) >= foo:
+				temp[foo].entity = adds[foo]
+				temp[foo].save()
+			else:
+				obj_case = PatientAskingForKeyword(case_id=obj2, keyword=adds[pos])
+				obj_case.save()
+		
+		return True
 
 
 def get_new_list_history(old_list, new_list, obj, obj2):
@@ -88,25 +87,24 @@ def get_new_list_history(old_list, new_list, obj, obj2):
 		for pos in temp:
 			foo = obj[pos]
 			foo.delete()
-		else:
-			temp = []
-			adds = list(set(new_list) - set(old_list))
-			less = list(set(old_list) - set(new_list))
-			if less:
-				for ele in less:
-					pos = old_list.index(ele)
-					temp.append(obj[pos])
+	else:
+		temp = []
+		adds = list(set(new_list) - set(old_list))
+		less = list(set(old_list) - set(new_list))
+		if less:
+			for ele in less:
+				pos = old_list.index(ele)
+				temp.append(obj[pos])
 
-			for foo in range(len(adds)):
-				if len(temp) >= foo:
-					temp[foo].entity = adds[foo]
-					temp[foo].save()
-				else:
-					obj_case = History(case_id=obj2, keyword=adds[pos])
-					obj_case.save()
-			
-			return True
-	return False
+		for foo in range(len(adds)):
+			if len(temp) >= foo:
+				temp[foo].entity = adds[foo]
+				temp[foo].save()
+			else:
+				obj_case = History(case_id=obj2, keyword=adds[pos])
+				obj_case.save()
+		
+		return True
 
 def get_new_list_effect(old_list, new_list, obj, obj2):
 	adds = []
@@ -122,25 +120,24 @@ def get_new_list_effect(old_list, new_list, obj, obj2):
 		for pos in temp:
 			foo = obj[pos]
 			foo.delete()
-		else:
-			temp = []
-			adds = list(set(new_list) - set(old_list))
-			less = list(set(old_list) - set(new_list))
-			if less:
-				for ele in less:
-					pos = old_list.index(ele)
-					temp.append(obj[pos])
+	else:
+		temp = []
+		adds = list(set(new_list) - set(old_list))
+		less = list(set(old_list) - set(new_list))
+		if less:
+			for ele in less:
+				pos = old_list.index(ele)
+				temp.append(obj[pos])
 
-			for foo in range(len(adds)):
-				if len(temp) >= foo:
-					temp[foo].entity = adds[foo]
-					temp[foo].save()
-				else:
-					obj_case = Effect(case_id=obj2, keyword=adds[pos])
-					obj_case.save()
-			
-			return True
-	return False
+		for foo in range(len(adds)):
+			if len(temp) >= foo:
+				temp[foo].entity = adds[foo]
+				temp[foo].save()
+			else:
+				obj_case = Effect(case_id=obj2, keyword=adds[pos])
+				obj_case.save()
+		
+		return True
 
 def get_new_list_cause(old_list, new_list, obj, obj2):
 	adds = []
@@ -156,25 +153,25 @@ def get_new_list_cause(old_list, new_list, obj, obj2):
 		for pos in temp:
 			foo = obj[pos]
 			foo.delete()
-		else:
-			temp = []
-			adds = list(set(new_list) - set(old_list))
-			less = list(set(old_list) - set(new_list))
-			if less:
-				for ele in less:
-					pos = old_list.index(ele)
-					temp.append(obj[pos])
+	else:
+		temp = []
+		adds = list(set(new_list) - set(old_list))
+		less = list(set(old_list) - set(new_list))
+		if less:
+			for ele in less:
+				pos = old_list.index(ele)
+				temp.append(obj[pos])
 
-			for foo in range(len(adds)):
-				if len(temp) >= foo:
-					temp[foo].entity = adds[foo]
-					temp[foo].save()
-				else:
-					obj_case = CauseKeyword(case_id=obj2, keyword=adds[pos])
-					obj_case.save()
-			
-			return True
-	return False
+		for foo in range(len(adds)):
+			if len(temp) >= foo:
+				temp[foo].entity = adds[foo]
+				temp[foo].save()
+			else:
+				obj_case = CauseKeyword(case_id=obj2, keyword=adds[pos])
+				obj_case.save()
+		
+		return True
+
 
 def authenticated(username, password):
 	User = get_user_model()
