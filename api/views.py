@@ -43,8 +43,8 @@ class IntentApiView(APIView):
 		return Response({"response": "Bad Request"})
 
 	def put(self, request):
-		new_value = request.PUT.get("intent")
-		case_id = request.PUT.get("id")
+		new_value = request.POST.get("intent")
+		case_id = request.POST.get("id")
 		main_object = main_data.objects.filter(id=case_id).first()
 		intentobj = IntentData.objects.filter(case_id=main_object).first()
 		if intentobj:
@@ -71,7 +71,6 @@ class SymptomsApiView(APIView):
 	def put(self, request):
 
 		permission_classes = (IsAuthenticated,)
-		logging.error(f" request element --> {request.POST}")
 		new_symptoms = request.POST.getlist("entity[]")
 		case_id = request.POST.get("id")
 		main_object = main_data.objects.filter(id=case_id).first()
@@ -104,9 +103,9 @@ class CauseApiView(APIView):
 		return Response({"response": "Bad Request"})
 
 	def put(self, request):
-		new_value = request.PUT.get("intent")
-		case_id = request.PUT.get("id")
-		entity = request.PUT.getlist("entity[]")
+		new_value = request.POST.get("intent")
+		case_id = request.POST.get("id")
+		entity = request.POST.getlist("entity[]")
 		if entity and new_value:
 			main_object = main_data.objects.filter(id=case_id).first()
 			new_obj = Cause.objects.filter(case_id=main_object).first()
@@ -140,9 +139,9 @@ class PatientAskingApiView(APIView):
 		return Response({"response": "Bad Request"})
 
 	def put(self, request):
-		new_value = request.PUT.get("intent")
-		case_id = request.PUT.get("id")
-		entity = request.PUT.getlist("entity[]")
+		new_value = request.POST.get("intent")
+		case_id = request.POST.get("id")
+		entity = request.POST.getlist("entity[]")
 		if entity and new_value:
 			main_object = main_data.objects.filter(id=case_id).first()
 			new_obj = PatientAskingFor.objects.filter(case_id=main_object).first()
@@ -171,8 +170,8 @@ class HistoryApiView(APIView):
 		return Response({"response": "Bad Request"})
 
 	def put(self, request):
-		new_symptoms = request.PUT.getlist("entity[]")
-		case_id = request.PUT.get("id")
+		new_symptoms = request.POST.getlist("entity[]")
+		case_id = request.POST.get("id")
 		main_object = main_data.objects.filter(id=case_id).first()
 		entobjs = History.objects.filter(case_id=main_object).all()
 		old_symptoms = [ent.keyword for ent in entobjs]
@@ -197,8 +196,8 @@ class EffectApiView(APIView):
 		return Response({"response": "Bad Request"})
 
 	def put(self, request):
-		new_symptoms = request.PUT.getlist("entity[]")
-		case_id = request.PUT.get("id")
+		new_symptoms = request.POST.getlist("entity[]")
+		case_id = request.get("id")
 		main_object = main_data.objects.filter(id=case_id).first()
 		entobjs = Effect.objects.filter(case_id=main_object).all()
 		old_symptoms = [ent.keyword for ent in entobjs]
