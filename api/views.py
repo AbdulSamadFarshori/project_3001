@@ -27,31 +27,6 @@ from website.models import Cookies
 import logging
 
 
-class FormSubmitView(APIView):
-
-	def post(self, request):
-		
-		entity = request.POST.getlist("entity[]")
-		intent = request.POST.get("intent")
-		case_id = request.POST.get("id")
-
-		logging.error(f" --> {entity}, {intent}, {case_id}")
-		main_object = main_data.objects.filter(id=case_id).first()
-
-		if intent:
-			foo = IntentData(case_id=main_object, intent=intent)
-			foo.save()
-
-		if entity:
-			for ele in entity:
-				foo1 = EntityData(case_id=main_object, entity=ele)
-				foo1.save()
-
-		done_cases = CompletedCase(case_id=main_object)
-		done_cases.save() 
-		
-		return Response({"response":True})
-
 class IntentApiView(APIView):
 
 	def post(self, request):
@@ -182,7 +157,7 @@ class EffectApiView(APIView):
 			return Response({"response":"history has been updated!"})
 		return Response({"response": "Bad Request"})
 
-class MarkAsCompleted(APIView):
+class MarkAsCompletedApiView(APIView):
 
 	def get(self, request):
 		case_id = request.GET.get("id")
