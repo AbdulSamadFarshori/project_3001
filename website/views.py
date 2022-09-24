@@ -215,7 +215,7 @@ class UpdateHistoryTemplate(LoginRequiredMixin, View):
 	def get(self, request, pk):
 		access_token = get_access_token()
 		mainobj = main_data.objects.filter(id=pk).first()
-		obj = History.objects.filter(case_id=mainobj).first()
+		obj = History.objects.filter(case_id=mainobj).all()
 		linkobj = LinkConfig.objects.filter(id=pk).first()
 		context = temp_context_data(mainobj, linkobj)
 		keyword = [key.keyword for key in obj if obj is not None]
@@ -247,7 +247,7 @@ class UpdateEffectTemplate(LoginRequiredMixin, View):
 	def get(self, request, pk):
 		access_token = get_access_token()
 		mainobj = main_data.objects.filter(id=pk).first()
-		obj = Effect.objects.filter(case_id=mainobj).first()
+		obj = Effect.objects.filter(case_id=mainobj).all()
 		linkobj = LinkConfig.objects.filter(id=pk).first()
 		context = temp_context_data(mainobj, linkobj)
 		keyword = [key.keyword for key in obj if obj is not None]
