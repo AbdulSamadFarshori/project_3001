@@ -75,13 +75,13 @@ function addSymptomTags(){
 
 function removeSymptomTag(){
   $("#symptom").one("click","span", function(){
-    console.log("hello")
-      // var key = $( this ).attr("id");
-      // console.log(key);
-      // $(this).remove();
-      // var keyIndex = entity.indexOf(key);
-      // entity.splice(keyIndex, 1);
-      // console.log(entity);
+    
+    var key = $( this ).attr("id");
+    console.log(key);
+    $(this).remove();
+    var keyIndex = entity.indexOf(key);
+    entity.splice(keyIndex, 1);
+    console.log(entity);
   });
 }
 
