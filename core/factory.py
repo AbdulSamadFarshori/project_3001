@@ -25,8 +25,8 @@ def get_new_list_entity(old_list, new_list, obj, obj2):
 			less = list(set(old_list) - set(new_list))
 			if less:
 				for ele in less:
-				pos = old_list.index(ele)
-				temp.append(obj[pos])
+					pos = old_list.index(ele)
+					temp.append(obj[pos])
 
 			for foo in range(len(adds)):
 				if len(temp) >= foo:
@@ -59,8 +59,8 @@ def get_new_list_asking(old_list, new_list, obj, obj2):
 			less = list(set(old_list) - set(new_list))
 			if less:
 				for ele in less:
-				pos = old_list.index(ele)
-				temp.append(obj[pos])
+					pos = old_list.index(ele)
+					temp.append(obj[pos])
 
 			for foo in range(len(adds)):
 				if len(temp) >= foo:
@@ -94,8 +94,8 @@ def get_new_list_history(old_list, new_list, obj, obj2):
 			less = list(set(old_list) - set(new_list))
 			if less:
 				for ele in less:
-				pos = old_list.index(ele)
-				temp.append(obj[pos])
+					pos = old_list.index(ele)
+					temp.append(obj[pos])
 
 			for foo in range(len(adds)):
 				if len(temp) >= foo:
@@ -128,8 +128,8 @@ def get_new_list_effect(old_list, new_list, obj, obj2):
 			less = list(set(old_list) - set(new_list))
 			if less:
 				for ele in less:
-				pos = old_list.index(ele)
-				temp.append(obj[pos])
+					pos = old_list.index(ele)
+					temp.append(obj[pos])
 
 			for foo in range(len(adds)):
 				if len(temp) >= foo:
