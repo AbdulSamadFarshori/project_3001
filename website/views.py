@@ -153,7 +153,10 @@ class UpdatdeCauseTempalte(LoginRequiredMixin, View):
 		causeobj = Cause.objects.filter(case_id=mainobj).first()
 		keywordobj = CauseKeyword.objects.filter(case_id=causeobj).all()
 		context = temp_context_data(mainobj, linkobj)
-		context["cause"] = causeobj.cause
+		if causeobj:
+			context["cause"] = causeobj.cause
+		else:
+			context["cause"] = None
 		keyword = [key.keyword for key in keywordobj if keywordobj is not None]
 		context["keyword"] = keyword
 		context['token'] = access_token
@@ -187,7 +190,7 @@ class UpdatePatientAskingForTemplate(LoginRequiredMixin, View):
 		keywordobj = PatientAskingForKeyword.objects.filter(case_id=pafobj).all()
 		context = temp_context_data(mainobj, linkobj)
 		if pafobj:
-			context["need"] = pafobj.cause
+			context["need"] = pafobj.asking
 		else:
 			context["need"] = None
 		keyword = [key.keyword for key in keywordobj if keywordobj is not None]
