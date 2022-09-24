@@ -167,3 +167,39 @@ class Effect(models.Model):
 
 	class Meta:
 		verbose_name_plural = "Effect"
+
+class JWTToken(models.Model):
+	refresh_token = CharField(max_length=2000)
+	access_token = CharField(max_length=2000)
+
+	def __str__(self):
+		return self.refresh_token
+
+	class Meta:
+		verbose_name_plural = "JWT Token"
+
+
+class UserConfig(models.Model):
+	username = models.CharField(max_length=255)
+	case = models.ForeignKey(main_data, on_delete=models.CASCADE)
+
+	def __str__(self):
+		return self.username
+
+	class Meta:
+		verbose_name_plural = "User Config"
+
+class NotCompletedStatus(models.Model):
+	case_id = models.ForeignKey(main_data, on_delete=models.CASCADE)
+	intent = models.BooleanField(default=False)
+	symptoms = models.BooleanField(default=False)
+	cause = models.BooleanField(default=False)
+	patient_asking_for = models.BooleanField(default=False)
+	history = models.BooleanField(default=False)
+	effect = models.BooleanField(default=False)
+
+	def __str__(self):
+		return self.case_id.id
+
+	class Meta:
+		verbose_name_plural = "Not Completed Status "
