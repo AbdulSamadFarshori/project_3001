@@ -50,7 +50,7 @@ class CompletedCasesPageTemplate(LoginRequiredMixin, View):
 class NotCompletedCasesPageTemplate(LoginRequiredMixin, View):
 	
 	template_name = 'website/Not_completed_cases.html'
-	login_url = '/login'
+	# login_url = '/login'
 
 	def get(self, request):
 		objects = CompletedCase.objects.all()

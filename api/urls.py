@@ -1,10 +1,13 @@
 from django.urls import path
-from .views import ( 
-							LoginView, 
-							FormSubmitView, 
+from .views import (  
+							IntentApiView, 
 							RegisterApiView, 
-							MainDataApiView, 
+							SymptomsApiView, 
 							LinkConfigApiView,
+							PatientAskingApiView,
+							HistoryApiView,
+							EffectApiView,
+							MarkAsCompletedApiView
 							)
 
 from .models import main_data
@@ -14,11 +17,14 @@ from rest_framework_simplejwt.views import (
     										TokenRefreshView,
 											)
 urlpatterns = [
-		path("login", LoginView.as_view(), name="login_api"),
 		path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     	path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    	path('submit', FormSubmitView.as_view(), name='form_submit' ),
+    	path('intent', IntentApiView.as_view(), name='intent' ),
     	path('user-register', RegisterApiView.as_view(), name='user_register' ),
-    	path("main-data", MainDataApiView.as_view(), name="main_data_api"),
+    	path("symptoms", SymptomsApiView.as_view(), name="symptoms"),
     	path("links", LinkConfigApiView.as_view(), name="link_api"),
+    	path("patient-asking", PatientAskingApiView.as_view(), name="patient-asking"),
+    	path("history", HistoryApiView.as_view(), name="history"),
+    	path("effect", EffectApiView.as_view(), name="effect"),
+    	path("mark-completed", MarkAsCompletedApiView.as_view(), name="mark-completed"),
 		]

@@ -3,6 +3,144 @@ from django.contrib.auth.hashers import check_password, make_password
 import logging
 import re
 from spellchecker import SpellChecker
+from api.models import EntityData, PatientAskingForKeyword, History, Effect 
+
+def get_new_list_entity(old_list, new_list, obj, obj2):
+	adds = []
+	less = []
+	if len(old_list) > len(new_list):
+		temp = []
+		adds = list(set(new_list) - set(old_list))
+		less = list(set(old_list) - set(new_list))
+		if less:
+			for ele in less:
+				pos = old_list.index(ele)
+				temp.append(pos)
+		for pos in temp:
+			foo = obj[pos]
+			foo.delete()
+		else:
+			temp = []
+			adds = list(set(new_list) - set(old_list))
+			less = list(set(old_list) - set(new_list))
+			if less:
+				for ele in less:
+				pos = old_list.index(ele)
+				temp.append(obj[pos])
+
+			for foo in range(len(adds)):
+				if len(temp) >= foo:
+					temp[foo].entity = adds[foo]
+					temp[foo].save()
+				else:
+					obj_case = EntityData(case_id=obj2, entity=adds[pos])
+					obj_case.save()
+			
+			return True
+	return False
+
+def get_new_list_asking(old_list, new_list, obj, obj2):
+	adds = []
+	less = []
+	if len(old_list) > len(new_list):
+		temp = []
+		adds = list(set(new_list) - set(old_list))
+		less = list(set(old_list) - set(new_list))
+		if less:
+			for ele in less:
+				pos = old_list.index(ele)
+				temp.append(pos)
+		for pos in temp:
+			foo = obj[pos]
+			foo.delete()
+		else:
+			temp = []
+			adds = list(set(new_list) - set(old_list))
+			less = list(set(old_list) - set(new_list))
+			if less:
+				for ele in less:
+				pos = old_list.index(ele)
+				temp.append(obj[pos])
+
+			for foo in range(len(adds)):
+				if len(temp) >= foo:
+					temp[foo].entity = adds[foo]
+					temp[foo].save()
+				else:
+					obj_case = PatientAskingForKeyword(case_id=obj2, keyword=adds[pos])
+					obj_case.save()
+			
+			return True
+	return False
+
+
+def get_new_list_history(old_list, new_list, obj, obj2):
+	adds = []
+	less = []
+	if len(old_list) > len(new_list):
+		temp = []
+		adds = list(set(new_list) - set(old_list))
+		less = list(set(old_list) - set(new_list))
+		if less:
+			for ele in less:
+				pos = old_list.index(ele)
+				temp.append(pos)
+		for pos in temp:
+			foo = obj[pos]
+			foo.delete()
+		else:
+			temp = []
+			adds = list(set(new_list) - set(old_list))
+			less = list(set(old_list) - set(new_list))
+			if less:
+				for ele in less:
+				pos = old_list.index(ele)
+				temp.append(obj[pos])
+
+			for foo in range(len(adds)):
+				if len(temp) >= foo:
+					temp[foo].entity = adds[foo]
+					temp[foo].save()
+				else:
+					obj_case = History(case_id=obj2, keyword=adds[pos])
+					obj_case.save()
+			
+			return True
+	return False
+
+def get_new_list_effect(old_list, new_list, obj, obj2):
+	adds = []
+	less = []
+	if len(old_list) > len(new_list):
+		temp = []
+		adds = list(set(new_list) - set(old_list))
+		less = list(set(old_list) - set(new_list))
+		if less:
+			for ele in less:
+				pos = old_list.index(ele)
+				temp.append(pos)
+		for pos in temp:
+			foo = obj[pos]
+			foo.delete()
+		else:
+			temp = []
+			adds = list(set(new_list) - set(old_list))
+			less = list(set(old_list) - set(new_list))
+			if less:
+				for ele in less:
+				pos = old_list.index(ele)
+				temp.append(obj[pos])
+
+			for foo in range(len(adds)):
+				if len(temp) >= foo:
+					temp[foo].entity = adds[foo]
+					temp[foo].save()
+				else:
+					obj_case = Effect(case_id=obj2, keyword=adds[pos])
+					obj_case.save()
+			
+			return True
+	return False
 
 def authenticated(username, password):
 	User = get_user_model()
