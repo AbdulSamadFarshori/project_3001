@@ -197,7 +197,7 @@ class EffectApiView(APIView):
 
 	def put(self, request):
 		new_symptoms = request.POST.getlist("entity[]")
-		case_id = request.get("id")
+		case_id = request.POST.get("id")
 		main_object = main_data.objects.filter(id=case_id).first()
 		entobjs = Effect.objects.filter(case_id=main_object).all()
 		old_symptoms = [ent.keyword for ent in entobjs]
@@ -211,7 +211,7 @@ class MarkAsCompletedApiView(APIView):
 	permission_classes = (IsAuthenticated,)
 
 	def get(self, request):
-		case_id = request.GET.get("id")
+		case_id = request.POST.get("id")
 		main_object = main_data.objects.filter(id=case_id).first()
 		done_cases = CompletedCase(case_id=main_object)
 		done_cases.save()
