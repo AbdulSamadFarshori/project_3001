@@ -34,7 +34,7 @@ def get_new_list_entity(old_list, new_list, obj, obj2):
 				temp[foo].entity = adds[foo]
 				temp[foo].save()
 			else:
-				obj_case = EntityData(case_id=obj2, entity=adds[pos])
+				obj_case = EntityData(case_id=obj2, entity=adds[foo])
 				obj_case.save()
 			
 	return True
