@@ -1,13 +1,13 @@
 from django.contrib import admin
 from .models import (main_data, 
-                    response, 
-                    keywords, 
-                    CompletedCase, 
-                    ReplyData, 
-                    ReplyThread, 
-                    LinkConfig, 
-                    IntentData,
-                    EntityData)
+                    response, NotCompletedStatus, 
+                    keywords, UserConfig, 
+                    CompletedCase, JWTToken, 
+                    ReplyData, Effect, Cause,
+                    ReplyThread, History,
+                    LinkConfig, PatientAskingForKeyword
+                    IntentData, PatientAskingFor
+                    EntityData, CauseKeyword)
  
 @admin.register(main_data)
 class MainDataAdmin(admin.ModelAdmin):
@@ -44,3 +44,39 @@ class IntentDataAdmin(admin.ModelAdmin):
 @admin.register(EntityData)
 class EntityDataAdmin(admin.ModelAdmin):
   list_display = ['id', 'case_id', 'entity']
+
+@admin.register(NotCompletedStatus)
+class NotCompletedStatusAdmin(admin.ModelAdmin):
+  list_display = ['id', 'case_id', 'intent', 'symptoms', 'cause', 'patient_asking_for', 'history', 'effect']
+
+@admin.register(UserConfig)
+class UserConfigAdmin(admin.ModelAdmin):
+  list_display = ['id', 'username', 'case_id']
+
+@admin.register(JWTToken)
+class JWTTokenAdmin(admin.ModelAdmin):
+  list_display = ['id', 'refresh_token', 'access_token']
+
+@admin.register(Effect)
+class EffectAdmin(admin.ModelAdmin):
+  list_display = ['id', 'case_id', 'keyword']
+
+@admin.register(History)
+class HistoryAdmin(admin.ModelAdmin):
+  list_display = ['id', 'case_id', 'keyword']
+
+@admin.register(PatientAskingForKeyword)
+class PatientAskingForKeywordAdmin(admin.ModelAdmin):
+  list_display = ['id', 'case_id', 'keyword']
+
+@admin.register(PatientAskingFor)
+class PatientAskingForAdmin(admin.ModelAdmin):
+  list_display = ['id', 'case_id', 'asking']
+
+@admin.register(CauseKeyword)
+class CauseKeywordAdmin(admin.ModelAdmin):
+  list_display = ['id', 'case_id', 'keyword']
+
+@admin.register(Cause)
+class CauseAdmin(admin.ModelAdmin):
+  list_display = ['id', 'case_id', 'cause']
