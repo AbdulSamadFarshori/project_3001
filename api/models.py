@@ -169,8 +169,8 @@ class Effect(models.Model):
 		verbose_name_plural = "Effect"
 
 class JWTToken(models.Model):
-	refresh_token = CharField(max_length=2000)
-	access_token = CharField(max_length=2000)
+	refresh_token = CharField(max_length=500)
+	access_token = CharField(max_length=500)
 
 	def __str__(self):
 		return self.refresh_token
