@@ -57,6 +57,8 @@ function addSymptomTags(){
   var takeValue = $("#symptomtag").val();
   if (takeValue != null){
   entity.push(takeValue);
+  console.log($("#inputtags").val())
+  console.log(entity)
   var ItemAdd = "<h6 class='hsix'><span class='badge bg-primary' id='"+ takeValue + "' style='margin:4px;'>"+takeValue+"<button class='btn-close' aria-label='Close' onClick='removeSymptomTag()'></button></span></h6>"
   $("#symptom").append(ItemAdd);
   $('#symptomtag').val('');
