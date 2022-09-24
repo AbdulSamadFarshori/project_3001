@@ -74,7 +74,7 @@ function submitForm(){
   
   $.ajax({
     headers: {
-    Authorization: 'Bearer '+ '{{token}}'}
+    Authorization: 'Bearer '+ '{{token}}'},
     url: "/apis/symptoms",
     method:"POST",
     data:data,

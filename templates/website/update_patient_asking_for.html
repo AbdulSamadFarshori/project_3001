@@ -74,7 +74,7 @@ function removeSymptomTag(){
 
 function submitForm(){
 
-  var case_id = xxx;
+  var case_id = {{case_id}};
 
   var takeValue = $("#inputtags").val();
   
@@ -93,7 +93,7 @@ function submitForm(){
   
   $.ajax({
     headers: {
-    Authorization: 'Bearer '+ '{{token}}'}
+    Authorization: 'Bearer '+ '{{token}}'},
     url: "/apis/patient-asking",
     method:"PUT",
     data:data,
