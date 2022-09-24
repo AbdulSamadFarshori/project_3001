@@ -34,7 +34,7 @@ var entity = {{keyword|safe}};
 console.log(entity);
 
 $( document ).ready(function() {
-
+console.log(entity);
   for(i in entity){
     var ItemAdd = "<h6 class='hsix'><span class='badge bg-primary' id='"+ entity[i] + "' style='margin:4px;'>"+entity[i]+"<button class='btn-close' aria-label='Close' onClick='removeSymptomTag()'></button></span></h6>"
     $("#symptom").append(ItemAdd);
