@@ -121,7 +121,7 @@ class UpdateEntityCasesTemplate(LoginRequiredMixin, View):
 		linkobj = LinkConfig.objects.filter(id=pk).first()
 		obj = EntityData.objects.filter(case_id=mainobj).all()
 		context = temp_context_data(mainobj, linkobj)
-		keywords_list = [key.entity for key in obj]
+		keywords_list = [key.entity for key in obj if obj is not None]
 		context["keyword"] = keywords_list
 		context['token'] = access_token
 
@@ -154,7 +154,7 @@ class UpdatdeCauseTempalte(LoginRequiredMixin, View):
 		keywordobj = CauseKeyword.objects.filter(case_id=causeobj).all()
 		context = temp_context_data(mainobj, linkobj)
 		context["cause"] = causeobj.cause
-		keyword = [key.keyword for key in keywordobj]
+		keyword = [key.keyword for key in keywordobj if keywordobj is not None]
 		context["keyword"] = keyword
 		context['token'] = access_token
 
@@ -187,7 +187,7 @@ class UpdatePatientAskingForTemplate(LoginRequiredMixin, View):
 		keywordobj = PatientAskingForKeyword.objects.filter(case_id=pafobj).all()
 		context = temp_context_data(mainobj, linkobj)
 		context["need"] = pafeobj.cause
-		keyword = [key.keyword for key in keywordobj]
+		keyword = [key.keyword for key in keywordobj if keywordobj is not None]
 		context["keyword"] = keyword
 		context['token'] = access_token
 		return render(request, self.template_name, context)
@@ -218,7 +218,7 @@ class UpdateHistoryTemplate(LoginRequiredMixin, View):
 		obj = History.objects.filter(case_id=mainobj).first()
 		linkobj = LinkConfig.objects.filter(id=pk).first()
 		context = temp_context_data(mainobj, linkobj)
-		keyword = [key.keyword for key in obj]
+		keyword = [key.keyword for key in obj if obj is not None]
 		context["keyword"] = keyword
 		context['token'] = access_token	
 		return render(request, self.template_name, context)
@@ -250,7 +250,7 @@ class UpdateEffectTemplate(LoginRequiredMixin, View):
 		obj = Effect.objects.filter(case_id=mainobj).first()
 		linkobj = LinkConfig.objects.filter(id=pk).first()
 		context = temp_context_data(mainobj, linkobj)
-		keyword = [key.keyword for key in obj]
+		keyword = [key.keyword for key in obj if obj is not None]
 		context["keyword"] = keyword
 		context['token'] = access_token	
 		return render(request, self.template_name, context)

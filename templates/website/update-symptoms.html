@@ -31,7 +31,6 @@ function goBack(){
 var entity = [];
 var all_items = {{keyword|safe}};
 
-console.log({{keyword|safe}});
 
 $( document ).ready(function() {
   if (all_items.length > 0){
@@ -44,7 +43,6 @@ $( document ).ready(function() {
 
 all_items = [];
 
-console.log(entity);
 
 $("#symptomtag").keypress(function(e) {
     if(e.which == 13) {
@@ -54,7 +52,6 @@ $("#symptomtag").keypress(function(e) {
       var ItemAdd = "<h6 class='hsix'><span class='badge bg-primary' id='"+ takeValue + "' style='margin:4px;'>"+takeValue+"<button class='btn-close' aria-label='Close' onClick='removeSymptomTag()'></button></span></h6>"
       $("#symptom").append(ItemAdd);
       $('#symptomtag').val('');
-      console.log(entity);
   }
     }
 });
@@ -69,7 +66,6 @@ function addSymptomTags(){
   var ItemAdd = "<h6 class='hsix'><span class='badge bg-primary' id='"+ takeValue + "' style='margin:4px;'>"+takeValue+"<button class='btn-close' aria-label='Close' onClick='removeSymptomTag()'></button></span></h6>"
   $("#symptom").append(ItemAdd);
   $('#symptomtag').val('');
-  console.log(entity);
   }
 }
 
@@ -81,7 +77,6 @@ function removeSymptomTag(){
     $(this).remove();
     var keyIndex = entity.indexOf(key);
     entity.splice(keyIndex, 1);
-    console.log(entity);
   });
 }
 
@@ -91,7 +86,6 @@ function submitForm(){
               "id":case_id, 
               "entity":entity, 
             };
-  console.log(entity)
   
   $.ajax({
     headers: {
