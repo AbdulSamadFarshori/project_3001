@@ -33,16 +33,14 @@ var all_items = {{keyword|safe}};
 
 console.log({{keyword|safe}});
 
-if (all_items.length > 0){
+$( document ).ready(function() {
+  if (all_items.length > 0){
   for(i in all_items){
     var ItemAdd = "<h6 class='hsix'><span class='badge bg-primary' id='"+ all_items[i] + "' style='margin:4px;'>"+all_items[i]+"<button class='btn-close' aria-label='Close' onClick='removeSymptomTag()'></button></span></h6>"
     $("#symptom").append(ItemAdd);
       entity.push(all_items[i])
   }
 }
-
-$( document ).ready(function() {
-  
 
 all_items = [];
 
