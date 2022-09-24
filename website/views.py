@@ -186,7 +186,7 @@ class UpdatePatientAskingForTemplate(LoginRequiredMixin, View):
 		pafobj = PatientAskingFor.objects.filter(case_id=mainobj).first()
 		keywordobj = PatientAskingForKeyword.objects.filter(case_id=pafobj).all()
 		context = temp_context_data(mainobj, linkobj)
-		context["need"] = pafeobj.cause
+		context["need"] = pafobj.cause
 		keyword = [key.keyword for key in keywordobj if keywordobj is not None]
 		context["keyword"] = keyword
 		context['token'] = access_token
