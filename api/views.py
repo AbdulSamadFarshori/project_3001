@@ -109,8 +109,12 @@ class CauseApiView(APIView):
 		if entity and new_value:
 			main_object = main_data.objects.filter(id=case_id).first()
 			new_obj = Cause.objects.filter(case_id=main_object).first()
-			new_obj.asking = new_value
-			new_obj.save()
+			if new_obj:
+				new_obj.cause = new_value
+				new_obj.save()
+			else:
+				new_obj = Cause(case_id=main_object, cause=new_value)
+				new_obj.save()
 			entobjs = CauseKeyword.objects.filter(case_id=new_obj).all()
 			old_asking = [ent.keyword for ent in entobjs]
 			check = get_new_list_cause(old_asking, entity, entobjs, main_object)
@@ -145,8 +149,12 @@ class PatientAskingApiView(APIView):
 		if entity and new_value:
 			main_object = main_data.objects.filter(id=case_id).first()
 			new_obj = PatientAskingFor.objects.filter(case_id=main_object).first()
-			new_obj.asking = new_value
-			new_obj.save()
+			if new_obj:
+				new_obj.asking = new_value
+				new_obj.save()
+			else:
+				new_obj = PatientAskingFor(case_id=main_object, asking=new_value)
+				new_obj.save()
 			entobjs = PatientAskingForKeyword.objects.filter(case_id=new_obj).all()
 			old_asking = [ent.keyword for ent in entobjs]
 			check = get_new_list_asking(old_asking, entity, entobjs, main_object)
