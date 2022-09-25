@@ -53,10 +53,13 @@ def get_new_list_asking(old_list, new_list, obj, obj2):
 		for pos in temp:
 			foo = obj[pos]
 			foo.delete()
+
 	else:
 		temp = []
 		adds = list(set(new_list) - set(old_list))
 		less = list(set(old_list) - set(new_list))
+		logging.error(f"adds ----> {adds}")
+		logging.error(f"less ----> {less}")
 		if less:
 			for ele in less:
 				pos = old_list.index(ele)
