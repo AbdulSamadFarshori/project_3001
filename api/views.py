@@ -146,7 +146,9 @@ class PatientAskingApiView(APIView):
 		new_value = request.POST.get("intent")
 		case_id = request.POST.get("id")
 		entity = request.POST.getlist("entity[]")
-		if entity and new_value:
+		new_obj = None
+		if new_value:
+			logging.error(f"value -----> {new_value}")
 			main_object = main_data.objects.filter(id=case_id).first()
 			new_obj = PatientAskingFor.objects.filter(case_id=main_object).first()
 			if new_obj:
@@ -155,6 +157,8 @@ class PatientAskingApiView(APIView):
 			else:
 				new_obj = PatientAskingFor(case_id=main_object, asking=new_value)
 				new_obj.save()
+		if entity:
+			logging.error(f"entity -----> {entity}")
 			entobjs = PatientAskingForKeyword.objects.filter(case_id=new_obj).all()
 			old_asking = [ent.keyword for ent in entobjs]
 			check = get_new_list_asking(old_asking, entity, entobjs, new_obj)
