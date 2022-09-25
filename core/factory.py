@@ -67,7 +67,7 @@ def get_new_list_asking(old_list, new_list, obj, obj2):
 
 		for foo in range(len(adds)):
 			if len(temp)-1 >= foo:
-				temp[foo].entity = adds[foo]
+				temp[foo].keyword = adds[foo]
 				temp[foo].save()
 			else:
 				obj_case = PatientAskingForKeyword(case_id=obj2, keyword=adds[foo])
@@ -101,7 +101,7 @@ def get_new_list_history(old_list, new_list, obj, obj2):
 
 		for foo in range(len(adds)):
 			if len(temp)-1 >= foo:
-				temp[foo].entity = adds[foo]
+				temp[foo].keyword = adds[foo]
 				temp[foo].save()
 			else:
 				obj_case = History(case_id=obj2, keyword=adds[foo])
@@ -134,7 +134,7 @@ def get_new_list_effect(old_list, new_list, obj, obj2):
 
 		for foo in range(len(adds)):
 			if len(temp)-1 >= foo:
-				temp[foo].entity = adds[foo]
+				temp[foo].keyword = adds[foo]
 				temp[foo].save()
 			else:
 				obj_case = Effect(case_id=obj2, keyword=adds[foo])
