@@ -234,6 +234,7 @@ class MarkAsInCompletedApiView(APIView):
 
 	def get(self, request):
 		case_id = request.POST.get("case_id")
+		logging.error(f"case id --> {case_id}")
 		main_object = main_data.objects.filter(id=case_id).first()
 		done_cases = CompletedCase.objects.filter(case_id=main_object).first()
 		done_cases.delete()
