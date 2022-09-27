@@ -34,7 +34,7 @@
       Authorization: 'Bearer '+ '{{token}}'},
       url: "/apis/mark-incompleted",
       method:"GET",
-      data:case_id,
+      data:{"case_id":case_id},
       dataType:"json",
       ContentType: "application/json",
       success: function(response){
