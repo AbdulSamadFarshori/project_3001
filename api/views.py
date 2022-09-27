@@ -223,7 +223,7 @@ class MarkAsCompletedApiView(APIView):
 	permission_classes = (IsAuthenticated,)
 
 	def get(self, request):
-		case_id = request.QUERY_PARAMS.get("case_id")
+		case_id = request.DATA.get("case_id")
 		main_object = main_data.objects.filter(id=case_id).first()
 		done_cases = CompletedCase(case_id=main_object)
 		done_cases.save()
@@ -233,7 +233,7 @@ class MarkAsInCompletedApiView(APIView):
 	permission_classes = (IsAuthenticated,)
 
 	def get(self, request):
-		case_id = request.QUERY_PARAMS.get("case_id")
+		case_id = request.DATA.get("case_id")
 		logging.error(f"case id --> {case_id}")
 		main_object = main_data.objects.filter(id=case_id).first()
 		done_cases = CompletedCase.objects.filter(case_id=main_object).first()
