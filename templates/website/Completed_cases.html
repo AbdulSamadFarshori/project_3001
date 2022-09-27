@@ -127,7 +127,7 @@
                     <a href="{% url 'update-effect' pk=obj.case_id.id %}" class="btn btn-outline-primary">Effect</a>
                   </div>
                   <div style="margin: 5px;">
-                    <a class="btn btn-outline-primary" onclick="markIncompleted()">Mark As Incompleted</a>
+                    <a class="btn btn-danger" onclick="markIncompleted({{obj.case_id.id}})">Mark As Incompleted</a>
                   </div>
                 </div>
               </div>
