@@ -44,8 +44,9 @@ class CompletedCasesPageTemplate(LoginRequiredMixin, View):
 		my_paginator = Paginator(objects, 10)
 		page = request.GET.get("page")
 		data = my_paginator.get_page(page)
+		token = get_access_token()
 
-		return render(request, self.template_name, {"data":data})
+		return render(request, self.template_name, {"data":data, "token":token})
 
 
 class NotCompletedCasesPageTemplate(LoginRequiredMixin, View):
@@ -61,8 +62,8 @@ class NotCompletedCasesPageTemplate(LoginRequiredMixin, View):
 		my_paginator = Paginator(final, 10)
 		page = request.GET.get("page")
 		data = my_paginator.get_page(page)
-
-		return render(request, self.template_name, {"data":data})
+		token = get_access_token()
+		return render(request, self.template_name, {"data":data, "token":token})
 
 
 class IntentCasesPageTemplate(LoginRequiredMixin, View):

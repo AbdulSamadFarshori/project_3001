@@ -8,6 +8,7 @@ from .views import (
 							HistoryApiView,
 							EffectApiView,
 							MarkAsCompletedApiView,
+							MarkAsInCompletedApiView,
 							CauseApiView
 							)
 
@@ -28,6 +29,7 @@ urlpatterns = [
     	path("history", HistoryApiView.as_view(), name="history"),
     	path("effect", EffectApiView.as_view(), name="effect"),
     	path("mark-completed", MarkAsCompletedApiView.as_view(), name="mark-completed"),
+    	path("mark-incompleted", MarkAsInCompletedApiView.as_view(), name="mark-incompleted"),
     	path("cause", CauseApiView.as_view(), name="cause"),
 
 		]

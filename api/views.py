@@ -223,11 +223,22 @@ class MarkAsCompletedApiView(APIView):
 	permission_classes = (IsAuthenticated,)
 
 	def get(self, request):
-		case_id = request.POST.get("id")
+		case_id = request.POST.get("case_id")
 		main_object = main_data.objects.filter(id=case_id).first()
 		done_cases = CompletedCase(case_id=main_object)
 		done_cases.save()
 		return Response({"response":"case has been marked as completed!"})
+
+class MarkAsInCompletedApiView(APIView):
+	permission_classes = (IsAuthenticated,)
+
+	def get(self, request):
+		case_id = request.POST.get("case_id")
+		main_object = main_data.objects.filter(id=case_id).first()
+		done_cases = CompletedCase.objects.filter(case_id=main_object).first()
+		done_cases.delete()
+		return Response({"response":"case has been marked as completed!"})
+
 
 class RegisterApiView(APIView):
 

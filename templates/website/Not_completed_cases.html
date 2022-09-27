@@ -26,6 +26,25 @@
 {% block jquery %}
 <script type="text/javascript">
 
+  function markCompleted(e){
+    var case_id = e;
+
+    $.ajax({
+      headers: {
+      Authorization: 'Bearer '+ '{{token}}'},
+      url: "/apis/mark-completed",
+      method:"GET",
+      data:case_id,
+      dataType:"json",
+      ContentType: "application/json",
+      success: function(response){
+        window.location.reload();
+
+    }
+    });
+
+  }
+
 </script>
 {% endblock %}
 <body>
@@ -105,6 +124,9 @@
 
                   <div style="margin: 5px;">
                     <a href="{% url 'add-effect' pk=obj.id %}" class="btn btn-outline-primary">Effect</a>
+                  </div>
+                  <div style="margin: 5px;">
+                    <a class="btn btn-outline-primary" onclick="markCompleted({{obj.case_id.id}})">Mark As Completed</a>
                   </div>
                 </div>
               </div>
