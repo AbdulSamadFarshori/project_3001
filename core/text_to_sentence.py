@@ -14,6 +14,6 @@ class TextToSentence(object):
 
 	def text_to_sentence_list(self):
 		
-		output = self.model._tokenize_text_to_sentences(self.text)
+		output = self.model()._tokenize_text_to_sentences(self.text)
 
 		return output
