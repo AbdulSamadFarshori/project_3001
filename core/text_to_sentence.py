@@ -1,6 +1,6 @@
 from rake_nltk import Rake
 import nltk
-nltk.download('all')
+nltk.download('stopword')
 
 class TextToSentence(object):
 
