@@ -33,6 +33,12 @@ var entity = [];
 
 $( document ).ready(function() {
 
+  for(i in sentences){
+    var ItemAdd = "<h6 class='hsix'><span class='badge bg-primary' id='"+ sentences[i] + "' style='margin:4px;'>"+sentences[i]+"<button class='btn-close' aria-label='Close' onClick='removeSymptomTag()'></button></span></h6>"
+    $("#symptom").append(ItemAdd);
+      entity.push(sentences[i]);
+  } 
+
 $("#symptomtag").keypress(function(e) {
     if(e.which == 13) {
         addSymptomTags()

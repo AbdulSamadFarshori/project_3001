@@ -31,7 +31,8 @@
 
     $.ajax({
       headers: {
-      Authorization: 'Bearer '+ '{{token}}'},
+        Authorization: 'Bearer '+ '{{token}}'
+      },
       url: "/apis/mark-incompleted",
       method:"GET",
       data:{"case_id":case_id},

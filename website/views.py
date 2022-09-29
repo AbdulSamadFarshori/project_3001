@@ -15,6 +15,7 @@ from django.shortcuts import redirect
 from .models import FingerPrints
 from core.factory import temp_context_data, get_client_ip
 from core.jwt_token import get_access_token 
+from core.text_to_sentences import TextToSentence
 import logging
 
 class HomeView(TemplateView):
@@ -211,6 +212,8 @@ class HistoryPageTemplate(LoginRequiredMixin, View):
 		mainobj = main_data.objects.filter(id=pk).first() 
 		context = temp_context_data(mainobj, linkobj)
 		context['token'] = access_token
+		sentences_list = TextToSentence(mainobj.main_problem).text_to_sentence_list()
+		context["sentence"] = sentences_list
 		return render(request, self.template_name, context)
 
 
@@ -227,7 +230,9 @@ class UpdateHistoryTemplate(LoginRequiredMixin, View):
 		context = temp_context_data(mainobj, linkobj)
 		keyword = [key.keyword for key in obj if obj is not None]
 		context["keyword"] = keyword
-		context['token'] = access_token	
+		context["token"] = access_token
+		sentences_list = TextToSentence(mainobj.main_problem).text_to_sentence_list()
+		context["sentence"] = sentences_list
 		return render(request, self.template_name, context)
 
 

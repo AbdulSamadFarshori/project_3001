@@ -31,14 +31,22 @@ function goBack(){
 
 var entity = [];
 var all_items = {{keyword|safe}};
-
+var sentences = {{sentence|safe}}
 
 $( document ).ready(function() {
+
   if (all_items.length > 0){
   for(i in all_items){
     var ItemAdd = "<h6 class='hsix'><span class='badge bg-primary' id='"+ all_items[i] + "' style='margin:4px;'>"+all_items[i]+"<button class='btn-close' aria-label='Close' onClick='removeSymptomTag()'></button></span></h6>"
     $("#symptom").append(ItemAdd);
       entity.push(all_items[i])
+  }
+}
+  else{
+    for(i in sentences){
+    var ItemAdd = "<h6 class='hsix'><span class='badge bg-primary' id='"+ sentences[i] + "' style='margin:4px;'>"+sentences[i]+"<button class='btn-close' aria-label='Close' onClick='removeSymptomTag()'></button></span></h6>"
+    $("#symptom").append(ItemAdd);
+      entity.push(sentences[i])
   }
 }
 
