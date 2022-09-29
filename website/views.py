@@ -15,7 +15,7 @@ from django.shortcuts import redirect
 from .models import FingerPrints
 from core.factory import temp_context_data, get_client_ip
 from core.jwt_token import get_access_token 
-from core.text_to_sentences import TextToSentence
+from core.text_to_sentence import TextToSentence
 import logging
 
 class HomeView(TemplateView):
