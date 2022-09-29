@@ -1,6 +1,6 @@
 from rake_nltk import Rake
 import nltk
-nltk.download()
+nltk.download('all')
 
 class TextToSentence(object):
 
