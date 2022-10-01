@@ -8,7 +8,8 @@ import nltk
 class TextToSentence(object):
 
 	def __init__(self, text):
-		self.text = re.sub("..", "", text)
+		self.text = re.sub("..", ".", text)
+		logging.error(f"text --> {self.text}")
 
 	def model(self):
 		
@@ -18,7 +19,6 @@ class TextToSentence(object):
 
 	def text_to_sentence_list(self):
 		output = self.model()._tokenize_text_to_sentences(self.text)
-
 		return output
 
 
