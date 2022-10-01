@@ -5,11 +5,10 @@ nltk.download('stopwords')
 nltk.download('punkt')
 
 
-
 class TextToSentence(object):
 
 	def __init__(self, text):
-		self.text = text
+		self.text = re.sub("..", "", text)
 
 	def model(self):
 		
@@ -21,4 +20,6 @@ class TextToSentence(object):
 		output = self.model()._tokenize_text_to_sentences(self.text)
 
 		return output
+
+
 
