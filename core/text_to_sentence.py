@@ -32,8 +32,7 @@ class TextToSentence(object):
 		return text
 
 	def text_to_sentence_list(self):
-		
-		output = self.model()._tokenize_text_to_sentences(self.remove_stops)
+		output = self.model()._tokenize_text_to_sentences(self.remove_stops())
 
 		return output
 
