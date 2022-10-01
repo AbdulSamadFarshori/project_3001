@@ -9,7 +9,7 @@ import logging
 class TextToSentence(object):
 
 	def __init__(self, text):
-		self.text = re.sub(r"..", ".", text)
+		self.text = re.sub(r"\..", ".", text)
 		logging.error(f"text --> {self.text}")
 
 	def model(self):
