@@ -248,13 +248,9 @@ class UpdataMainDataApiView(APIView):
 		case_id = request.POST.get("id")
 		main_object = main_data.objects.filter(id=case_id).first()
 		logging.error(f"new text --> {new_value}")
-		# main_object.main_problem = new_value
-		# main_object.save()
+		main_object.main_problem = new_value
+		main_object.save()
 		return Response({"response":"case has been updated!"})
-
-
-
-
 
 class RegisterApiView(APIView):
 
