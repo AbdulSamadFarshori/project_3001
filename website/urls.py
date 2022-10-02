@@ -15,7 +15,8 @@ from .views import (
                     HistoryPageTemplate,
                     UpdateHistoryTemplate,
                     EffectPageTemplate,
-                    UpdateEffectTemplate
+                    UpdateEffectTemplate,
+                    UpdateMainDataTemplate
                     )
 
 from django.contrib.auth.views import LoginView
@@ -38,5 +39,6 @@ urlpatterns = [
     path('update-history/<pk>', UpdateHistoryTemplate.as_view(), name="update-history"),
     path('add-effect/<pk>', EffectPageTemplate.as_view(), name="add-effect"),
     path('update-effect/<pk>', UpdateEffectTemplate.as_view(), name="update-effect"),
+    path('update-effect/<pk>', UpdateMainDataTemplate.as_view(), name="update-main-data")
 
     ]

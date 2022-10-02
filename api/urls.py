@@ -9,7 +9,8 @@ from .views import (
 							EffectApiView,
 							MarkAsCompletedApiView,
 							MarkAsInCompletedApiView,
-							CauseApiView
+							CauseApiView,
+							UpdataMainDataApiView
 							)
 
 from .models import main_data
@@ -31,5 +32,5 @@ urlpatterns = [
     	path("mark-completed", MarkAsCompletedApiView.as_view(), name="mark-completed"),
     	path("mark-incompleted", MarkAsInCompletedApiView.as_view(), name="mark-incompleted"),
     	path("cause", CauseApiView.as_view(), name="cause"),
-
+    	path("update-main-data-api", UpdataMainDataApiView.as_view(), name="update-main-data-api")
 		]

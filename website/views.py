@@ -266,3 +266,18 @@ class UpdateEffectTemplate(LoginRequiredMixin, View):
 		context["keyword"] = keyword
 		context['token'] = access_token	
 		return render(request, self.template_name, context)
+
+class UpdateMainDataTemplate(LoginRequiredMixin, View):
+
+	template_name = 'website/update-main-data.html'
+	login_url = '/login'
+
+	def get(self, request, pk):
+		access_token = get_access_token()
+		mainobj = main_data.objects.filter(id=pk).first()
+		linkobj = LinkConfig.objects.filter(id=pk).first()
+		context = temp_context_data(mainobj, linkobj)
+		context['token'] = access_token
+		return render(request, self.template_name, context)
+
+

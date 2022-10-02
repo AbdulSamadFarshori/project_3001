@@ -1,0 +1,131 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Case Study</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="{% static 'img/favicon.png' %}" rel="icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  
+  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  
+</head>
+
+{% block jquery %}
+<script type="text/javascript">
+
+function goBack(){
+  window.history.back();
+}
+
+function submitForm(){
+  var case_id = {{case_id}};
+  var takeValue = $("#inputtags").val();
+  if (takeValue != null){
+    intent = takeValue;
+    }
+  var data = {
+              "id":case_id,  
+              "intent":intent
+            };
+  
+  $.ajax({
+    headers: {
+    Authorization: 'Bearer '+ '{{token}}'},
+    url: "/apis/intent",
+    method:"POST",
+    data:data,
+    dataType:"json",
+    ContentType: "application/json",
+    success: function(response){
+      console.log("submit")
+      window.history.back();
+
+    }
+  });
+        }
+</script>
+{% endblock %}
+<body>
+ <div class="container h-300" style="margin-top: 5%;">
+    <div class="row align-items-center h-300">
+      <div class="col-12 mx-auto">
+        <div id="id">
+          <h3>Case No - {{case_id}}</h3>
+          </div>
+            <div class="card h-300 justify-content-center" style="padding: 15px;">
+              <div id="title">
+                <h3> Title - {{title}}</h3>
+              </div>
+                <div class="text" id="text">
+                  <div class="d-flex justify-content-center">
+                    {{case}}
+                  </div>
+                </div>
+                <br>
+            </div>
+            <br>
+            <div class="container h-100">
+              <div class="row align-items-center h-100">
+                <div class="col-12">
+                  <div class="card h-100 justify-content-center" style="padding: 10px;">
+                    <h5>Case Link</h5>
+                    <div class="links">
+                      Case link - <a href="{{link}}">{{link}}</a>  
+                    </div>
+                    </div>
+                  <div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br>
+          <button type="button" class="btn btn-outline-danger" onclick="goBack()" style="float:rigth;">Back</button>
+            <br>
+            <br>
+            <div class="container h-100">
+              <div class="row align-items-center h-100">
+                <div class="col-12">
+                  <div class="card h-100 justify-content-center" style="padding: 15px;">
+                    <h5>Create Intent For This Case</h5>
+                    <br>
+                    <div class="form-group mx-sm-3 mb-2">
+                      <textarea class="form-control" id="inputtags" rows="10" value="{{case}}"></textarea>
+                      <!-- <input type="text" class="form-control" id="inputtags" placeholder="type here..." > -->
+                    </div>
+                    <br>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <br>
+            <div class="container h-100">
+              <div class="row align-items-center h-100">
+                <div class="col-12">
+                  <div class="card h-100 justify-content-center" style="padding: 10px;">
+                    <br>
+                    <button class="btn btn-success" onclick="submitForm()">submit</button> 
+                  </div>
+                <div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
