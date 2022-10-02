@@ -43,7 +43,7 @@ function submitForm(){
   $.ajax({
     headers: {
     Authorization: 'Bearer '+ '{{token}}'},
-    url: "/apis/intent",
+    url: "/apis/update-main-data-api",
     method:"POST",
     data:data,
     dataType:"json",

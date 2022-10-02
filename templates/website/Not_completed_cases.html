@@ -126,6 +126,9 @@
                     <a href="{% url 'add-effect' pk=obj.id %}" class="btn btn-outline-primary">Effect</a>
                   </div>
                   <div style="margin: 5px;">
+                    <a href="{% url 'update-main-data' pk=obj.id %}" class="btn btn-outline-primary">Edit</a>
+                  </div>
+                  <div style="margin: 5px;">
                     <a class="btn btn-danger" onclick="markCompleted({{obj.case_id.id}})">Mark As Completed</a>
                   </div>
                 </div>
