@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
-from .models import main_data, ReplyData, ReplyThread, LinkConfig
+from .models import main_data, ReplyData, ReplyThread, LinkConfig, History
 from website.models import Cookies
 
 User = get_user_model()
@@ -35,4 +35,7 @@ class CookiesSerializer(serializers.ModelSerializer):
         model = Cookies
         fields = ('set_cookies')
 
-
+class HistorySerializer(serializers.ModelSerializer):
+    class Meta(object):
+        model = History
+        fields = ('keyword')

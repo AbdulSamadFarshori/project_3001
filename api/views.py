@@ -3,7 +3,8 @@ from rest_framework import generics
 from api.serializers import (MainData, 
 							ReplyDataSerializer, 
 							ReplyThreadSerializer, 
-							LinkConfigSerializer
+							LinkConfigSerializer,
+							HistorySerializer
 							) 
 from api.models import (main_data, ReplyData, 
 						response, ReplyThread,
@@ -192,6 +193,9 @@ class HistoryApiView(APIView):
 			return Response({"response":"history has been updated!"})
 		return Response({"response": "Bad Request"})
 
+	def get(self, request):
+
+
 class EffectApiView(APIView):
 
 	permission_classes = (IsAuthenticated,)
@@ -282,4 +286,8 @@ class LinkConfigApiView(generics.ListAPIView):
 	# permission_classes = [IsAdminUser]
 	pagination_class = MyPagination
 
+class HistoryAnalyzingApiView(generics.ListAPIView):
+
+	queryset = History.objects.all()
+	serializer_class = HistorySerializer
 
