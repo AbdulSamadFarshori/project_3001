@@ -31,11 +31,11 @@ class LinkConfigSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class CookiesSerializer(serializers.ModelSerializer):
-    class Meta(object):
+    class Meta:
         model = Cookies
         fields = ('set_cookies')
 
 class HistorySerializer(serializers.ModelSerializer):
-    class Meta(object):
+    class Meta:
         model = History
-        fields = ('keyword')
+        fields = '__all__'
