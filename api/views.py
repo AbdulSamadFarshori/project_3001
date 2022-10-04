@@ -193,9 +193,6 @@ class HistoryApiView(APIView):
 			return Response({"response":"history has been updated!"})
 		return Response({"response": "Bad Request"})
 
-	def get(self, request):
-
-
 class EffectApiView(APIView):
 
 	permission_classes = (IsAuthenticated,)
